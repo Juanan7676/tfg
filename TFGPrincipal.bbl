@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{turing1950computing}
+A.M. Turing.
+\newblock Computing machinery and intelligence.
+\newblock {\em Mind}, 59(236):433--460, 1950.
+
+\bibitem{Bennett86}
+Stuart Bennett.
+\newblock {\em A history of control engineering, 1800-1930}.
+\newblock IET, 1986.
+
+\bibitem{Graham34}
+Benjamin Graham and David Dodd.
+\newblock {\em Security Analysis}.
+\newblock McGraw-Hill, 1934.
+
+\end{thebibliography}

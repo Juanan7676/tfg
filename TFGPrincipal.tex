@@ -1,0 +1,180 @@
+% ----------------------------------------------------------------------
+%              Latex TFG plantilla para la Universidad de Cádiz
+% ----------------------------------------------------------------------
+
+
+%: Fichero estilo para Latex
+
+\documentclass[twoside,11pt]{TFGucaPDF}
+
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%: Fichero de macros para Latex
+\include{MacrosTFG}
+
+
+%: ----------------------------------------------------------------------
+%:                  PORTADA: Nombre, título, ...
+% ----------------------------------------------------------------------
+
+    \pdfinfo { /Title  (TFG)
+               /Creator (TeX)
+               /Producer (pdfTeX)
+               /Author (Name surname)  %%%%%%%%% XXX    Nombre y apellidos
+               /CreationDate (D:DDMMYYYhhmmss)  %format D:YYYYMMDDhhmmss
+               /ModDate (D:DDMMYYYhhmm)
+               /Subject (xyz)  %%%%%%%%% XXX   Tema
+               /Keywords (keyword1, keyword2, keyword3) }  %%%%%%%%% XXX  claves del trabajo
+    \pdfcatalog { /PageMode (/UseOutlines)
+                  /OpenAction (fitbh)  }
+
+
+\crest{\includegraphics[width=3.5cm]{SelloUCA.jpg}}
+
+
+% ---------------------------------------------        RELLENA CON TUS DATOS
+\title{Criptografía poscuántica} %%%%% XXX   Nombre del trabajo
+\author{\LARGE Juan Antonio Guitarte Fernández}    %%%    XXX Nombre y apellidos alumno/a
+\textadvisor{Tutor: }          %%% XXX  Poner tutor o tutora según proceda
+\advisor{Dr. Nombre apellidos del tutor}  %%% XXX  Nombre del tutor o tutora
+\advisortwo{}                  %%% XXX  Nombre del 2º tutor si lo hay
+\textsignaturecandidate{Firma del alumno}   %%% XXX  Poner alumno o alumna según proceda
+\textsignatureadvisor{Firma del tutor}    %%% XXX  Poner tutor o tutora según proceda
+\cityofbirth{Puerto Real, Cádiz}
+\degreedate{Julio de 2.020}
+% ----------------------------------------------------------------------
+
+% Evita los pesados overfull y underfull
+\hbadness=10000
+\hfuzz=50pt
+
+
+
+\begin{document}
+
+
+% Pone doble espacio
+\renewcommand\baselinestretch{1.1}
+\baselineskip=18pt plus1pt
+
+%: --------------------------------------------------------------
+%:                  Dedicatoria, agradecimientos, resumen, abstract,..
+% --------------------------------------------------------------
+
+
+%: Genera la portada
+
+\maketitle
+
+%: ----------------------- abstract ------------------------
+
+% Las normas del grado exigen un resumen en inglés
+
+\selectlanguage{british}
+
+   \input{abstract.tex}
+
+\selectlanguage{spanish}
+
+%: ----------------------- Preliminares ------------------------
+
+\frontmatter
+
+\include{dedicatoria}
+
+\include{resumen}
+
+\include{agradecimientos}
+
+
+%: ----------------------- Índice de contenidos ------------------------
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+
+%% Si quieres añadir un prefacio sin numeración y quieres que aparezca en el índice, añade:
+%\ subsection*{Prefacio}
+%\addcontentsline{toc}{subsection}{Prefacio}
+
+\tableofcontents
+
+% Los niveles son: 0 - chapter, 1 - section, 2 - subsection, 3 - subsubsection
+
+%: ----------------------- lista of figuras y tablas ------------------------
+
+%% Quita comentarios si quieres estas listas:
+
+%\listoffigures	% Genera lista de figuras
+%\listoftables  % Genera lista de tablas
+
+
+%: --------------------------------------------------------------
+%:                  COMIENZA EL TRABAJO
+% --------------------------------------------------------------
+
+% El trabajo comienza aquí con la introducción, primer capítulo,...
+
+\mainmatter
+
+%\renewcommand{\chaptername}{} % coloca un % si quieres que aparezca la palabra "Capítulo"
+\pagestyle{fancy}
+
+%: ----------------------- Partes del TFG ------------------------
+% Esta podría ser un estructura posible, pero quizás quieras unir introducción, planteamiento, motivación, etc en un mismo capítulo
+
+% introducción. Cuenta aquí de va el trabajo y lo principal de cada capítulo. Junto al resumen y al abstract será lo último que hagas.
+\include{00introduccion}	
+
+
+% Motivación, historia y planteamiento del problema o problemas que la teoría resuelve, puedes incluir algunos ejemplos ilustrativos
+\include{01planteamiento}	
+
+% Incluye ahora la teoría, definiciones, conceptos y resultados básicos que se van a usar.
+\include{02Previos}
+	
+% Comienza ahora con el trabajo en sí y divídelo en las partes que consideres para su mejor comprensión.
+\include{03PrimeraParte}	
+
+\include{04SegundaParte}	
+
+% Termina el trabajo con un capítulo de conclusiones, en el que puedes resolver algunos problemas, por ejemplo con los que empezaste, o con algunas generalizaciones del tema, ...
+\include{05conclusiones}	
+	
+
+% --------------------------------------------------------------
+%:                  Partes finales: apéndices, bibliografía,..
+% --------------------------------------------------------------
+
+\backmatter
+
+
+%: ----------------------- appendix ------------------------
+
+% si tiene sentido en tu trabajo algún apéndice inclúyelo aquí
+
+%\appendix
+
+
+%: ----------------------- bibliografía ------------------------
+
+% Muestra todas las entradas de la bibliografía no sólo las que son citadas en el trabajo
+\nocite*
+
+% Distintos estilos para la bibliografía:
+
+\bibliographystyle{unsrt} % Defines the bibliography style
+%\bibliographystyle{alpha} % Defines the bibliography style
+%\bibliographystyle{apa-good} % Defines the bibliography style
+%\bibliographystyle{natbib} % Defines the bibliography style
+%\bibliographystyle{plainurl}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%   No olvides ejecutar BibTeX para la bibliografía cada vez que introduzcas algún artículo o libro
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{bibliografia}
+
+
+
+\end{document}

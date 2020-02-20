@@ -1,0 +1,154 @@
+\documentclass{beamer}
+
+\mode<presentation> {
+  \usetheme{Warsaw}
+  \setbeamercovered{transparent}
+}
+
+\usepackage[spanish]{babel}
+\usepackage[latin1]{inputenc}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+
+\title{Ejemplo de presentaciones en \textbf{Beamer}}
+
+\author{Asignatura de \LaTeX}
+
+\date{Curso 2006-2007} %
+
+\subject{Generación de presentaciones}
+
+\pgfdeclareimage[height=0.8cm]{SelloUCA.jpg}{logo}
+%\logo{\includegraphics[width=8mm]{SelloUCA.jpg}}
+
+
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Contenido}
+  \tableofcontents[pausesections]
+\end{frame}
+
+
+\section{Primera sección}
+
+\subsection{Primera subsección}
+
+\begin{frame}
+    \frametitle{Título de la primera diapositiva}
+\begin{columns}
+ \begin{column}{0.55\textwidth}
+\begin{block}{Resultados}
+    \begin{itemize}[<+->]
+      \item  Primer item
+      \item  Segundo item
+      \item  Tercer item
+    \end{itemize}
+    \begin{enumerate}[<+-| alert@+>]
+      \item  Primer item
+      \item  Segundo item
+      \item  Tercer item
+    \end{enumerate}
+\end{block}
+ \end{column} \ \
+% \begin{column}{0.40\textwidth}
+%      \only<4>{\includegraphics[width=0.8\textwidth]{knuth.jpg}}
+%      \only<5>{\includegraphics[width=0.9\textwidth]{forges.jpg}}
+%      \only<6>{\includegraphics[width=0.9\textwidth]{kill-bill-2.jpg}}
+% \end{column}
+\end{columns}
+\end{frame}
+
+
+\subsection{Segunda subsección}
+
+\begin{frame}
+    \frametitle{Título de la segunda diapositiva}
+\begin{block}{}
+Escribimos una pequeña fórmula
+\end{block}
+
+\begin{block}{Fórmula}
+\begin{equation*}
+\onslide<2->{V(x) = } \onslide<3->{\color<3>[rgb]{1,0,0} A\int_0^\infty\frac{dr}{r} +}
+\onslide<4->{\color<4>[rgb]{0,1,0} B\int_0^\infty\frac{dr}{r^2} +}
+\onslide<5->{\color<5>[rgb]{0,0,1} C\int_0^\infty\left(\frac{1}{r^6} - \frac{1}{r^{12}}\right)dx}
+\end{equation*}
+\end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Título de la tercera diapositiva}
+\begin{block}{}
+Ahora mostramos la fórmula de forma un poco diferente
+\end{block}
+
+\begin{block}{Fórmula}
+\begin{equation*}
+V(x) =  {\color<2>[rgb]{1,0,0} A\int_0^\infty\frac{dr}{r}} +
+{\color<3>[rgb]{1,0,0} B\int_0^\infty\frac{dr}{r^2}} +
+{\color<4>[rgb]{1,0,0} C\int_0^\infty\left(\frac{1}{r^6} - \frac{1}{r^{12}}\right)dx}
+\end{equation*}
+\end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Título de la tercera diapositiva}
+\begin{block}{}
+Otra forma un poco más compleja:
+\end{block}
+\begin{block}{Ecuación}
+$\displaystyle
+V(x) = \onslide<2->{\color<2>[rgb]{1,0,0} A\int_0^\infty\frac{dr}{r} +}
+\onslide<3->{\color<3>[rgb]{0,1,0} B\int_0^\infty\frac{dr}{r^2} +}
+\onslide<4->{\color<4>[rgb]{0,0,1} C\int_0^\infty\left(\frac{1}{r^6} - \frac{1}{r^{12}}\right)dx}$
+
+\medskip
+\hspace*{15mm} \onslide<2>{\color<2>[rgb]{1,0,0} Dipolo} \hspace{7mm}
+\onslide<3>{\color<3>[rgb]{0,1,0} Coulomb} \hspace{4mm}
+\onslide<4>{\color<4>[rgb]{0,0,1} Van der Waals}
+\end{block}
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Título de la tercera diapositiva}
+\begin{block}{}
+Otra forma reemplazando elementos:
+\end{block}
+\only<2>{\visible<2>{\begin{block}{Ecuación 1}
+$\displaystyle V(x) = A\int_0^\infty\frac{dr}{r} \color[rgb]{1,0,0} \longrightarrow \text{Dipolo}$
+\end{block}}}%
+\only<3->{\visible<3->{\begin{block}{Ecuación 2}
+$\displaystyle W(x) = B\int_0^\infty\frac{dr}{r^2} +
+C\int_0^\infty\left(\frac{1}{r^6} - \frac{1}{r^{12}}\right)dx \only<3>{ \longrightarrow \color[rgb]{1,0,0} \text{Coulomb + WdW}}$
+\end{block}}}
+\only<4>{\visible<4>{\begin{block}{otro bloque}
+Otras cosas...
+\end{block}}}
+\end{frame}
+
+
+
+
+\end{document}
+
+\usetheme{default}
+\usetheme{JuanLesPins}
+\usetheme{Goettingen}
+\usetheme{Szeged}
+\usetheme{Warsaw}
+
+\usecolortheme{crane}
+
+\usefonttheme{serif}
+\usefonttheme{structuresmallcapsserif}

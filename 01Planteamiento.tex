@@ -1,0 +1,77 @@
+
+
+\chapter{Planteamiento y motivación}
+\label{cha:State of the Art}
+
+
+\section{El problema de los ordenadores cuánticos}
+\label{sec:problem}
+
+Hoy día, la criptografía está más presente que nunca en nuestro día a día: hacer compras por Internet, navegar por casi cualquier página web, chatear a través del teléfono móvil... Gracias a la criptografía, podemos mantener nuestras comunicaciones privadas y asegurarnos de que cualquier pago que realicemos o documento que publiquemos sólo podemos hacerlo nosotros, es decir, que nadie pueda falsificarlo.
+
+El continuo desarrollo de los ordenadores cuánticos, que romperán los principales algoritmos de firma digital y criptosistemas de clave pública usados hoy en día (por ejemplo, \textit{RSA}, \textit{DSA} y \textit{ECDSA}), puede hacer pensar que cuando la computación cuántica sea una realidad, la criptografía quedará obsoleta, que será imposible modificar información para que sea incomprensible o infalsificable por atacantes y personas no autorizadas; y que por tanto, la única forma de proteger nuestras comunicaciones y nuestros datos será aislarlos físicamente de ellos, por ejemplo, con dispositivos USB cerrados bajo llave en un maletín. Pero, ¿hasta qué punto es esto cierto?
+
+Un estudio más detallado de los algoritmos criptográficos existentes muestra, sin embargo, que existen muchos otros criptosistemas más allá del \textit{RSA}, \textit{DSA} y \textit{ECDSA}:
+\begin{itemize}
+	\item \textbf{Criptografía basada en funciones hash}. El ejemplo más destacado dentro de este grupo es el sistema de firma con clave pública basado en árboles hash de Merkle (en inglés, \textit{Merkle's hash-tree public-key signature system}) de 1979, basado en un sistema de firma digital de un solo uso de Lamport y Diffie.
+	\item \textbf{Criptografía basada en códigos}. El ejemplo clásico es el sistema de encriptación de clave pública con códigos Goppa ocultos de McEliece (1978).
+	\item \textbf{Criptografía basada en retículos}. El ejemplo que más interés ha conseguido atraer, aunque no es el primero propuesto históricamente, esl el sistema de encriptación de clave pública ``NTRU'' de Hoffstein-Pipher-Silverman (1998).
+	\item \textbf{Criptografía de ecuaciones cuadráticas de varias variables}. Uno de los ejemplos más interesantes es el sistema de firma con clave pública ``$HFE^{v-}$'' de Patarin (1996), que generaliza una propuesta de Matsumoto e Imai.
+	\item \textbf{Criptografía de clave secreta}. El ejemplo más conocido (y usado actualmente) es el cifrado ``Rijndael'' de Daemen-Rijmen (1998), renombrado como ``AES'', siglas que significan Estándar de Encriptación Avanzada (Advanced Encryption Standard).
+\end{itemize}
+
+Se cree que todos estos sistemas son resistentes a los ordenadores clásicos y cuánticos, es decir, que no existe un algoritmo eficiente que pueda ser implementado en un ordenador clásico o cuántico que rompa estos sistemas. El algoritmo de Shor (el cual analizaremos más adelante en este trabajo), que permite resolver de manera eficiente el problema de la factorización de números enteros  en ordenadores cuánticos (y por tanto rompe los sistemas de criptografía clásica como el \textit{RSA}), no ha podido ser aplicado a ninguno de estos sistemas. Aunque existen otros algoritmos cuánticos, como el algoritmo de Grover, que pueden ser aplicados a algunos de estos sistemas, no son tan eficientes como el algoritmo de Shor y los criptógrafos pueden compensarlo eligiendo claves un poco más grandes.
+
+Hay que notar que esto no implica que estos sistemas sean totalmente seguros. Este es un problema muy común en criptografía: algunas veces se encuentran ataques a sistemas que son devastadores, demostrando que un sistema es inútil para la criptografía; otras veces, se encuentran ataques que no son tan devastadores pero que obligan a elegir claves más grandes para que sigan siendo seguros; y otras, se estudian criptosistemas durante años sin encontrar ningún ataque efectivo. En este punto, la comunidad puede ganar confianza en el sistema creyendo que el mejor ataque posible ya ha sido encontrado, o que existe muy poco margen de mejora.
+
+\section{Criptosistemas y sistemas de firma}
+\label{sec:model}
+
+El objetivo principal de la criptografía es permitir que dos personas, normalmente referidas como Alice y Bob, puedan comunicarse entre ellas a través de un canal inseguro de tal manera que una tercera persona, Oscar, no pueda entender qué están diciendo entre ellos, aun teniendo acceso a toda la conversación. La información que Alice quiere enviar a Bob la denominamos ``texto plano'', aunque no tiene que ser necesariamente texto; puede tener la estructura que deseemos: datos numéricos, cadenas de bits, sonido... Alice encripta el texto plano usando una ``clave'' que solo conocen Alice y Bob, obteniendo así un ``texto encriptado''. Oscar, al ver la información a través del canal inseguro, no puede determinar cuál era el texto plano original; pero Bob, que sí conoce la clave, puede desencriptar el texto cifrado y recuperar el texto plano.
+
+Formalmente, un criptosistema se define de la siguiente manera:
+\begin{definicion}
+\label{def:criptosistema}
+	Un \textit{criptosistema} es una 5-tupla $(\mathcal{P},\mathcal{C},\mathcal{K},\mathcal{E},\mathcal{D})$ que satisface las siguientes condiciones:
+	\begin{enumerate}
+		\item $\mathcal{P}$ es un conjunto finito de \textit{textos planos} posibles,
+		\item $\mathcal{C}$ es un conjunto finito de \textit{textos cifrados} posibles,
+		\item $\mathcal{K}$ es el conjunto finito de todas las claves posibles,
+		\item Para cada $K\in\mathcal{K} $, existen dos aplicaciones $e_K : \mathcal{P} \to \mathcal{C}$ y $d_K : \mathcal{C} \to \mathcal{P}$, denominadas \textit{regla de encriptación} y \textit{regla de desencriptación} respectivamente, que verifican que $d_K(e_K(x))=x$ para todo $x\in\mathcal{P}$.
+	\end{enumerate}	
+\end{definicion}
+
+La propiedad 4, que es la más importante, asegura que conociendo la clave $K\in\mathcal{K}$, se puede recuperar el texto sin cifrar original usando la función $d_K$. El proceso por el cual Alice y Bob utilizarían un criptosistema es el siguiente:
+\begin{enumerate}
+	\item Alice y Bob seleccionan una misma clave $K \in \mathcal{K}$ de forma aleatoria.
+	\item Supongamos que Alice quiere enviar un mensaje $x = x_1x_2\cdots x_n$, con $x_i\in\mathcal{P}$ para todo $1\leq i \leq n$. Alice calcula, para cada $1\leq i \leq n$, $y_i = e_K(x_i)$, resultando en el mensaje cifrado
+	\[ y = y_1y_2\cdots y_n \]
+	que Alice envía a través del canal inseguro a Bob.
+	\item Bob, al recibir $y$, calcula usando la clave $K$ que conoce $d_K(y_i)$, que coincidirán con los $x_i$ originales por la propiedad 4 de la Definición \ref{def:criptosistema}, obteniendo así el texto original $x$.
+\end{enumerate}
+
+Hay que notar que para que este método funcione, Alice y Bob deben escoger la misma clave $K$ para encriptar y desencriptar los mensajes. En algunos criptosistemas (como el AES mencionado anteriormente), sabiendo $e_K$ o $d_K$, es sencillo obtener la otra función porque se conoce la clave secreta $K$. Un criptosistema de este tipo se denomina \textit{criptosistema de clave simétrica}, ya que si un atacante obtuviese la función $e_K$ o $d_K$, podría romper el sistema desencriptando los mensajes cifrados, bien usando $d_K$ directamente en el segundo caso o bien calculando $d_K$ a partir de $e_K$ a través de la clave en el primero.
+
+Por tanto, es fundamental que Alice y Bob, antes de iniciar cualquier comunicación a través del canal inseguro, se pongan de acuerdo a través de un canal seguro en la clave que van a utilizar. En la práctica, esto es muy difícil de conseguir (por ejemplo, en el caso de Internet). Para resolver este problema, existen los \textit{criptosistemas de clave pública}.
+
+La idea tras estos criptosistemas es que dada una función de encriptación $e_K$, sea computacionalmente infactible calcular $d_K$. En este caso, el receptor del mensaje, Bob, publicaría una \textit{clave pública} que permitiría a cualquier persona determinar una función de encriptación $e_K$. Así, Alice encriptaría el mensaje que quiere enviar usando esta función. El mensaje cifrado llegaría entonces a Bob, que es el único que conoce su \textit{clave privada} con la cual puede calcular la función de desencriptación $d_K$ correspondiente a $e_K$, desencriptando así el mensaje.
+
+Estos criptosistemas son los que se ven principalmente afectados por la aparición de los ordenadores cuánticos: mientras que en un ordenador clásico puede ser muy difícil calcular la clave privada a partir de la clave pública, pueden existir algoritmos cuánticos que resuelvan el problema en un tiempo razonable. Es por ello que se necesitan nuevos sistemas en los que no existan algoritmos conocidos, ni clásicos ni cuánticos, que permitan calcular eficientemente $d_K$ a partir de $e_K$.
+
+
+
+\begin{definicion}
+	Un \textit{sistema de firma} es una 5-tupla $(\mathcal{P},\mathcal{A},\mathcal{K},\mathcal{S},\mathcal{V})$ que verifica:
+	\begin{enumerate}
+		\item $\mathcal{P}$ es un conjunto finito de posibles \textit{mensajes},
+		\item $\mathcal{A}$ es un conjunto finito de \textit{firmas} posibles,
+		\item $\mathcal{K}$ es el conjunto de las claves posibles,
+		\item Para cada $K\in\mathcal{K}$, hay dos aplicaciones $sig_K \in S$ y $ver_K \in V$, denominadas algoritmos de \textit{firma} y \textit{verificación} respectivamente, siendo $sig_K : \mathcal{P} \to \mathcal{A}$ y $ver_K : \mathcal{P} \times \mathcal{A} \to \{ 0,1 \}$, que verifican para cada mensaje $x \in \mathcal{P}$ y cada firma $y\in \mathcal{A}$:
+		\[ ver_K(x,y)=\left\{ \begin{array}{lr} 1 & \mbox{ si } y=sig_K(x) \\ 0 & \mbox{ si } y \neq sig_K(x) \end{array} \right. \]
+		
+		A un par ordenado de la forma $(x,y)\in \mathcal{P} \times \mathcal{A}$ se le denomina \textit{mensaje firmado}.
+	\end{enumerate}
+\end{definicion}
+%\braya
+%	Un criptosistema
+%\eraya
