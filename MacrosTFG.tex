@@ -44,6 +44,22 @@
 \newcommand{\bRoman}{\begin{list}{(\Roman{enumi})}{\usecounter{enumi}}}
 \newcommand{\eRoman}{\end{list}}
 
+\newcommand{\bdefinicion}{\begin{framed} \begin{definicion}}
+\newcommand{\edefinicion}{\end{definicion} \end{framed}}
+
+\newcommand{\blema}{\begin{framed} \begin{lema}}
+\newcommand{\elema}{\end{lema} \end{framed}}
+
+\def\bteoremaa{\begin{framed} \begin{teorema}}
+\def\eteorema{\end{teorema} \end{framed}}
+\def\bteorema#1{\begin{framed} \begin{teorema}[\textbf{#1}]}
+
+\newcommand{\bcorolario}{\begin{framed} \begin{corolario}}
+\newcommand{\ecorolario}{\end{corolario} \end{framed}}
+
+\newcommand{\bproposicion}{\begin{framed} \begin{proposicion}}
+\newcommand{\eproposicion}{\end{proposicion} \end{framed}}
+
 \def\xn{(x_1,x_2,\ldots ,x_n)}
 \def\yn{(y_1,y_2,\ldots ,y_n)}
 \def\xm{(x_1,x_2,\ldots ,x_m)}
@@ -57,9 +73,3 @@
 \def\Veces#1{\buildrel {\buildrel #1\over\frown} \over\cdots}
 
 \def\sucesion#1#2{\left(#1_#2\right)_#2}
-
-\newtheorem{lem}{Lema}
-\newtheorem{teor}{Teorema}
-\newtheorem{coro}{Corolario}
-\newtheorem{prop}{Proposición}
-\newtheorem{defin}{Definición}

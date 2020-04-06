@@ -1,27 +1,214 @@
+\chapter{Espacios de Hilbert}
 
-\chapter{Preliminares}
-\label{cha:preliminares}
+\section{Definiciones básicas}
+Un concepto vital en el desarrollo de la teoría de ordenadores cuánticos es el concepto de espacio de Hilbert, que se apoya en los productos escalares. En este desarrollo, consideraremos en todo momento que el espacio vectorial subyacente $X$ es de dimensión finita, es decir, $\dim X = n \in \mathbb{N}$; ya que no trabajaremos en los capítulos siguientes con espacios de Hilbert de dimensión infinita. Esto simplificará algunas demostraciones aquí presentadas; no obstante, con un poco más de esfuerzo, se pueden hacer para el caso general.
 
-\section{Lo que vimos}
+\bdefinicion
+	Sean $E$ y $F$ dos espacios vectoriales sobre un cuerpo $\mathbb{K}$ (consideraremos $\mathbb{R}$ ó $\mathbb{C}$). Una aplicación $u : E \to F$ es una \textit{aplicación semilineal} si para cada $x,y\in E$ y para cada $\alpha\in \mathbb{K}$ verifica:
+	\begin{enumerate}
+		\item $u(x+y)=u(x)+u(y)$
+		\item $u(\alpha x) = \overline{\alpha} u(x)$
+	\end{enumerate}
+	donde $\overline{\cdot}$ denota la conjugación compleja.
+\edefinicion
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultrices egestas nunc, venenatis rhoncus elit fermentum non. Pellentesque gravida nulla vitae ipsum lobortis ullamcorper. Ut adipiscing, tellus in egestas mattis, enim metus pretium erat, ac tempor dolor neque placerat nulla. Nullam nec ligula eu ipsum pharetra semper a in magna. Integer ut tortor quis nisi fringilla euismod eu ac ipsum. Pellentesque sodales consectetur erat eget rutrum. Proin ornare dolor ut arcu aliquet vestibulum. Pellentesque laoreet tincidunt sem eget semper.
+Esta noción generaliza el concepto de aplicación lineal en espacios vectoriales reales, puesto que si $\mathbb{K}=\mathbb{R}$, entonces el concepto de aplicación semilineal coincide con el de lineal (ya que $\overline{\alpha}=\alpha$ para todo $\alpha\in\mathbb{R}$). El siguiente es una generalización del concepto de forma bilineal.
 
-Integer interdum mattis magna ullamcorper tristique. Nullam commodo nulla eget ipsum vulputate tincidunt auctor leo aliquet. Fusce euismod sagittis ante, eu vulputate eros dictum at. Cras non euismod nunc. Nullam velit diam, consectetur sed eleifend vitae, blandit at arcu. Maecenas ut urna nec turpis lobortis commodo. Aliquam aliquet turpis id massa viverra id sollicitudin est cursus. Sed a tortor non mauris cursus imperdiet.
+\bdefinicion
+	Sea $E$ un espacio vectorial sobre un cuerpo $\mathbb{K}$. Una aplicación $B : E \times E \to \mathbb{K}$ se dice que es una \textit{forma sesquilineal} si es lineal respecto de la primera componente y semilineal respecto de la segunda; es decir, si para cada $x,x',y,y'\in E$ y para cada $\alpha,\lambda\in\mathbb{K}$ se verifica:
+	\begin{enumerate}
+		\item $B(x+x',y) = B(x,y)+B(x',y)$
+		\item $B(\lambda x,y) = \lambda B(x,y)$
+		\item $B(x,y+y') = B(x,y)+B(x,y')$
+		\item $B(x,\alpha y) = \overline{\alpha}B(x,y)$
+	\end{enumerate}
 
-Integer fermentum rutrum urna at vestibulum. Vivamus ullamcorper erat in sapien dignissim pellentesque. Integer convallis fringilla dictum. In bibendum lectus eu nulla pretium volutpat. Morbi hendrerit fringilla tortor, sed gravida neque lacinia a. In risus magna, hendrerit vitae cursus ac, vehicula at eros. Aenean quis ipsum sit amet leo vestibulum cursus.
+	Si además $B$ verifica que $B(x,y)=\overline{B(y,x)}$, entonces se dice que es \textit{hermítica}.
+\edefinicion
+Las \textit{aplicaciones sesquilineales} entre dos espacios vectoriales se definen de forma análoga con las propiedades 1-4 de la definición anterior, cambiando el producto en $\mathbb{K}$ por el producto exterior del espacio vectorial de llegada.
 
-\section{Otra que no vimos}
+\bdefinicion
+	Sea $E$ un espacio vectorial y sea $B$ una forma sesquilineal y hermítica sobre $E$. Si para cada $x \in E$ se verifica $B(x,x) \geq 0$ entonces se dirá que $B$ es \textit{positiva}.
+	
+	Si además se verifica que $x = 0$ cuando $B(x,x)=0$ entonces se dice que $B$ es \textit{definida positiva}.
+\edefinicion
 
-Cras placerat mattis dui quis vehicula. Nulla sit amet metus nibh, at auctor enim. Quisque congue ultricies sapien in suscipit. Fusce vitae placerat ante. Praesent aliquet urna ac elit consequat nec mattis augue faucibus. Nunc et sapien vel felis mollis sodales. Aenean molestie nulla vestibulum nisi fringilla vel euismod dolor tristique. Aenean fermentum, dolor eget tincidunt faucibus, risus lorem feugiat elit, sagittis malesuada eros ligula in odio. Pellentesque ac libero lobortis justo bibendum laoreet. Cras egestas lorem eget ligula dignissim sollicitudin. Vestibulum sit amet augue ultrices erat faucibus vestibulum. Aenean tincidunt faucibus leo, nec auctor diam bibendum a. Sed varius, mauris in pellentesque scelerisque, nisl ligula viverra erat, in eleifend tellus enim ac magna. Pellentesque quis est risus. Cras mollis feugiat auctor. Proin ac eros vitae nulla gravida varius.
+Ya estamos en condiciones de presentar lo que es un espacio de Hilbert.
 
-\subsection{Otra cosita}
+\bdefinicion
+	Sea $X$ un espacio vectorial sobre $\mathbb{K}$. Un \textit{producto escalar} o \textit{producto interior} en $X$ es una forma sesquilineal hermítica definida positiva $B$ sobre $X \times X$. Se suele denotar por $(x|y)=B(x,y)$ o bien por $\langle x,y \rangle = B(x,y)$.
+	
+	Un espacio vectorial $X$ que está dotado de un producto escalar diremos es un \textit{espacio prehilbertiano}.
+	
+	Un espacio prehilbertiano es un \textit{espacio de Hilbert} si es completo.
+\edefinicion
 
-Morbi at augue sapien. Duis tempus quam vitae velit interdum ultricies. Vivamus laoreet lacinia elit sit amet vehicula. Ut congue diam ac magna hendrerit sed fermentum justo lacinia. Curabitur vel odio neque, quis consequat mi. Proin lobortis justo quis enim fermentum accumsan sagittis ipsum imperdiet. Proin sem felis, laoreet placerat egestas id, fringilla id mauris. Pellentesque a nisi sit amet leo consectetur gravida nec et dui. Curabitur quis hendrerit augue. Etiam sed dui nec tortor convallis fringilla. Proin tempor mattis diam nec egestas. Quisque condimentum elementum lacus ac porta. Vivamus congue, odio eu ullamcorper elementum, leo turpis tempus sem, at condimentum dolor quam eu nunc. Pellentesque eget risus ac velit aliquam sollicitudin sed et ipsum.
+Esta definición generaliza el concepto de producto escalar en espacios vectoriales reales. Análogamente al caso real, dado $H\subseteq X$ un subespacio vectorial de un espacio de Hilbert $X$, podemos definir
+\[ H^{\perp} = \{ x\in X:\langle x,h \rangle=0 \mbox{ para todo } x\in X \} \]
 
+Y es sencillo comprobar, por las propiedades del producto escalar, que es un subespacio vectorial y que $\dim H + \dim H^{\perp} = \dim X$.
 
+También podemos definir el concepto de base ortonormal como una base $\{u_i\}_{i=1,\cdots,n}$ que verifica que $\langle u_i,u_j \rangle = \delta_{ij}$ (la delta de Kronecker). Análogamente al caso real, todo espacio de Hilbert tiene una base ortonormal; pues siempre podemos construir una usando el método de Gram-Schmidt (ver \cite{afuncional}, pág. 167).
 
+Notemos que en un espacio de Hilbert $X$ es posible definir una norma de la siguiente manera: para cada $x\in X$,
+\[ \|x\| = \sqrt{\langle x,x\rangle}  \]
 
+Es fácil ver que esta norma está bien definida, por ser $\langle x,x \rangle \geq 0$ (es definida positiva), y que por las propiedades del producto escalar, es una norma. De esta manera, todo espacio de Hilbert es un espacio normado, y al ser completo, es un \textit{espacio de Banach} (ver \cite{afuncional}, pág. 27). Este hecho justifica el exigir la propiedad de completitud a un espacio de Hilbert, pues esta norma induce una métrica en $X$, y gracias a ello podemos hablar de sucesiones de Cauchy y sucesiones convergentes (un conjunto es completo si toda sucesión de Cauchy en él es convergente).
 
+Una propiedad conocida es la desigualdad de Cauchy-Schwarz, que se verifica en espacios prehilbertianos.
+\begin{framed}
+\begin{teorema}[\textbf{Desigualdad de Cauchy-Schwarz}]
+Sea $E$ un espacio vectorial y $B(x,y)$ una forma sesquilineal hermítica y positiva sobre $E$. Se verifica, para cada $x,y\in E$, que
+\[ |B(x,y)|\leq B(x,x)^{1/2}B(y,y)^{1/2} \]
+\end{teorema}
+\end{framed}
 
-% ----------------------------------------------------------------------
+Una demostración clásica de este hecho puede consultarse en \cite{afuncional}, pág. 154.
 
+Como consecuencia inmediata de la definición de $\|\cdot\|$, tenemos el siguiente importante resultado.
+
+\bcorolario
+\label{CS}
+Sea $X$ un espacio prehilbertiano. Entonces, para cada $x,y\in X$, se verifica que:
+\[ |\langle x,y \rangle| \leq \|x\| \|y\| \]
+\ecorolario
+
+\section{El operador adjunto y operadores unitarios}
+
+Ya que los espacios de Hilbert son espacios vectoriales, podemos hablar de aplicaciones lineales entre ellos y de formas lineales. De entre ellas, en el contexto de la computación cuántica nos interesarán aquellas que sean \textit{unitarias}. Para poder definirlas correctamente, necesitamos un par de lemas previos.
+
+\blema
+\label{lemacontinuo}
+	Sean $X,Y,Z$ tres espacios normados y $u:X\times Y \to Z$ una aplicación sesquilineal, entonces las siguientes afirmaciones son equivalentes:
+	\begin{enumerate}
+		\item[i)] u es continua en $(0,0)$.
+		\item[ii)] Existe $M>0$ tal que $\|u(x,y)\|\leq M\|x\| \|y\|$ para cada $(x,y)\in X\times Y$
+		\item[iii)] u es continua en $X\times Y$.
+	\end{enumerate}
+\elema
+\begin{proof} \hfill \\ \\
+		\framebox[1.1\width]{ iii) $\implies$ i)} Es trivial. \\ 
+		
+		\noindent
+		\framebox[1.1\width]{ i) $\implies$ ii)} Tomando $\epsilon=1$, entonces por i) existe $\delta>0$ tal que si $\|x\|\leq \delta$, $\|y\|\leq \delta$, entonces $\|u(x,y)\|\leq \epsilon = 1$. Si fuese $x=0$ ó $y=0$, el resultado es claro puesto que
+		\[ \|u(0,y)\|=\|u(x,0)\|=\|0\|=0\leq M\|x\|\|0\| = M\|0\|\|y\| = 0 \]
+		
+		Si es $x\neq0,y\neq 0$, entonces se verifica que $\left\| \frac{\delta x}{\|x\|} \right\| = \frac{\delta\|x\|}{\|x\|} = \delta $, $\left\| \frac{\delta y}{\|y\|} \right\| = \frac{\delta\|y\|}{\|y\|} = \delta $, y por tanto por el razonamiento anterior,
+		\[ \left\| u\left(\frac{\delta x}{\|x\|},\frac{\delta y}{\|y\|} \right) \right\| \leq 1 \]
+		Aplicando finalmente sesquilinealidad, tenemos que
+		\[ \frac{\delta^2}{\|x\|\|y\|}\|u(x,y)\| \leq 1 \]
+		\[ \|u(x,y)\| \leq \delta^2 \|x\|\|y\| \]
+		
+		\framebox[1.1\width]{ ii) $\implies$ iii)} Sea $(a,b)\in X\times Y$. Se verifican, para cada $(x,y)\in X\times Y$, usando la desigualdad triangular y la sesquilinealidad:
+		\[ \| u(x,y)-u(a,b) \| = \| u(x,y)-u(a,y)+u(a,y)-u(a,b) \| \leq \| u(x-a,y) \| + \| u(a,y-b) \| \]
+		Y además, por hipótesis, se verifica que
+		\[ \| u(x,y)-u(a,b) \| \leq  \| u(x-a,y) \| + \| u(a,y-b) \| \leq M\| x-a \|\|y\|+M\|a\|\|y-b\| \]
+		
+		
+\end{proof}
+
+\bteorema{Fréchet-Riesz}
+\label{frechetriesz}
+Sea $X$ un espacio de Hilbert y sea $f : X\to \mathbb{K}$ una aplicación lineal y continua. Existe un único $a\in X$ tal que $f = f_a$, donde $f_a : X \to \mathbb{K}$ es la aplicación definida por $f_a(x)=\langle x,a \rangle$.
+\eteorema
+
+\begin{proof}
+	Sea $H=\ker f$. Observemos que se verifica, por ser $f$ lineal:
+	\[ \dim H + \dim \mbox{Im } f = \dim X \]
+	
+	Como $\dim \mathbb{K}=1$ como $\mathbb{K}$-espacio vectorial, entonces $\dim \mbox{Im } f \leq 1$. Si fuese 0, entonces es $f=0$ (la aplicación nula), y bastaría tomar $a=0$.
+	
+	Supongamos pues, que $\dim \mbox{Im } f = 1$. Entonces, $\dim H = \dim X - 1$, y por ser $\dim H + \dim H^{\perp} = \dim X$, entonces $\dim H^{\perp} = 1$. Luego podemos tomar $b\in H^{\perp}$ con $b\neq 0$, y se cumple que $H^{\perp} = \mathcal{L}(b)$. De esta manera, como $X = H + H^{\perp}$, cada $x\in X$ se puede expresar de la forma $x = y + \alpha b$, $y\in H, \alpha \in \mathbb{K}$.
+	
+	Tomamos $a = \frac{\overline{f(b)}}{\|b\|^2}b$. Veamos que $a$ verifica las propiedades del enunciado: sea $x\in X$. Por un lado,
+	
+	\[ f(x) = f(y+\alpha b) = f(y)+\alpha f(b) = \alpha f(b) \]
+	por la linealidad de $f$ y que $y\in \ker f$.
+	
+	Por otro lado,
+	\[ \langle x,a \rangle = \langle y+\alpha b,\frac{\overline{f(b)}}{\|b\|^2}b \rangle = \frac{f(b)}{\|b\|^2}\langle y,b \rangle + \alpha\frac{f(b)}{\|b\|^2}\langle b,b \rangle = \alpha f(b)  \]
+	
+	Ya que $\langle y,b \rangle = 0$ por ser $y\in H$, $b\in H^{\perp}$. Esto prueba que $f = f_a$.
+	
+	Veamos la unicidad. Sea $a'\in X$ tal que $f = f_{a'}$. Entonces, para cada $x\in X$, se verifica que:
+	\[ f(x)=\langle x,a \rangle =\langle x,a' \rangle \]
+	de donde deducimos que
+	\[ 0 = \langle x,a-a' \rangle \]
+	Lo que significa que $a-a'\in X^{\perp} = \{0\}$. De aquí, $a=a'$.
+\end{proof}
+
+El siguiente teorema finalmente nos termina de preparar el camino para definir los operadores unitarios.
+
+\bteoremaa
+Sea $X$ un espacio de Hilbert y sea $B : X\times X \to \mathbb{K}$ una forma sesquilineal y continua. Entonces, existe una única aplicación lineal y continua $f: X\to X$ tal que $B(x,y)=\langle x,f(y) \rangle$ para cada $(x,y)\in X\times X$.
+
+\eteorema
+
+\begin{proof}
+	Fijado $y\in X$, podemos definir $g_y : X \to \mathbb{K}$ dada por $g_y(x) = B(x,y)$. Claramente $g_y$ es lineal por serlo la primera componente de $B$, y además tenemos que, gracias al Lema \ref{lemacontinuo}, por ser $B$ continua:
+	\[ |g_y(x)| = |B(x,y)| \leq M \|x\|\|y\|  \]
+	
+	Esto implica que, para $(x,y)\in S_X$, \( |g_y(x)| \leq M \), y por tanto, $g_y$ es continua. Usando ahora el Teorema \ref{frechetriesz}, existe un único $z_y\in X$ tal que, para cada $x\in X$, se verifica que $ g_y(x) = \langle x,z_y \rangle $. Esto permite definir una aplicación $f : X \to X$ como $ f(y) = z_y $.
+	
+	Por construcción, $f$ verifica la igualdad del enunciado, ya que
+	\[ \langle x,f(y) \rangle = \langle x,z_y \rangle = g_y(x) = B(x,y) \]
+	
+	 Veamos que $f$ es lineal: sean $y,z\in X$, $\alpha,\beta \in \mathbb{K}$. Entonces, aplicando la sesquilinealidad de $B$, se tiene que
+	\begin{multline*} \langle x,f(\alpha y+\beta z) \rangle = B(x,\alpha y+\beta z) = \\ = \overline{\alpha}B(x,y) + \overline{\beta}B(x,z) = \overline{\alpha}\langle x, f(y) \rangle + \overline{\beta}\langle x,f(z) = \langle x,\alpha f(y)+\beta f(z) \rangle \end{multline*}
+	
+	Con lo que tenemos que, para cada $x\in X$,
+	\[ 0 = \langle x, f(\alpha y + \beta z) - (\alpha f(y)+\beta f(z)) \rangle \]
+	Y por tanto $ f(\alpha y + \beta z) - (\alpha f(y)+\beta f(z)) \in X^{\perp} = \{ 0 \} $.
+	
+	Además, $f$ es continua. Ya que para cada $x,y \in X$ es $ |\langle x,f(y) \rangle| = |B(x,y)|\leq M\|x\|\|y\|$ (por el Lema \ref{lemacontinuo}). En particular, para $x = f(y)$, tenemos que
+	\[ \|f(y)\|^2 \leq M \|f(y)\|\|y\| \]
+	De aquí podemos deducir que
+	\[  \| f(y) \| \leq M \| y \| \]
+	(desigualdad que también se verifica trivialmente si $f(y)=0$). Si fijamos $y\in S_x$, $\| y \| = 1$, lo que significa que $\| f(y) \| \leq M$ y por tanto $f$ es continua.
+\end{proof}
+
+Este teorema nos permite dar una definición importante. Sea $X$ un espacio de Hilbert y sea $A: X \to X$ una aplicación lineal y continua. La aplicación que envía $(x,y) \to \langle A(x),y \rangle$ es sesquilineal y continua\footnote{En efecto, $ \langle A(x+x'),y \rangle $ = $\langle A(x)+A(x'),y \rangle = \langle A(x) , y \rangle + \langle A(x'), y \rangle$ y $ \langle A(\alpha x), y \rangle = \langle \alpha A(x) , y \rangle = \alpha\langle A(x), y \rangle $ y en la segunda componente es trivial por la sesquilinealidad del producto escalar. La continuidad se debe a que se trata de la composición de dos funciones continuas, $A$ y el producto escalar.}. Por tanto, usando el teorema anterior, debe existir una aplicación lineal y continua $A' : X \to X$ de manera que
+\[ \langle A(x),y \rangle = \langle x,A'(y) \rangle \]
+
+\bdefinicion
+Sea $X$ un espacio de Hilbert y sea $A:X\to X$ una aplicación lineal y continua. El \textit{adjunto de $A$}, denotado $A'$, es la única aplicación lineal y continua $A' : X \to X$ que satisface para cada $x,y\in X$ que
+\[ \langle A(x),y \rangle = \langle x,A'(y) \rangle \]
+\edefinicion
+
+Supongamos ahora que $\{ u_i \}_{i=1,\cdots,n}$ es una base ortonormal de $X$. Sea ahora $ (k_{ij})_{i,j=1,\cdots,n}$ la matriz asociada de $A$ y $ (k'_{ij})_{i,j=1,\cdots,n} $ la de $A'$ . Se verifica que, por ser la base ortonormal:
+\[ \langle A(u_j),u_i \rangle = \left\langle \sum_{l=1}^{n}k_{lj}u_l , u_i \right\rangle = \sum_{l=1}^n k_{lj}\langle u_l, u_i \rangle = k_{ij} \]
+Entonces, usando que el producto escalar es hermítico:
+\[ k_{ij} = \langle A(u_j),u_i \rangle = \langle u_j,A'(u_i) \rangle = \overline{\langle A'(u_i), u_j \rangle} = \overline{k'_{ji}}  \]
+Es decir, tomando conjugados e intercambiando los papeles de $i$ y de $j$:
+\[ k'_{ij} = \overline{k_{ji}} \]
+para cada $i,j=1,\cdots,n$. Hemos probado:
+
+\bproposicion
+Sea $X$ un espacio de Hilbert y sea $A: X \to X$ una aplicación lineal y continua. Sea $\mathcal{A},\mathcal{B}$ las matrices asociadas a $A$ y $A'$ respectivamente fijando una base ortonormal en $X$. Entonces, se verifica que:
+\[ \mathcal{B} = \mathcal{A}^{\dagger} \]
+Donde $\mathcal{A}^{\dagger}$ denota la matriz traspuesta conjugada de $A$.
+\eproposicion
+
+\begin{ejemplo}
+\label{ej31}
+	Tomemos $X = \mathbb{C}^2$ con la base ortonormal canónica $\{ (1,0),(0,1) \}$ y el producto escalar usual dado por $\langle (z_1,z_2),(z_1',z_2') \rangle = z_1\overline{z_1'}+z_2\overline{z_2'}$. Consideramos la aplicación $f: \mathbb{C}^2 \to \mathbb{C}^2$ dada por
+	\[ f(z_1,z_2) = \frac{1}{\sqrt{3}}\left(z_1+(-1+i)z_2,(1+i)z_1+z_2 \right) \]
+	Es fácil ver que $f$ es lineal, y que su matriz asociada es
+	\[ A = \frac{1}{\sqrt{3}}\left( \begin{array}{cc} 1 & -1+i \\ 1+i & 1 \end{array} \right) \]
+	Entonces, la matriz asociada del adjunto de $f$ viene dada por
+	\[ A' = \frac{1}{\sqrt{3}}\left( \begin{array}{cc} 1 & 1-i \\ -1-i & 1 \end{array} \right)  \]
+	Es decir, el adjunto de $f$ viene dado por
+	\[ f'(z_1,z_2) = \frac{1}{\sqrt{3}}\left(z_1+(1-i)z_2,(-1-i)z_1+z_2\right) \]
+
+\end{ejemplo}
+
+\bdefinicion
+Sea $X$ un espacio de Hilbert y sea $A : X \to X$ una aplicación lineal y continua. Se dice que $A$ es \textit{unitaria} si $ A'\circ A = A \circ A' = Id $, donde $Id : X \to X$ es la aplicación identidad en $X$.
+\edefinicion
+
+Según lo visto antes, esta condición puede traducirse matricialmente a que $AA^{\dagger} = A^{\dagger} A = I$.
+
+\begin{ejemplo}
+	El operador definido en el Ejemplo \ref{ej31} es unitario, ya que
+	\[ A'A = \frac{1}{3}\left( \begin{array}{cc} 3 & 0 \\ 0 & 3  \end{array} \right) = I \]
+\end{ejemplo}

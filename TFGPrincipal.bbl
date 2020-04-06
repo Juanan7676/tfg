@@ -1,18 +1,25 @@
 \begin{thebibliography}{1}
 
-\bibitem{turing1950computing}
-A.M. Turing.
-\newblock Computing machinery and intelligence.
-\newblock {\em Mind}, 59(236):433--460, 1950.
+\bibitem{afuncional}
+A.~Aizpuru Tomás.
+\newblock {\em Apuntes incompletos de Análisis Funcional}.
+\newblock Universidad de Cádiz, 2004.
 
-\bibitem{Bennett86}
-Stuart Bennett.
-\newblock {\em A history of control engineering, 1800-1930}.
-\newblock IET, 1986.
+\bibitem{postquantumBernstein}
+Daniel J.~Bernstein and {Johannes Buchmann And {Erik Dahmen}}, editors.
+\newblock {\em Post-Quantum Cryptography}.
+\newblock Springer, 2009.
 
-\bibitem{Graham34}
-Benjamin Graham and David Dodd.
-\newblock {\em Security Analysis}.
-\newblock McGraw-Hill, 1934.
+\bibitem{cryptographyTAP}
+Douglas~R. Stinson.
+\newblock {\em Cryptography, Theory and Practice}.
+\newblock Discrete Mathematics And Its Applications. Chapman \& Hall/CRC, 3
+  edition, 2006.
+
+\bibitem{quantumcomputing}
+S.~C. Coutinho.
+\newblock Quantum computing for computer scientists noson s. yanofsky and mirco
+  a. mannucci, cambridge university press, 2008.
+\newblock {\em ACM SIGACT News}, 40(4):14, 2010.
 
 \end{thebibliography}

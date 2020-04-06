@@ -1,5 +1,3 @@
-
-
 \chapter{Planteamiento y motivación}
 \label{cha:State of the Art}
 
@@ -24,13 +22,13 @@ Se cree que todos estos sistemas son resistentes a los ordenadores clásicos y cu
 
 Hay que notar que esto no implica que estos sistemas sean totalmente seguros. Este es un problema muy común en criptografía: algunas veces se encuentran ataques a sistemas que son devastadores, demostrando que un sistema es inútil para la criptografía; otras veces, se encuentran ataques que no son tan devastadores pero que obligan a elegir claves más grandes para que sigan siendo seguros; y otras, se estudian criptosistemas durante años sin encontrar ningún ataque efectivo. En este punto, la comunidad puede ganar confianza en el sistema creyendo que el mejor ataque posible ya ha sido encontrado, o que existe muy poco margen de mejora.
 
-\section{Criptosistemas y sistemas de firma}
+\section{Criptosistemas}
 \label{sec:model}
 
 El objetivo principal de la criptografía es permitir que dos personas, normalmente referidas como Alice y Bob, puedan comunicarse entre ellas a través de un canal inseguro de tal manera que una tercera persona, Oscar, no pueda entender qué están diciendo entre ellos, aun teniendo acceso a toda la conversación. La información que Alice quiere enviar a Bob la denominamos ``texto plano'', aunque no tiene que ser necesariamente texto; puede tener la estructura que deseemos: datos numéricos, cadenas de bits, sonido... Alice encripta el texto plano usando una ``clave'' que solo conocen Alice y Bob, obteniendo así un ``texto encriptado''. Oscar, al ver la información a través del canal inseguro, no puede determinar cuál era el texto plano original; pero Bob, que sí conoce la clave, puede desencriptar el texto cifrado y recuperar el texto plano.
 
 Formalmente, un criptosistema se define de la siguiente manera:
-\begin{definicion}
+\bdefinicion
 \label{def:criptosistema}
 	Un \textit{criptosistema} es una 5-tupla $(\mathcal{P},\mathcal{C},\mathcal{K},\mathcal{E},\mathcal{D})$ que satisface las siguientes condiciones:
 	\begin{enumerate}
@@ -39,7 +37,7 @@ Formalmente, un criptosistema se define de la siguiente manera:
 		\item $\mathcal{K}$ es el conjunto finito de todas las claves posibles,
 		\item Para cada $K\in\mathcal{K} $, existen dos aplicaciones $e_K : \mathcal{P} \to \mathcal{C}$ y $d_K : \mathcal{C} \to \mathcal{P}$, denominadas \textit{regla de encriptación} y \textit{regla de desencriptación} respectivamente, que verifican que $d_K(e_K(x))=x$ para todo $x\in\mathcal{P}$.
 	\end{enumerate}	
-\end{definicion}
+\edefinicion
 
 La propiedad 4, que es la más importante, asegura que conociendo la clave $K\in\mathcal{K}$, se puede recuperar el texto sin cifrar original usando la función $d_K$. El proceso por el cual Alice y Bob utilizarían un criptosistema es el siguiente:
 \begin{enumerate}
@@ -58,9 +56,13 @@ La idea tras estos criptosistemas es que dada una función de encriptación $e_K$,
 
 Estos criptosistemas son los que se ven principalmente afectados por la aparición de los ordenadores cuánticos: mientras que en un ordenador clásico puede ser muy difícil calcular la clave privada a partir de la clave pública, pueden existir algoritmos cuánticos que resuelvan el problema en un tiempo razonable. Es por ello que se necesitan nuevos sistemas en los que no existan algoritmos conocidos, ni clásicos ni cuánticos, que permitan calcular eficientemente $d_K$ a partir de $e_K$.
 
+\section{Sistemas de firma}
 
+El otro gran objetivo de la criptografía es permitir la firma de documentos. En este caso, Alice publicaría el mensaje o documento con una \textit{firma} que permite a cualquier persona verificar que el mensaje sólo ha podido ser escrito por Alice. De esta manera, un atacante Oscar que quisiese publicar un documento haciéndose pasar por Alice, debe generar una firma con él para que pueda ser validado por el resto de personas. El proceso de firmar, por tanto, debe ser computacionalmente sencillo para Alice, pero infactible para Oscar, como sucede en los criptosistemas de clave pública.
 
-\begin{definicion}
+Formalmente, un sistema de firma se define de la siguiente manera:
+
+\bdefinicion
 	Un \textit{sistema de firma} es una 5-tupla $(\mathcal{P},\mathcal{A},\mathcal{K},\mathcal{S},\mathcal{V})$ que verifica:
 	\begin{enumerate}
 		\item $\mathcal{P}$ es un conjunto finito de posibles \textit{mensajes},
@@ -71,7 +73,5 @@ Estos criptosistemas son los que se ven principalmente afectados por la aparició
 		
 		A un par ordenado de la forma $(x,y)\in \mathcal{P} \times \mathcal{A}$ se le denomina \textit{mensaje firmado}.
 	\end{enumerate}
-\end{definicion}
-%\braya
-%	Un criptosistema
-%\eraya
+\edefinicion
+
