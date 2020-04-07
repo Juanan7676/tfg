@@ -1,27 +1,21 @@
+\chapter{Computación cuántica}
 
-\chapter{Primera cosa}
-\label{cha:primera}
+\section{Introducción}
+El objetivo de este capítulo es describir el (principal) algoritmo que pone en peligro toda la criptografía clásica que se usa actualmente en gran medida: el algoritmo de Shor, que permite factorizar cualquier número natural en $O((\log N)^3)$ pasos (\cite{quantuminformation}, pág. 233), donde $N$ es el número a factorizar. El algoritmo contiene dos partes, una parte clásica que se ejecutaría en un ordenador clásico, y una parte cuántica que se ejecutaría en un ordenador cuántico. La idea clave del algoritmo subyace en el siguiente resultado.
 
-\section{Lo primero}
+\bproposicion
+\label{prop1}
+Sea $N$ un número compuesto de $L$ bits, y sea $x\in \mathbb{Z}_N$ con \\ $1<x<N-1$ una solución de la ecuación
+\begin{equation} \label{eqcuadrados} x^2 = 1\mod N \end{equation}
+Entonces, o bien $\mcd(x-1,N)$ o bien $\mcd(x+1,N)$ es un factor no trivial de $N$ y se puede calcular en $O(L^3)$ operaciones.
+\eproposicion
+\begin{proof}
+	Ya que $x^2 - 1 = 0 \mod N$, entonces $N|_{(x^2+1)=(x+1)(x-1)}$. De aquí, $N$ debe tener un factor común con $(x+1)$ ó con $(x-1)$, es decir, $\mcd(x+1,N)>1$ ó $\mcd(x-1,N)>1$. Además, ya que $1 < x < N-1$, entonces $2 < x+1 < N$ y $0 < x-1 < N-2$, en cualquier caso, $x-1 < N$ y $x+1 < N$ y por tanto $\mcd(x-1,N) < N$ y $\mcd(x+1,N) < N$. Esto prueba que ninguno puede ser un factor trivial de $N$. Mediante el algoritmo de Euclides, estos factores pueden calcularse en $O(L^3)$ operaciones (ver \cite{quantuminformation}, pág. 629).
+\end{proof}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultrices egestas nunc, venenatis rhoncus elit fermentum non. Pellentesque gravida nulla vitae ipsum lobortis ullamcorper. Ut adipiscing, tellus in egestas mattis, enim metus pretium erat, ac tempor dolor neque placerat nulla. Nullam nec ligula eu ipsum pharetra semper a in magna. Integer ut tortor quis nisi fringilla euismod eu ac ipsum. Pellentesque sodales consectetur erat eget rutrum. Proin ornare dolor ut arcu aliquet vestibulum. Pellentesque laoreet tincidunt sem eget semper.
+En general, encontrar una solución de \eqref{eqcuadrados} es difícil. Sin embargo, existe una estrategia para abordar este problema. Si $1 < y < N-1$ es cualquier número coprimo con $N$ y resulta que existe $r\in\mathbb{N}$ \textit{par} tal que $y^r = 1 \mod N$, entonces $y^{r/2}$ sería una solución de \eqref{eqcuadrados}; y además cumpliría las hipótesis de la Proposición \ref{prop1} si $ y^{r/2} \neq \pm 1 \mod N $. Ese número $r$ es el \textit{orden} del elemento $y$ dentro del grupo multiplicativo $\mathbb{Z}/N\mathbb{Z}$. Resulta que si escogemos este número $y$ aleatoriamente entre $2$ y $N-2$ (si no es coprimo con $N$, entonces habríamos encontrado un factor calculando $\mcd(y,N)$), entonces es muy probable que verifique las condiciones expuestas, lo cual nos permitiría calcular los factores como enuncia la Proposición \ref{prop1}. Este hecho se recoge en este resultado.
 
-Integer interdum mattis magna ullamcorper tristique. Nullam commodo nulla eget ipsum vulputate tincidunt auctor leo aliquet. Fusce euismod sagittis ante, eu vulputate eros dictum at. Cras non euismod nunc. Nullam velit diam, consectetur sed eleifend vitae, blandit at arcu. Maecenas ut urna nec turpis lobortis commodo. Aliquam aliquet turpis id massa viverra id sollicitudin est cursus. Sed a tortor non mauris cursus imperdiet.
-
-Integer fermentum rutrum urna at vestibulum. Vivamus ullamcorper erat in sapien dignissim pellentesque. Integer convallis fringilla dictum. In bibendum lectus eu nulla pretium volutpat. Morbi hendrerit fringilla tortor, sed gravida neque lacinia a. In risus magna, hendrerit vitae cursus ac, vehicula at eros. Aenean quis ipsum sit amet leo vestibulum cursus.
-
-\section{Lo segundo}
-
-Cras placerat mattis dui quis vehicula. Nulla sit amet metus nibh, at auctor enim. Quisque congue ultricies sapien in suscipit. Fusce vitae placerat ante. Praesent aliquet urna ac elit consequat nec mattis augue faucibus. Nunc et sapien vel felis mollis sodales. Aenean molestie nulla vestibulum nisi fringilla vel euismod dolor tristique. Aenean fermentum, dolor eget tincidunt faucibus, risus lorem feugiat elit, sagittis malesuada eros ligula in odio. Pellentesque ac libero lobortis justo bibendum laoreet. Cras egestas lorem eget ligula dignissim sollicitudin. Vestibulum sit amet augue ultrices erat faucibus vestibulum. Aenean tincidunt faucibus leo, nec auctor diam bibendum a. Sed varius, mauris in pellentesque scelerisque, nisl ligula viverra erat, in eleifend tellus enim ac magna. Pellentesque quis est risus. Cras mollis feugiat auctor. Proin ac eros vitae nulla gravida varius.
-
-\subsection{Lo que va con lo segundo}
-
-Morbi at augue sapien. Duis tempus quam vitae velit interdum ultricies. Vivamus laoreet lacinia elit sit amet vehicula. Ut congue diam ac magna hendrerit sed fermentum justo lacinia. Curabitur vel odio neque, quis consequat mi. Proin lobortis justo quis enim fermentum accumsan sagittis ipsum imperdiet. Proin sem felis, laoreet placerat egestas id, fringilla id mauris. Pellentesque a nisi sit amet leo consectetur gravida nec et dui. Curabitur quis hendrerit augue. Etiam sed dui nec tortor convallis fringilla. Proin tempor mattis diam nec egestas. Quisque condimentum elementum lacus ac porta. Vivamus congue, odio eu ullamcorper elementum, leo turpis tempus sem, at condimentum dolor quam eu nunc. Pellentesque eget risus ac velit aliquam sollicitudin sed et ipsum.
-
-
-
-
-
-
-% ----------------------------------------------------------------------
-
+\bproposicion
+Sea $N = p_1^{\alpha_1}p_2^{\alpha_2}\cdots p_m^{\alpha_m}$ una factorización en números primos de un número impar. Sea $x$ un elemento escogido aleatoriamente de $(\mathbb{Z}/N\mathbb{Z})^*$, y sea $r$ el orden de $x$ módulo $N$. Entonces,
+\[ P[\mbox{r es par y que }x^{r/2}\neq -1 \mod N]\geq 1-\frac{1}{2^m} \]
+\eproposicion

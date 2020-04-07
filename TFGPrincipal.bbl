@@ -5,6 +5,11 @@ A.~Aizpuru Tomás.
 \newblock {\em Apuntes incompletos de Análisis Funcional}.
 \newblock Universidad de Cádiz, 2004.
 
+\bibitem{quantuminformation}
+Michael~A. Nielsen and {Isaac L.Chuang}.
+\newblock {\em Quantum Computation and Quantum Information}.
+\newblock Cambridge University Press, 2000.
+
 \bibitem{postquantumBernstein}
 Daniel J.~Bernstein and {Johannes Buchmann And {Erik Dahmen}}, editors.
 \newblock {\em Post-Quantum Cryptography}.
@@ -17,9 +22,8 @@ Douglas~R. Stinson.
   edition, 2006.
 
 \bibitem{quantumcomputing}
-S.~C. Coutinho.
-\newblock Quantum computing for computer scientists noson s. yanofsky and mirco
-  a. mannucci, cambridge university press, 2008.
-\newblock {\em ACM SIGACT News}, 40(4):14, 2010.
+Noson~S. Yanofsky and {Mirco A. Mannucci}.
+\newblock {\em Quantum computing for computer scientists}.
+\newblock Cambridge University Press, 2008.
 
 \end{thebibliography}
