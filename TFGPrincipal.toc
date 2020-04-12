@@ -9,10 +9,11 @@
 \contentsline {chapter}{\numberline {3}Espacios de Hilbert}{9}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Definiciones b\'asicas}{9}{section.3.1}%
 \contentsline {section}{\numberline {3.2}El operador adjunto y operadores unitarios}{12}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Computaci\'on cu\'antica}{17}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introducci\'on}{17}{section.4.1}%
-\contentsline {chapter}{\numberline {5}Segunda cosa}{19}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Lo siguiente}{19}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Otra cosa m\'as}{20}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Una subcosa}{20}{subsection.5.2.1}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{21}{chapter*.2}%
+\contentsline {chapter}{\numberline {4}El algoritmo de Shor}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introducci\'on}{19}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Computaci\'on cu\'antica}{22}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Segunda cosa}{25}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Lo siguiente}{25}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Otra cosa m\'as}{26}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Una subcosa}{26}{subsection.5.2.1}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{27}{chapter*.2}%

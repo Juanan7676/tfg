@@ -1,3 +1,5 @@
+\def\C{\mathbb{C}}
+
 \chapter{Espacios de Hilbert}
 
 \section{Definiciones básicas}
@@ -43,7 +45,20 @@ Ya estamos en condiciones de presentar lo que es un espacio de Hilbert.
 	Un espacio prehilbertiano es un \textit{espacio de Hilbert} si es completo.
 \edefinicion
 
-Esta definición generaliza el concepto de producto escalar en espacios vectoriales reales. Análogamente al caso real, dado $H\subseteq X$ un subespacio vectorial de un espacio de Hilbert $X$, podemos definir
+Esta definición generaliza el concepto de producto escalar en espacios vectoriales reales.
+
+\begin{ejemplo} Sea $X = \mathbb{C}^2$. El producto escalar usual en este espacio se define como
+	\[ \langle (z_1,z_2),(z_1',z_2') \rangle = z_1\overline{z_1'} + z_2\overline{z_2'} \]
+	En efecto, es un producto escalar, ya que:
+	\begin{enumerate}
+		\item $ \langle (z_1,z_2) + (z_3,z_4),(z_1',z_2') \rangle = (z_1+z_3)\overline{z_1'} + (z_2+z_3)\overline{z_2'} = z_1\overline{z_1'}+z_2\overline{z_2'}+z_3\overline{z_1'}+z_4\overline{z_2'} = \langle (z_1,z_2),(z_1',z_2') \rangle + \langle (z_3,z_4),(z_1',z_2') \rangle $.
+		\item $ \langle \lambda(z_1,z_2),(z_1',z_2') \rangle = \lambda z_1\overline{z_1'} + \lambda z_2\overline{z_2'} = \lambda\langle (z_1,z_2),(z_1',z_2') \rangle $
+		\item $ \langle (z_1,z_2), (z_1',z_2')+(z_3',z_4') \rangle = z_1\overline{z_1'+z_3'} + z_2\overline{z_2'+z_4'} = z_1\overline{z_1'}+z_2\overline{z_2'}+z_1\overline{z_3'} + +z_2\overline{z_4'} = \langle (z_1,z_2),(z_1',z_2') \rangle + \langle (z_1,z_2),(z_3',z_4') \rangle $.
+		\item $ \langle (z_1,z_2),\alpha(z_1',z_2') \rangle = \lambda z_1\overline{\alpha z_1'} + z_2\overline{\alpha z_2'} = \overline{\alpha}\langle (z_1,z_2),(z_1',z_2') \rangle $
+	\end{enumerate}
+\end{ejemplo} \hfill \\
+
+Análogamente al caso real, dado $H\subseteq X$ un subespacio vectorial de un espacio de Hilbert $X$, podemos definir
 \[ H^{\perp} = \{ x\in X:\langle x,h \rangle=0 \mbox{ para todo } x\in X \} \]
 
 Y es sencillo comprobar, por las propiedades del producto escalar, que es un subespacio vectorial y que $\dim H + \dim H^{\perp} = \dim X$.
@@ -54,6 +69,11 @@ Notemos que en un espacio de Hilbert $X$ es posible definir una norma de la sigu
 \[ \|x\| = \sqrt{\langle x,x\rangle}  \]
 
 Es fácil ver que esta norma está bien definida, por ser $\langle x,x \rangle \geq 0$ (es definida positiva), y que por las propiedades del producto escalar, es una norma. De esta manera, todo espacio de Hilbert es un espacio normado, y al ser completo, es un \textit{espacio de Banach} (ver \cite{afuncional}, pág. 27). Este hecho justifica el exigir la propiedad de completitud a un espacio de Hilbert, pues esta norma induce una métrica en $X$, y gracias a ello podemos hablar de sucesiones de Cauchy y sucesiones convergentes (un conjunto es completo si toda sucesión de Cauchy en él es convergente).
+
+\begin{ejemplo} 
+	Sea $X=\C^2$. La \textit{norma usual} inducida por el producto escalar usual es
+	\[ \| (z_1,z_2) \| = \sqrt{\langle (z_1,z_2),(z_1,z_2)} \rangle = \sqrt{z_1\overline{z_1}+z_2\overline{z_2}} = \sqrt{|z_1|^2+|z_2|^2} \]
+\end{ejemplo}
 
 Una propiedad conocida es la desigualdad de Cauchy-Schwarz, que se verifica en espacios prehilbertianos.
 \begin{framed}
@@ -75,7 +95,9 @@ Sea $X$ un espacio prehilbertiano. Entonces, para cada $x,y\in X$, se verifica q
 
 \section{El operador adjunto y operadores unitarios}
 
-Ya que los espacios de Hilbert son espacios vectoriales, podemos hablar de aplicaciones lineales entre ellos y de formas lineales. De entre ellas, en el contexto de la computación cuántica nos interesarán aquellas que sean \textit{unitarias}. Para poder definirlas correctamente, necesitamos un par de lemas previos.
+Ya que los espacios de Hilbert son espacios vectoriales, podemos hablar de aplicaciones lineales entre ellos y de formas lineales. De entre ellas, en el contexto de la computación cuántica nos interesarán aquellas que sean \textit{unitarias}. Para poder definirlas correctamente, necesitamos un poco de teoría de espacios de Hilbert.
+
+
 
 \blema
 \label{lemacontinuo}

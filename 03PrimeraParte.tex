@@ -1,4 +1,8 @@
-\chapter{Computación cuántica}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\ket#1{\ensuremath{| #1 \rangle}}
+
+\chapter{El algoritmo de Shor}
 
 \section{Introducción}
 El objetivo de este capítulo es describir el (principal) algoritmo que pone en peligro toda la criptografía clásica que se usa actualmente en gran medida: el algoritmo de Shor, que permite factorizar cualquier número natural en $O((\log N)^3)$ pasos (\cite{quantuminformation}, pág. 233), donde $N$ es el número a factorizar. El algoritmo contiene dos partes, una parte clásica que se ejecutaría en un ordenador clásico, y una parte cuántica que se ejecutaría en un ordenador cuántico. La idea clave del algoritmo subyace en el siguiente resultado.
@@ -13,9 +17,82 @@ Entonces, o bien $\mcd(x-1,N)$ o bien $\mcd(x+1,N)$ es un factor no trivial de $
 	Ya que $x^2 - 1 = 0 \mod N$, entonces $N|_{(x^2+1)=(x+1)(x-1)}$. De aquí, $N$ debe tener un factor común con $(x+1)$ ó con $(x-1)$, es decir, $\mcd(x+1,N)>1$ ó $\mcd(x-1,N)>1$. Además, ya que $1 < x < N-1$, entonces $2 < x+1 < N$ y $0 < x-1 < N-2$, en cualquier caso, $x-1 < N$ y $x+1 < N$ y por tanto $\mcd(x-1,N) < N$ y $\mcd(x+1,N) < N$. Esto prueba que ninguno puede ser un factor trivial de $N$. Mediante el algoritmo de Euclides, estos factores pueden calcularse en $O(L^3)$ operaciones (ver \cite{quantuminformation}, pág. 629).
 \end{proof}
 
-En general, encontrar una solución de \eqref{eqcuadrados} es difícil. Sin embargo, existe una estrategia para abordar este problema. Si $1 < y < N-1$ es cualquier número coprimo con $N$ y resulta que existe $r\in\mathbb{N}$ \textit{par} tal que $y^r = 1 \mod N$, entonces $y^{r/2}$ sería una solución de \eqref{eqcuadrados}; y además cumpliría las hipótesis de la Proposición \ref{prop1} si $ y^{r/2} \neq \pm 1 \mod N $. Ese número $r$ es el \textit{orden} del elemento $y$ dentro del grupo multiplicativo $\mathbb{Z}/N\mathbb{Z}$. Resulta que si escogemos este número $y$ aleatoriamente entre $2$ y $N-2$ (si no es coprimo con $N$, entonces habríamos encontrado un factor calculando $\mcd(y,N)$), entonces es muy probable que verifique las condiciones expuestas, lo cual nos permitiría calcular los factores como enuncia la Proposición \ref{prop1}. Este hecho se recoge en este resultado.
+En general, encontrar una solución de \eqref{eqcuadrados} es difícil. Sin embargo, existe una estrategia para abordar este problema. Si $1 < y < N-1$ es cualquier número coprimo con $N$ y resulta que el orden $r$ del elemento $y$ dentro del grupo multiplicativo $(\mathbb{Z}/N\mathbb{Z})^*$ (es decir, el menor natural tal que $y^r = 1 \mod N$) es par, entonces $y^{r/2}$ sería una solución de \eqref{eqcuadrados}; y además cumpliría las hipótesis de la Proposición \ref{prop1} si $ y^{r/2} \neq - 1 \mod N $ (observemos que no puede ser $1$, ya que ello contradiría la definición de $r$). Resulta que si escogemos este número $y$ aleatoriamente entre $2$ y $N-2$ (si no es coprimo con $N$, entonces habríamos encontrado un factor calculando $\mcd(y,N)$), entonces es muy probable que verifique las condiciones expuestas, lo cual nos permitiría calcular los factores como enuncia la Proposición \ref{prop1}. Este hecho se recoge en el siguiente teorema.
 
-\bproposicion
+\bteoremaa
+\label{teoremaprob}
 Sea $N = p_1^{\alpha_1}p_2^{\alpha_2}\cdots p_m^{\alpha_m}$ una factorización en números primos de un número impar. Sea $x$ un elemento escogido aleatoriamente de $(\mathbb{Z}/N\mathbb{Z})^*$, y sea $r$ el orden de $x$ módulo $N$. Entonces,
 \[ P[\mbox{r es par y que }x^{r/2}\neq -1 \mod N]\geq 1-\frac{1}{2^m} \]
-\eproposicion
+\eteorema
+
+Para demostrarlo, necesitamos primero un lema previo.
+
+\blema
+\label{lemadivision}
+ Sea $p$ un número primo diferente de 2 y sea $\alpha\in\mathbb{N}$. Sea $2^d$ la mayor potencia de $2$ que divide a $\varphi(p^\alpha)$. Entonces, con probabilidad de un medio $2^d$ divide al orden de cualquier elemento de $(\mathbb{Z}/p^\alpha\mathbb{Z})^*$.
+\elema
+
+\begin{proof}
+	Por ser $p\neq 2$, entonces es impar, y por tanto $\varphi(p^\alpha) = p^{\alpha - 1}(p-1)$ es par. Esto implica que $d \geq 1$. Ya que el grupo $(\mathbb{Z}/p^\alpha\mathbb{Z})^*$ es cíclico, cualquier elemento se escribirá de la forma $g^k$, con $g$ el generador del grupo y $1\leq k \leq \varphi(p^\alpha)$. Sea $r$ el orden de dicho elemento.
+	\begin{itemize}
+		\item Si es $k$ impar, ya que $\left(g^k\right)^r = g^{kr} = 1 \mod p^\alpha$ entonces por el Teorema de Lagrange debe ser $\phi(p^\alpha)|kr$. De aquí, $2^d$ divide a $kr$, y por ser $k$ impar, necesariamente $2^d$ divide a $r$, el orden del elemento.
+		\item Si es $k$ par, entonces
+		\[ g^{\frac{k}{2}\varphi(p^\alpha)} = \left( g^{\varphi(p^\alpha)} \right)^{k/2} = 1^{k/2} = 1 \mod p^\alpha \]
+		Como $r$ es el orden del elemento $g^k$, entonces necesariamente $r|\varphi(p^\alpha)/2$. Ya que $2^{d-1}$ es la mayor potencia de 2 que divide a $\varphi(p^\alpha)/2$, de aquí deducimos que $2^d$ no puede dividir a $r$.
+	\end{itemize}
+	Como exactamente la mitad de elementos de $(\mathbb{Z}/p^\alpha\mathbb{Z})^*$ se expresan con $k$ par y la mitad con $k$ impar, esto concluye la demostración.
+\end{proof}
+
+Ahora podemos demostrar el Teorema \ref{teoremaprob}.
+
+\begin{proof}
+	
+	Probaremos que
+	\[ P[r \mbox{ es impar ó } x^{r/2} = -1 \mod N] \leq \frac{1}{2^m} \]
+	
+	Por el Teorema Chino de los Restos, elegir un elemento $x$ aleatoriamente de $(\mathbb{Z}/N\mathbb{Z})^*$ es equivalente a elegir $x_j$ aleatoriamente de $(\mathbb{Z}/p_j^{\alpha_j}\mathbb{Z})^*$, para $j=1,\dots,m$ tales que $x = x_j \mod p_j^{\alpha_j}$. Sea $r_j$ el orden de $x_j$ en $(\mathbb{Z}/p_j^{\alpha_j}\mathbb{Z})^*$, $r$ el orden de $x$ en $(\mathbb{Z}/N\mathbb{Z})^*$, $2^{d}$ la mayor potencia de $2$ que divide a $r$ y $2^{d_j}$ la mayor potencia de $2$ que divide a $r_j$.
+	\begin{itemize}
+		\item Si es $r$ impar, entonces ya que $r_j|r$ para cada $j$ (porque $ x_j^r = x^r \mod p_j^{\alpha_j}$. Como $x^r = 1 \mod N$, entonces $x^r = 1 \mod p_j^{\alpha_j}$. Entonces, $x_j^r = 1 \mod p_j^{\alpha_j}$ y de aquí el orden $r_j|r$); si $r$ es impar entonces $r_j$ es impar, y de aquí, $d_j=0$ para todo $j$.
+		\item Si $r$ es par y es $x^{r/2} = -1 \mod N$, entonces $x^{r/2} = -1 \mod p_j^{\alpha_j}$, esto es, $x_j^{r/2} = -1 \mod p_j^{\alpha_j}$. De aquí, $r_j \not| (r/2)$. Ya que $r_j | r$, necesariamente $d = d_j$ para cada $j$ (porque la mayor potencia de 2 que divide a $r_j$ será exactamente $2^d$, no puede ser menor porque $r_j \not| (r/2)$).
+	\end{itemize}
+
+	En definitiva, hemos probado que si $r$ es impar ó $x^{r/2} = -1 \mod N$, entonces $d_j$ toma el mismo valor para cada $j$. Esto implica que cada $d_j$ debe dividir (o no dividir) a cada $r_j$ simultáneamente. Por el Lema \ref{lemadivision}, la probabilidad de que esto ocurra es \[ \frac{1}{2} \cdot \frac{1}{2} \cdots \frac{1}{2} = \frac{1}{2^m} \] Por contención de sucesos, finalmente
+	\[ P[r \mbox{ es impar ó } x^{r/2} = -1 \mod N] \leq P[d_j=k \mbox{ para cada } j] \leq P[ d_j|r_j \mbox{ ó } d_j \not| r_j \mbox{ para cada } j ] = \frac{1}{2^m} \]
+\end{proof}
+
+Una consecuencia inmediata del Teorema \ref{teoremaprob} es que si el número que queremos factorizar $N$ tiene 2 factores primos (como suele usarse en criptografía, como es el caso del algoritmo RSA), entonces tenemos la garantía de que usando el procedimiento descrito anteriormente, daremos al menos un 75\% de las veces con un elemento $y$ que nos permita hallar los factores de $N$ usando la Proposición \ref{prop1}. Un resumen de un algoritmo para factorizar sería el siguiente:
+\begin{enumerate}
+	\item Si $N$ es par, devolver el factor 2.
+	\item Elegir aleatoriamente $y$ entre $2$ y $N-2$. Si $\mcd(y,N)>1$, devolver el factor $\mcd(y,N)$.
+	\item Encontrar el orden $r$ del elemento $y$ módulo $N$.
+	\item Si $r$ es par y $x^{r/2} \neq -1 \mod N$, entonces calcular $\mcd(x^{r/2} - 1, N)$ y $\mcd(x^{r/2}+1,N)$, comprobar cuál de ellos es un factor no trivial y devolver dicho factor. En caso contrario, volver al paso 2.
+\end{enumerate}
+
+Gracias al algoritmo de Euclides y la exponenciación modular, todos los pasos de este algoritmo se pueden ejecutar en tiempo polinomial excepto el paso $3$. Este problema se conoce como el problema de encontrar el orden, y no existe ningún método eficiente para resolverlo en un ordenador clásico. Sin embargo, usando la computación cuántica, sí es posible resolver este problema eficientemente. En realidad, el algoritmo descrito es un esquema del algoritmo de Shor, con la salvedad de que el paso $3$ se resuelve con un circuito cuántico, se obtienen los resultados y se prosigue en un ordenador clásico para culminar con la obtención del factor. Veremos cómo se construye este circuito en un ordenador cuántico y por qué funciona.
+
+\section{Computación cuántica}
+
+Ahora que hemos visto la motivación por la que necesitamos un ordenador cuántico, trataremos de describir cómo funciona. En el corazón de la computación clásica se encuentra el concepto de \textit{bit}, la unidad mínima de información que describe un sistema clásico 2-dimensional. Matemáticamente, podemos modelar un bit como un elemento de $\mathbb{Z}_2=\{0,1\}$. De este concepto surgen las \textit{puertas lógicas}, mecanismos que convierten un conjunto de bits en otro. Matemáticamente, estas puertas lógicas se modelan como funciones $f : \Z_2^n \to \Z_2^m$.
+
+\begin{ejemplo}
+	La puerta lógica AND implementa la operación lógica de conjunción (\&) y se define de esta manera:
+	\[ f : \Z_2^2 \to \Z_2 \]
+	\[ (0,0) \longmapsto 0 \]
+	\[ (0,1) \longmapsto 0 \]
+	\[ (1,0) \longmapsto 0 \]
+	\[ (1,1) \longmapsto 1 \]
+\end{ejemplo}
+
+La computación cuántica surge como una generalización de estos conceptos. De igual manera que en la computación clásica, en la computación cuántica se encuentra el concepto de \textit{qubit}.
+
+\begin{definicion}
+	Un \textit{qubit} es la unidad mínima de información describiendo un sistema cuántico 2-dimensional.
+\end{definicion}
+
+Un qubit se modela como un elemento del espacio de Hilbert $\C^2$. Como ya vimos, este es un espacio vectorial y posee una base, por ejemplo, la canónica: $\{ (0,1),(1,0) \}$. Así, todo qubit puede expresarse como una combinación $\C$-lineal de estos dos elementos. En el contexto de la computación cuántica, a los elementos de la base canónica es usual denotarlos usando la notación de Dirac de esta manera:
+\[ \ket{0} = (1,0) \]
+\[ \ket{1} = (0,1) \]
+
+y se denominan los \textit{estados básicos}. Con lo que cualquier qubit puede expresarse de la forma $ c_1\ket{0}+c_2\ket{1} $, $c_1,c_2\in\C$. Una restricción importante que se impone sobre los qubits es que $|c_1|^2+|c_2|^2 = 1$. Así, cuando $|c_1|=1$ y $|c_2|=0$ se dice que el qubit está en el estado básico $0$ y al contrario, en el estado básico $1$. En cualquier otra situación, el qubit se dice que está en estado de \textit{superposición}.
+
+Los qubits pueden ser, en cualquier momento, ``observados''. Esto saca al qubit de su estado de superposición, y hace que se comporte como un bit clásico, tomando el valor $0$ o el valor $1$. La probabilidad con la que toma cada valor viene dado por las coordenadas del qubit: así, un qubit $c_1\ket{0}+c_2\ket{1}$ tiene una probabilidad $|c_1|$ de valer $0$ al ser observado, y $|c_2|$ de valer $1$ (de aquí la imposición anterior de que $|c_1|^2+|c_2|^2 = 1$).
