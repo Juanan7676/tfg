@@ -70,7 +70,8 @@ Notemos que en un espacio de Hilbert $X$ es posible definir una norma de la sigu
 
 Es fácil ver que esta norma está bien definida, por ser $\langle x,x \rangle \geq 0$ (es definida positiva), y que por las propiedades del producto escalar, es una norma. De esta manera, todo espacio de Hilbert es un espacio normado, y al ser completo, es un \textit{espacio de Banach} (ver \cite{afuncional}, pág. 27). Este hecho justifica el exigir la propiedad de completitud a un espacio de Hilbert, pues esta norma induce una métrica en $X$, y gracias a ello podemos hablar de sucesiones de Cauchy y sucesiones convergentes (un conjunto es completo si toda sucesión de Cauchy en él es convergente).
 
-\begin{ejemplo} 
+\begin{ejemplo}
+	\label{normac2}
 	Sea $X=\C^2$. La \textit{norma usual} inducida por el producto escalar usual es
 	\[ \| (z_1,z_2) \| = \sqrt{\langle (z_1,z_2),(z_1,z_2)} \rangle = \sqrt{z_1\overline{z_1}+z_2\overline{z_2}} = \sqrt{|z_1|^2+|z_2|^2} \]
 \end{ejemplo}
@@ -97,7 +98,11 @@ Sea $X$ un espacio prehilbertiano. Entonces, para cada $x,y\in X$, se verifica q
 
 Ya que los espacios de Hilbert son espacios vectoriales, podemos hablar de aplicaciones lineales entre ellos y de formas lineales. De entre ellas, en el contexto de la computación cuántica nos interesarán aquellas que sean \textit{unitarias}. Para poder definirlas correctamente, necesitamos un poco de teoría de espacios de Hilbert.
 
+\blema
+	Sean $X,Y$ espacios de Hilbert y $f : X \to Y$ una aplicación lineal. Entonces, $f$ es continua si y sólo si $f(S_X) = f(\{ x\in X : \| x \| = 1 \}) $ es acotado.
+\elema
 
+Una demostración de este hecho puede consultarse en \cite{afuncional}.
 
 \blema
 \label{lemacontinuo}
@@ -125,6 +130,8 @@ Ya que los espacios de Hilbert son espacios vectoriales, podemos hablar de aplic
 		\[ \| u(x,y)-u(a,b) \| = \| u(x,y)-u(a,y)+u(a,y)-u(a,b) \| \leq \| u(x-a,y) \| + \| u(a,y-b) \| \]
 		Y además, por hipótesis, se verifica que
 		\[ \| u(x,y)-u(a,b) \| \leq  \| u(x-a,y) \| + \| u(a,y-b) \| \leq M\| x-a \|\|y\|+M\|a\|\|y-b\| \]
+		
+		Dado $\varepsilon>0$, tomando $\delta_2>0$ de modo que $\delta_2 < \frac{\varepsilon}{2M\| a \|}$ si $a \neq 0$ y $\delta_2 < \frac{\varepsilon}{2M(||b||+\delta_2)}$, tenemos que si $\| x-a \| < \delta_1$ y $\|y-b\| < \delta_2$, entonces $\|u(x,y)-u(a,b)\|<\varepsilon$, lo que queríamos probar. Si fuese $a=0$, entonces el resultado es trivial tomando $\delta_1 = \frac{ \varepsilon}{\| y \|}$.
 		
 		
 \end{proof}
@@ -234,3 +241,18 @@ Según lo visto antes, esta condición puede traducirse matricialmente a que $AA^{
 	El operador definido en el Ejemplo \ref{ej31} es unitario, ya que
 	\[ A'A = \frac{1}{3}\left( \begin{array}{cc} 3 & 0 \\ 0 & 3  \end{array} \right) = I \]
 \end{ejemplo}
+
+La siguiente importante propiedad culmina nuestro estudio.
+
+\bproposicion
+\label{prop:unitaria}
+	Sea $X$ un espacio de Hilbert y sea $A : X \to X$ una aplicación lineal y continua. Si $A$ es unitaria, entonces para todo $x,y\in X$, $\langle A(x),A(y) \rangle = \langle x,y \rangle $. En particular, $\| A(x) \| = \| x \|$ para todo $x\in X$.
+\eproposicion
+
+\begin{proof}
+	Para todo $x,y \in X$, $\langle A(x),A(y) \rangle = \langle x,A'(A(y)) \rangle $ por definición de operador adjunto, y como es unitario, $A'A=Id$ y tenemos que $\langle A(x),A(y) \rangle = \langle x,y \rangle$.
+	
+	El segundo resultado se desprende de la definición de norma: $ \| A(x) \| = \sqrt{\langle A(x),A(x) \rangle} = \sqrt{\langle x,x \rangle} = \| x \| $.
+\end{proof}
+
+Con un poco más de trabajo, es posible ver que el recíproco también es cierto. Por tanto, podemos decir que los únicos operadores que conservan la norma son los unitarios; por eso nos serán de interés en la computación cuántica (como veremos más adelante).

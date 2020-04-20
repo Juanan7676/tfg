@@ -1,4 +1,4 @@
-\BOOKMARK [0][]{chapter.1}{1 Introduction}{}% 1
+\BOOKMARK [0][]{chapter.1}{1 Introducci\363n}{}% 1
 \BOOKMARK [0][]{chapter.2}{2 Planteamiento y motivaci\363n}{}% 2
 \BOOKMARK [1][]{section.2.1}{2.1 El problema de los ordenadores cu\341nticos}{chapter.2}% 3
 \BOOKMARK [1][]{section.2.2}{2.2 Criptosistemas}{chapter.2}% 4
@@ -9,8 +9,10 @@
 \BOOKMARK [0][]{chapter.4}{4 El algoritmo de Shor}{}% 9
 \BOOKMARK [1][]{section.4.1}{4.1 Introducci\363n}{chapter.4}% 10
 \BOOKMARK [1][]{section.4.2}{4.2 Computaci\363n cu\341ntica}{chapter.4}% 11
-\BOOKMARK [0][]{chapter.5}{5 Segunda cosa}{}% 12
-\BOOKMARK [1][]{section.5.1}{5.1 Lo siguiente}{chapter.5}% 13
-\BOOKMARK [1][]{section.5.2}{5.2 Otra cosa m\341s}{chapter.5}% 14
-\BOOKMARK [2][]{subsection.5.2.1}{5.2.1 Una subcosa}{section.5.2}% 15
-\BOOKMARK [0][]{chapter*.2}{Bibliograf\355a}{}% 16
+\BOOKMARK [2][]{subsection.4.2.1}{4.2.1 Bits y qubits}{section.4.2}% 12
+\BOOKMARK [2][]{subsection.4.2.2}{4.2.2 Puertas cu\341nticas y circuitos cu\341nticos}{section.4.2}% 13
+\BOOKMARK [2][]{subsection.4.2.3}{4.2.3 La transformada cu\341ntica de Fourier}{section.4.2}% 14
+\BOOKMARK [0][]{chapter.5}{5 Algoritmos de criptograf\355a poscu\341ntica}{}% 15
+\BOOKMARK [1][]{section.5.1}{5.1 Criptograf\355a basada en funciones hash}{chapter.5}% 16
+\BOOKMARK [1][]{section.5.2}{5.2 Criptograf\355a basada en c\363digos}{chapter.5}% 17
+\BOOKMARK [0][]{chapter*.7}{Bibliograf\355a}{}% 18

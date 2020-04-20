@@ -1,6 +1,6 @@
 \def\Z{\mathbb{Z}}
 \def\C{\mathbb{C}}
-\def\ket#1{\ensuremath{| #1 \rangle}}
+\def\ket#1{| #1 \rangle}
 
 \chapter{El algoritmo de Shor}
 
@@ -71,8 +71,8 @@ Una consecuencia inmediata del Teorema \ref{teoremaprob} es que si el número que
 Gracias al algoritmo de Euclides y la exponenciación modular, todos los pasos de este algoritmo se pueden ejecutar en tiempo polinomial excepto el paso $3$. Este problema se conoce como el problema de encontrar el orden, y no existe ningún método eficiente para resolverlo en un ordenador clásico. Sin embargo, usando la computación cuántica, sí es posible resolver este problema eficientemente. En realidad, el algoritmo descrito es un esquema del algoritmo de Shor, con la salvedad de que el paso $3$ se resuelve con un circuito cuántico, se obtienen los resultados y se prosigue en un ordenador clásico para culminar con la obtención del factor. Veremos cómo se construye este circuito en un ordenador cuántico y por qué funciona.
 
 \section{Computación cuántica}
-
-Ahora que hemos visto la motivación por la que necesitamos un ordenador cuántico, trataremos de describir cómo funciona. En el corazón de la computación clásica se encuentra el concepto de \textit{bit}, la unidad mínima de información que describe un sistema clásico 2-dimensional. Matemáticamente, podemos modelar un bit como un elemento de $\mathbb{Z}_2=\{0,1\}$. De este concepto surgen las \textit{puertas lógicas}, mecanismos que convierten un conjunto de bits en otro. Matemáticamente, estas puertas lógicas se modelan como funciones $f : \Z_2^n \to \Z_2^m$.
+\subsection{Bits y qubits}
+Ahora que hemos visto la motivación por la que necesitamos un ordenador cuántico, trataremos de describir cómo funciona. En el corazón de la computación clásica se encuentra el concepto de \textit{bit}, la unidad mínima de información que describe un sistema clásico 2-dimensional. Matemáticamente, podemos modelar un bit como un elemento de $\mathbb{Z}_2=\{0,1\}$, y $n$ bits como un elemento de $\Z_2^n$, donde la coordenada $i$-ésima representa el valor del bit $i$-ésimo. De este concepto surgen las \textit{puertas lógicas}, mecanismos que convierten un conjunto de bits en otro. Matemáticamente, estas puertas lógicas se modelan como funciones $f : \Z_2^n \to \Z_2^m$.
 
 \begin{ejemplo}
 	La puerta lógica AND implementa la operación lógica de conjunción (\&) y se define de esta manera:
@@ -85,14 +85,120 @@ Ahora que hemos visto la motivación por la que necesitamos un ordenador cuántico
 
 La computación cuántica surge como una generalización de estos conceptos. De igual manera que en la computación clásica, en la computación cuántica se encuentra el concepto de \textit{qubit}.
 
-\begin{definicion}
+\bdefinicion
 	Un \textit{qubit} es la unidad mínima de información describiendo un sistema cuántico 2-dimensional.
-\end{definicion}
+\edefinicion
 
-Un qubit se modela como un elemento del espacio de Hilbert $\C^2$. Como ya vimos, este es un espacio vectorial y posee una base, por ejemplo, la canónica: $\{ (0,1),(1,0) \}$. Así, todo qubit puede expresarse como una combinación $\C$-lineal de estos dos elementos. En el contexto de la computación cuántica, a los elementos de la base canónica es usual denotarlos usando la notación de Dirac de esta manera:
-\[ \ket{0} = (1,0) \]
-\[ \ket{1} = (0,1) \]
+Un qubit se modela como un elemento del espacio de Hilbert $\C^2$. Como ya vimos, este es un espacio vectorial y posee una base ortonormal $\{e_1,e_2\}$ (por ejemplo, la canónica: $\{ (0,1),(1,0) \}$). Así, todo qubit puede expresarse como una combinación $\C$-lineal de los elementos de la base. En el contexto de la computación cuántica, a estos elementos es usual denotarlos usando la notación de Dirac de esta manera:
+\[ \ket{0} = e_1 \]
+\[ \ket{1} = e_2 \]
 
-y se denominan los \textit{estados básicos}. Con lo que cualquier qubit puede expresarse de la forma $ c_1\ket{0}+c_2\ket{1} $, $c_1,c_2\in\C$. Una restricción importante que se impone sobre los qubits es que $|c_1|^2+|c_2|^2 = 1$. Así, cuando $|c_1|=1$ y $|c_2|=0$ se dice que el qubit está en el estado básico $0$ y al contrario, en el estado básico $1$. En cualquier otra situación, el qubit se dice que está en estado de \textit{superposición}.
+y se denominan los \textit{estados básicos}. Con lo que cualquier qubit puede expresarse de la forma $ c_1\ket{0}+c_2\ket{1} $, $c_1,c_2\in\C$. Una restricción importante que se impone sobre los qubits es que para todo qubit $x\in\C^2$, $\|x\|^2 = |c_1|^2+|c_2|^2 = 1$ (lo cual ocurre si y sólo si $\| x \| = 1$, ver ejemplo \ref{normac2}). Así, cuando $c_1=1$ y $c_2=0$ se dice que el qubit está en el estado básico $0$ y al contrario, en el estado básico $1$. En cualquier otra situación, el qubit se dice que está en estado de \textit{superposición}. \\
 
-Los qubits pueden ser, en cualquier momento, ``observados''. Esto saca al qubit de su estado de superposición, y hace que se comporte como un bit clásico, tomando el valor $0$ o el valor $1$. La probabilidad con la que toma cada valor viene dado por las coordenadas del qubit: así, un qubit $c_1\ket{0}+c_2\ket{1}$ tiene una probabilidad $|c_1|$ de valer $0$ al ser observado, y $|c_2|$ de valer $1$ (de aquí la imposición anterior de que $|c_1|^2+|c_2|^2 = 1$).
+Los qubits pueden ser, en cualquier momento, ``observados''. Esto saca al qubit de su estado de superposición, y hace que se comporte como un bit clásico, tomando el valor $0$ o el valor $1$ de manera aleatoria. La probabilidad con la que toma cada valor viene dado por las coordenadas del qubit: así, un qubit $c_1\ket{0}+c_2\ket{1}$ tiene una probabilidad $|c_1|$ de valer $0$ al ser observado, y $|c_2|$ de valer $1$ (de aquí la imposición anterior de que $|c_1|^2+|c_2|^2 = 1$). \\
+
+Varios qubits se modelan matemáticamente usando el producto tensorial $(\C^2)^{\otimes n}$, donde $n$ es el número de qubits. Así, 2 qubits se expresan de la forma $ x = c_{00} \ket{0}\otimes\ket{0} + c_{01} \ket{0}\otimes\ket{1} +c_{01} \ket{1}\otimes\ket{0} + c_{11} \ket{1}\otimes\ket{1}$, $c_{00},c_{01},c_{10},c_{11} \in \C$. En general, $n$ qubits se expresan con $2^n$ coordenadas (pues la dimensión del producto tensorial de dos espacios vectoriales de dimensión $m$ y $n$ es $mn$). En la notación de Dirac es usual simplificar la notación del producto tensorial escribiendo simplemente $\ket{x}\otimes\ket{y} = \ket{x}\ket{y} = \ket{xy}$. En particular, cuando denotemos productos tensoriales de estados básicos, se escribirá $\ket{i_1}\ket{i_2} = \ket{i_1i_2}$, $i_1,i_2 \in \{ 0,1 \}$. \\
+
+La observación de varios qubits es análoga a la situación anterior. Por ejemplo, para 2 qubits, tendríamos que hay una probabilidad $|c_{00}|$ de medir un 0 en el primer qubit y un 0 en el segundo, una probabilidad $|c_{10}|$ de medir un 1 en el primero y un 0 en el segundo, y así sucesivamente. Sin embargo, hay que justificar que estas probabilidades efectivamente suman 1.
+
+\bproposicion
+Sean $\ket{x_1},\dots,\ket{x_n}$ $n$ qubits, con $\ket{x_i} = x_0^{(i)}\ket{0} + x_1^{(i)}\ket{1}$. Entonces, $ \ket{x_1x_2\cdots x_n} $ verifica que  \[ \| \ket{x_1x_2\cdots x_n} \|^2 = \left\| \sum_{i_1,\dots,i_n\in\{0,1\}} \left( \left(\prod_{j=1}^n x_{i_j}^{(j)} \right) \ket{i_1i_2\cdots i_n} \right) \right\|^2 = 1  \]
+\eproposicion
+\begin{proof}
+	Lo demostraremos por inducción. Para $n=1$ el resultado se tiene por definición de qubit.
+	
+	Supongamos el resultado cierto para $n=k$, y denotemos por simplicidad
+	
+	\[ \ket{x_1\dots x_k} = \alpha_0\ket{00\cdots 0}+\alpha_1\ket{00\cdots1}+\cdots+\alpha_{2^k-1}\ket{11\cdots 1} \]
+	
+	Entonces, si $ \ket{x_{k+1}} = \beta_0\ket{0}+\beta_1\ket{1} $,
+	
+	\begin{multline*} \ket{x_1\dots x_k}\ket{x_{k+1}} = \beta_0(\alpha_0\ket{00\cdots 00}+\alpha_1\ket{00\cdots10}+\cdots+\alpha_{2^k-1}\ket{11\cdots 10}) + \\
+	+\beta_1(\alpha_0\ket{00\cdots 01}+\alpha_1\ket{00\cdots11}+\cdots+\alpha_{2^k-1}\ket{11\cdots 11}) \end{multline*}
+	
+	Por tanto sacando factor común,
+	\[ \| \ket{x_1\dots x_{k+1}} \|^2 = |\beta_0|^2\left(\sum_{j=0}^{2^k-1} |\alpha_j|^2 \right) + |\beta_1|^2 \left(\sum_{j=0}^{2^k-1} |\alpha_j|^2 \right) \]
+	
+	Por hipótesis de inducción, $ (\sum_{j=0}^{2^k-1} |\alpha_j|^2) = 1 $ y además $|\beta_0|^2+|\beta_1|^2=1$ por ser $\ket{x_{k+1}}$ qubit, así,
+	
+	\[ \| \ket{x_1\dots x_{k+1}} \|^2 = |\beta_0|^2 + |\beta_1|^2 = 1 \]
+\end{proof}
+
+\subsection{Puertas cuánticas y circuitos cuánticos}
+
+Una vez que hemos definido el concepto de qubit y cómo se modelan matemáticamente, el siguiente paso es definir el concepto de puerta cuántica; que no es más que una función $f: \C^{\otimes 2n} \to \C^{\otimes 2n}$ (envía $n$ qubits a $n$ qubits). Ya que, como vimos, estos dos espacios son espacios vectoriales, podemos tratar $f$ como una aplicación lineal. Además, ya que $f$ debe enviar qubits a qubits, debe verificarse para todo $x \in \C^{\otimes 2n}$, que
+\[ \| f(x) \| = \| x \| = 1 \]
+
+Y según vimos en el capítulo anterior, esto se logra si y sólo si $f$ es unitaria. Esta condición implica que el operador dado por $A^\dagger$ es la inversa de $A$. Es decir, toda puerta cuántica debe ser reversible (biyectiva), y su inversa está dada por la matriz $A^\dagger$. Es por ello que toda puerta cuántica debe tener exactamente los mismos qubits de entrada y de salida.
+\begin{ejemplo}
+	Las puertas cuánticas generalizan las puertas clásicas. Por ejemplo, la puerta $ NOT: \C^2\otimes \C^2 \to \C^2\otimes \C^2 $ es aquella puerta cuya matriz asociada es
+	\[ \left( \begin{array}{cc} 0 & 1 \\ 1 & 0  \end{array} \right) \]
+	
+	Este operador es unitario, puesto que
+	\[ AA^{\dagger} = \left( \begin{array}{cc} 0 & 1 \\ 1 & 0  \end{array} \right)\left( \begin{array}{cc} 0 & 1 \\ 1 & 0  \end{array} \right) = \left( \begin{array}{cc} 1 & 0 \\ 0 & 1 \end{array} \right) = Id \]
+	
+	Además, verifica que \[ NOT\ket{0} = \left( \begin{array}{cc} 0 & 1 \\ 1 & 0  \end{array} \right) \left( \begin{array}{c} 1 \\ 0  \end{array} \right) = \left( \begin{array}{c} 0 \\ 1  \end{array} \right) = \ket{1} \]
+	\[ NOT\ket{1} = \left( \begin{array}{cc} 0 & 1 \\ 1 & 0  \end{array} \right) \left( \begin{array}{c} 0 \\ 1  \end{array} \right) = \left( \begin{array}{c} 1 \\ 0  \end{array} \right) = \ket{0} \]
+\end{ejemplo}
+
+\begin{ejemplo}
+	Un ejemplo importante en la computación cuántica es el operador de Hadamard, aquel dado por la matriz
+	\[ H = \frac{1}{\sqrt{2}}\left( \begin{array}{cc} 1 & 1 \\ 1 & -1 \end{array} \right) \]
+	
+	No es difícil ver que este operador es unitario y que verifica las siguientes identidades:
+	
+	\[ H\ket{0} = \frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}\ket{1} \]
+	\[ H\ket{1} = \frac{1}{\sqrt{2}}\ket{0}-\frac{1}{\sqrt{2}}\ket{1} \]
+	
+	\[ H\left( \frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}\ket{1} \right)=\ket{0} \]
+	\[ H\left( \frac{1}{\sqrt{2}}\ket{0}-\frac{1}{\sqrt{2}}\ket{1} \right)=\ket{1} \]
+	
+	Este operador será sumamente útil, porque nos permite convertir qubits en estados básicos a qubits en estados de superposición equiprobables (50\% de medir $0$, 50\% de medir $1$) y viceversa.	
+\end{ejemplo}
+
+Una sucesión de puertas cuánticas actuando sobre un conjunto de qubits forma un circuito. Para describir fácilmente circuitos que implementen algoritmos cuánticos, es común representarlos usando esquemas. Una puerta cuántica $A$ actuando sobre un qubit se representa de esta manera:
+	\begin{figure}[h]
+		\centering
+		\includegraphics[height=40px]{images/quantum1.png}
+	\end{figure}
+
+Normalmente, por convenio se supone que la computación ocurre de izquierda a derecha. De esta manera, el circuito \clearpage
+	\begin{figure}[h]
+		\centering
+		\includegraphics[height=40px]{images/quantum2.png}
+	\end{figure}
+indica la operación de aplicar $A$ y luego $B$ sobre un qubit $\ket{x}$, es decir,  $B(A(x))$. Estas dos operaciones se dice que son \textit{secuenciales}, porque ocurre una después de la otra. Notemos que podríamos haber simplificado este circuito calculando el operador $C = B\circ A$, cuya matriz asociada viene dada de multiplicar $BA$, las matrices asociadas de $B$ y de $A$, y reescribiendo el circuito con un solo operador actuando sobre $\ket{x}$, $C$.
+
+Cuando tengamos un operador tenga más de un qubit de entrada o salida, en lugar de escribir muchas líneas, lo denotamos de esta manera:
+
+	\begin{figure}[h]
+	\centering
+	\includegraphics[height=40px]{images/quantum3.png}
+\end{figure}
+
+En este caso, $A$ sería un operador que trabaja sobre $n$ qubits (observemos que hubiese sido equivalente haber dibujado $n$ líneas entrando y saliendo de $A$).
+
+En un circuito cuántico, también pueden ocurrir operaciones \textit{en paralelo} sobre varios qubits. Por ejemplo:
+	\begin{figure}[h]
+	\centering
+	\includegraphics[height=85px]{images/quantum4.png}
+\end{figure}
+
+Si $\ket{x}$,$\ket{y}$ son $n$ y $m$ qubits respectivamente, Entonces este circuito aplica, sobre la entrada $\ket{x}\otimes\ket{y}$, la operación $A\ket{x} \otimes B\ket{y}$. Este circuito podría simplificarse calculando el operador $C = A\otimes B$ (ver apéndice), cuya entrada son $n+m$ qubits, de manera que la acción del circuito podría escribirse como $C(\ket{x}\otimes\ket{y}) = (A \otimes B) (\ket{x}\otimes \ket{y})$.
+
+\begin{ejemplo}
+	El operador de Hadamard $H$ aplicado sobre varios qubits se comporta como sigue. Dados $n$ qubits $\ket{x_1\cdots x_n}$ en estado básico $0$, entonces el resultado de aplicar el operador $H$ a cada uno de ellos en paralelo es:
+	
+	$H\ket{x_1}\otimes H\ket{x_2} \otimes \cdots \otimes H\ket{x_n}$ = $ H\ket{0} \otimes H\ket{0} \otimes \cdots \otimes H\ket{x_n} = \left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}\ket{1} \right) \otimes \dots \otimes \left( \frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}\ket{1} \right) = \frac{1}{\sqrt{2}^n} \sum_{i_1,\dots,i_n\in\{0,1\}}\ket{i_1\cdots i_n} $.
+	
+	Por simplicidad, este operador se denota $H^{\otimes n}$, y su matriz asociada es $\frac{1}{\sqrt{2}^n} H_{2^n}$, donde $H_{2^n}$ es la matriz de Hadamard de orden $2^n$ \textbf{(añadir referencia)}.
+\end{ejemplo}
+
+Una puerta especial es la de \textit{medición}. Cuando se coloca al final de uno o varios qubits, pasan de ser un bits cuánticos a bits clásicos siguiendo la ley de probabilidad explicada anteriormente. En el siguiente ejemplo, se medirían simultáneamente $n$ qubits tras aplicarles un operador $A$:
+
+	\begin{figure}[h]
+	\centering
+	\includegraphics[height=40px]{images/quantum5.png}
+\end{figure}
+
+\subsection{La transformada cuántica de Fourier}
