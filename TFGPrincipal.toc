@@ -14,8 +14,8 @@
 \contentsline {section}{\numberline {4.2}Computaci\'on cu\'antica}{22}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Bits y qubits}{22}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Puertas cu\'anticas y circuitos cu\'anticos}{25}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}La transformada cu\'antica de Fourier}{28}{subsection.4.2.3}%
-\contentsline {chapter}{\numberline {5}Algoritmos de criptograf\IeC {\'\i }a poscu\'antica}{29}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Criptograf\IeC {\'\i }a basada en funciones hash}{29}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{29}{section.5.2}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{31}{chapter*.7}%
+\contentsline {subsection}{\numberline {4.2.3}El circuito para encontrar el orden}{29}{subsection.4.2.3}%
+\contentsline {chapter}{\numberline {5}Algoritmos de criptograf\IeC {\'\i }a poscu\'antica}{31}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Criptograf\IeC {\'\i }a basada en funciones hash}{31}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{31}{section.5.2}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{33}{chapter*.8}%

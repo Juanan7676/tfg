@@ -1,5 +1,6 @@
 \def\Z{\mathbb{Z}}
 \def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
 \def\ket#1{| #1 \rangle}
 
 \chapter{El algoritmo de Shor}
@@ -102,6 +103,7 @@ Varios qubits se modelan matemáticamente usando el producto tensorial $(\C^2)^{\
 La observación de varios qubits es análoga a la situación anterior. Por ejemplo, para 2 qubits, tendríamos que hay una probabilidad $|c_{00}|$ de medir un 0 en el primer qubit y un 0 en el segundo, una probabilidad $|c_{10}|$ de medir un 1 en el primero y un 0 en el segundo, y así sucesivamente. Sin embargo, hay que justificar que estas probabilidades efectivamente suman 1.
 
 \bproposicion
+\label{qubitmodulo}
 Sean $\ket{x_1},\dots,\ket{x_n}$ $n$ qubits, con $\ket{x_i} = x_0^{(i)}\ket{0} + x_1^{(i)}\ket{1}$. Entonces, $ \ket{x_1x_2\cdots x_n} $ verifica que  \[ \| \ket{x_1x_2\cdots x_n} \|^2 = \left\| \sum_{i_1,\dots,i_n\in\{0,1\}} \left( \left(\prod_{j=1}^n x_{i_j}^{(j)} \right) \ket{i_1i_2\cdots i_n} \right) \right\|^2 = 1  \]
 \eproposicion
 \begin{proof}
@@ -201,4 +203,81 @@ Una puerta especial es la de \textit{medición}. Cuando se coloca al final de uno
 	\includegraphics[height=40px]{images/quantum5.png}
 \end{figure}
 
-\subsection{La transformada cuántica de Fourier}
+Un caso interesante es cuando se miden qubits parcialmente, por ejemplo, usando este circuito:
+	\begin{figure}[h]
+	\centering
+	\includegraphics[height=40px]{images/quantum6v2.png}
+\end{figure}
+
+Donde, obviamente, $a+b = n$. En este caso, el estado de $\ket{x}$ justo después de aplicarse $A$ es $A(\ket{x})$. Sin embargo, después se observan los últimos $b$ qubits de $A(\ket{x})$; ¿cuál será entonces la entrada de $B$, que se aplica sobre los restantes $a$ qubits, que no fueron observados?
+
+Denotemos la salida de $A$ como
+\[ \ket{x_1} = \ket{y_1}\ket{z_1} = \sum_{i=0}^{2^a-1}\sum_{j=0}^{2^b-1} \alpha_{ij} \ket{ij} \]
+
+Si tras medir $\ket{z_1}$ observamos el estado $ \ket{k} $, $k\in [0,2^b-1]$ (el cual ocurrirá con probabilidad $ \sum_{i=0}^{2^a - 1} |\alpha_{ik}|^2 $), entonces parece lógico que el estado final del sistema tras medir los últimos $b$ qubits sea
+
+\[ \ket{y} = \sum_{i=0}^{2^a - 1} \alpha_{ik}\ket{ik} \]
+
+Sin embargo, el módulo de este qubit no es necesariamente 1 (en general, $\ket{y}$ no es el producto tensorial de varios qubits). Por eso, es necesario \textit{renormalizar} el qubit:
+
+\[ \ket{y} = \frac{\sum_{i=0}^{2^a - 1} \alpha_{ik}\ket{ik}}{\sqrt{\sum_{i=0}^{2^a -1} |\alpha_{ik}|^2}}  \]
+
+Puesto que ahora los últimos $b$ qubits son siempre constantes y valen $k$, podemos ignorarlos, ya que ahora se comportan como bits clásicos, y finalmente nos queda que la entrada de $B$ es:
+
+\[ \ket{y} = \frac{\sum_{i=0}^{2^a - 1} \alpha_{ik}\ket{i}}{\sqrt{\sum_{i=0}^{2^a -1} |\alpha_{ik}|^2}} \]
+
+La justificación formal de estas ideas intuitivas se apoya en la teoría de operadores de medida (ver \cite{quantuminformation}).
+
+\begin{ejemplo}
+Con la notación anterior, si $\alpha_{ik}=\frac{1}{\sqrt{2^n}}$ para $n$ amplitudes y valen 0 $0$ en las demás, entonces
+
+\[ \ket{y} = \frac{\frac{1}{\sqrt{2^n}}\sum_i \ket{i}}{\sqrt{\sum_i \left|\frac{1}{\sqrt{2^n}}\right|^2}} = \frac{\sum_i \ket{i}}{\sqrt{n}} \]
+
+Es decir, el resultado de medir un subconjunto de un conjunto de qubits en estado de superposición equiprobable, es otro estado de superposición equiprobable, cuya expresión es la suma de todos los posibles estados de los qubits no medidos y con amplitudes el inverso de la raíz cuadrada del número de estados posibles.
+
+\end{ejemplo}
+
+
+
+\subsection{El circuito para encontrar el orden}
+
+Con estas nociones básicas, finalmente podemos presentar el circuito para resolver el problema de encontrar el orden. Algunos detalles formales se omitirán, por ejemplo, cómo se calcula el orden si resulta que es impar (recordemos que aunque es un caso en el cual no podemos calcular los factores, debemos ser capaces de calcularlo para poder descartarlo y elegir otro elemento).
+
+Para ello, necesitamos dos puertas cuánticas. Una de ellas es la \textit{transformada cuántica de Fourier}. Esta transformación actúa sobre los estados básicos $\ket{0},\cdots,\ket{N-1}$ (por ejemplo, en 2 qubits, $N=4$) de la siguiente forma: para cada $0\leq j \leq N-1$
+\[ \ket{j} \mapsto \frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}e^{2\pi ijk/N}\ket{k} \]
+
+La definición de la transformada cuántica de Fourier (abreviadamente, \textit{QFT}, de \textit{Quantum Fourier Transform}) sobre un qubit se extiende por linealidad. Para que sea una puerta cuántica, debe ser un operador unitario.
+
+\bproposicion
+La transformada cuántica de Fourier es un operador unitario.
+\eproposicion
+\begin{proof}
+	Denotemos $A = (a_{jk})$, $ k,j\in\{0,\cdots,N-1\} $ la matriz asociada de $QFT$ respecto de la base común de los espacios de llegada y salida $\{\ket{0},\dots,\ket{N-1} \}$. Entonces, denotando $\pi^j$ la proyección sobre $\ket{j}$: 
+	
+	\[ a_{jk} = \pi^j(QFT(\ket{k})) = \frac{1}{\sqrt{N}}e^{2\pi i j k / N} \]
+	
+	Por otro lado, denotando $A^{\dagger} = (b_{jk})$, $ k,j\in\{0,\cdots,N-1\} $, entonces:
+	
+	\[ b_{jk} = \overline{a_{kj}} = \frac{1}{\sqrt{N}}\overline{e^{2\pi i j k / N}} = \frac{1}{\sqrt{N}}e^{-2\pi i j k / N}  \]
+	
+	Veamos que $A^{\dagger}A = I$. Denotemos $c_{kj}$ las entradas de la matriz $ A^{\dagger}A $.
+	\begin{itemize}
+		\item Si $k=j$, entonces:
+		\[ c_{kk} = \sum_{j=0}^{N-1}b_{kj}a_{jk} = \sum_{j=0}^{N-1} \left( \frac{1}{\sqrt{N}}e^{-2\pi i k j / N} \right)\left( \frac{1}{\sqrt{N}}e^{2\pi i j k / N} \right) = \sum_{j=0}^{N-1}\frac{1}{N} = N\frac{1}{N} = 1 \]
+		\item Si $k\neq j$, entonces $k-j \in \Z\setminus\{0\}$. Por tanto,
+		\begin{multline*} c_{kl} = \sum_{j=0}^{N-1}b_{lj}a_{jk} = \left( \frac{1}{\sqrt{N}}e^{-2\pi i l j / N} \right)\left( \frac{1}{\sqrt{N}}e^{2\pi i j k / N} \right) = \\ = \frac{1}{N}\sum_{j=0}^{N-1}e^{\frac{2\pi ij}{N}(k-l)} = \frac{1}{N}\frac{1-\left( e^{\frac{2\pi ij}{N}(k-l)} \right)^N }{1-e^{\frac{2\pi i}{N}(k-l)}} \end{multline*}
+		
+		Puesto que $k-l\in \Z$, $ \left( e^{\frac{2\pi ij}{N}(k-l)} \right)^N = e^{2\pi ij(k-l)} = 1  $
+		y esto implica que $c_{kl}=0$.
+		
+	\end{itemize}
+
+	Así pues, como $c_{kj} = \left\{ \begin{array}{l} 1 \mbox{ si } k=j \\ 0 \mbox{ si } k\neq j \end{array} \right.$ $A^\dagger A = I$, como queríamos demostrar.
+	
+\end{proof}
+
+
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[height=40px]{images/quantum7.png}
+%\end{figure}

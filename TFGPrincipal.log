@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.16)  20 APR 2020 13:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.16)  3 MAY 2020 19:16
 entering extended mode
 **./TFGPrincipal.tex
 (TFGPrincipal.tex
@@ -1082,10 +1082,10 @@ Cap\'{\i }tulo 4.
 
 
 ]
-LaTeX Info: Redefining \. on input line 40.
-LaTeX Info: Redefining \% on input line 40.
+LaTeX Info: Redefining \. on input line 41.
+LaTeX Info: Redefining \% on input line 41.
  [20]
-Overfull \hbox (54.87605pt too wide) detected at line 60
+Overfull \hbox (54.87605pt too wide) detected at line 61
 \OML/cmm/m/it/10.95 P\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 r[]x[] \OT1/cmr/m/
 n/10.95 = \OMS/cmsy/m/n/10.95  \OT1/cmr/m/n/10.95 1[]  \OML/cmm/m/it/10.95 N\OT
 1/cmr/m/n/10.95 ] \OMS/cmsy/m/n/10.95  \OML/cmm/m/it/10.95 P\OT1/cmr/m/n/10.95
@@ -1095,65 +1095,75 @@ L/cmm/m/it/10.95 d[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 r[][]d[] \OMS/cmsy
 /m/n/10.95 6 j\OML/cmm/m/it/10.95 r[][]j\OT1/cmr/m/n/10.95 ] = []
  []
 
-LaTeX Info: Redefining \. on input line 64.
-LaTeX Info: Redefining \% on input line 64.
+LaTeX Info: Redefining \. on input line 65.
+LaTeX Info: Redefining \% on input line 65.
 [21]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 74.
-LaTeX Info: Redefining \. on input line 76.
-LaTeX Info: Redefining \% on input line 76.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 75.
+LaTeX Info: Redefining \. on input line 77.
+LaTeX Info: Redefining \% on input line 77.
  [22]
-LaTeX Info: Redefining \. on input line 99.
-LaTeX Info: Redefining \% on input line 99.
+LaTeX Info: Redefining \. on input line 100.
+LaTeX Info: Redefining \% on input line 100.
  [23]
-LaTeX Info: Redefining \. on input line 112.
-LaTeX Info: Redefining \% on input line 112.
+LaTeX Info: Redefining \. on input line 114.
+LaTeX Info: Redefining \% on input line 114.
  [24]
-LaTeX Info: Redefining \. on input line 138.
-LaTeX Info: Redefining \% on input line 138.
+LaTeX Info: Redefining \. on input line 140.
+LaTeX Info: Redefining \% on input line 140.
  [25]
 <images/quantum1.png, id=341, 426.5347pt x 130.36942pt>
 File: images/quantum1.png Graphic file (type png)
 <use images/quantum1.png>
-Package pdftex.def Info: images/quantum1.png  used on input line 162.
+Package pdftex.def Info: images/quantum1.png  used on input line 164.
 (pdftex.def)             Requested size: 131.35876pt x 40.15015pt.
-LaTeX Info: Redefining \. on input line 165.
-LaTeX Info: Redefining \% on input line 165.
+LaTeX Info: Redefining \. on input line 167.
+LaTeX Info: Redefining \% on input line 167.
  [26 <./images/quantum1.png>]
 <images/quantum2.png, id=348, 517.935pt x 94.3525pt>
 File: images/quantum2.png Graphic file (type png)
 <use images/quantum2.png>
-Package pdftex.def Info: images/quantum2.png  used on input line 168.
+Package pdftex.def Info: images/quantum2.png  used on input line 170.
 (pdftex.def)             Requested size: 220.40001pt x 40.15015pt.
 <images/quantum3.png, id=349, 319.1925pt x 94.3525pt>
 File: images/quantum3.png Graphic file (type png)
 <use images/quantum3.png>
-Package pdftex.def Info: images/quantum3.png  used on input line 176.
+Package pdftex.def Info: images/quantum3.png  used on input line 178.
 (pdftex.def)             Requested size: 135.82791pt x 40.15015pt.
 <images/quantum4.png, id=350, 319.1925pt x 203.76125pt>
 File: images/quantum4.png Graphic file (type png)
 <use images/quantum4.png>
-Package pdftex.def Info: images/quantum4.png  used on input line 184.
+Package pdftex.def Info: images/quantum4.png  used on input line 186.
 (pdftex.def)             Requested size: 133.6508pt x 85.31906pt.
-LaTeX Info: Redefining \. on input line 195.
-LaTeX Info: Redefining \% on input line 195.
+LaTeX Info: Redefining \. on input line 197.
+LaTeX Info: Redefining \% on input line 197.
  [27
 
  <./images/quantum2.png> <./images/quantum3.png> <./images/quantum4.png>]
 <images/quantum5.png, id=359, 364.36125pt x 94.3525pt>
 File: images/quantum5.png Graphic file (type png)
 <use images/quantum5.png>
-Package pdftex.def Info: images/quantum5.png  used on input line 201.
+Package pdftex.def Info: images/quantum5.png  used on input line 203.
 (pdftex.def)             Requested size: 155.04884pt x 40.15015pt.
-)
+<images/quantum6v2.png, id=360, 550.055pt x 99.37125pt>
+File: images/quantum6v2.png Graphic file (type png)
+<use images/quantum6v2.png>
+Package pdftex.def Info: images/quantum6v2.png  used on input line 209.
+(pdftex.def)             Requested size: 222.25067pt x 40.15015pt.
+LaTeX Info: Redefining \. on input line 226.
+LaTeX Info: Redefining \% on input line 226.
+ [28 <./images/quantum5.png> <./images/quantum6v2.png>]
+LaTeX Info: Redefining \. on input line 251.
+LaTeX Info: Redefining \% on input line 251.
+ [29])
 LaTeX Info: Redefining \. on input line 139.
 LaTeX Info: Redefining \% on input line 139.
- [28 <./images/quantum5.png>]
+ [30]
 \openout2 = `04SegundaParte.aux'.
 
  (04SegundaParte.tex
 Cap\'{\i }tulo 5.
-) [29
+) [31
 
 
 
@@ -1162,7 +1172,7 @@ Cap\'{\i }tulo 5.
 
 
 No file 05conclusiones.tex.
-[30
+[32
 
 
 
@@ -1175,7 +1185,7 @@ No file 05conclusiones.tex.
 
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 181.
- [31
+ [33
 
 ]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 181.
@@ -1188,16 +1198,16 @@ planteamiento.aux) (02Previos.aux) (03PrimeraParte.aux) (04SegundaParte.aux) (0
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 181.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 181.
 Package rerunfilecheck Info: File `TFGPrincipal.out' has not changed.
-(rerunfilecheck)             Checksum: DE5ADEE8F2047CA8C4C62BA053CFF9D7;1333.
+(rerunfilecheck)             Checksum: D8C6A228E58EBD9515FEFA07281AB978;1330.
 Package rerunfilecheck Info: File `TFGPrincipal.brf' has not changed.
-(rerunfilecheck)             Checksum: F658BA5EEC1AF10D463382977043F643;290.
+(rerunfilecheck)             Checksum: FE0E73C2A23E88D550340EFA608BE10B;352.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 181.
  ) 
 Here is how much of TeX's memory you used:
- 14974 strings out of 492449
- 224534 string characters out of 3129727
- 398742 words of memory out of 3000000
- 18756 multiletter control sequences out of 15000+200000
+ 14986 strings out of 492449
+ 224741 string characters out of 3129727
+ 398774 words of memory out of 3000000
+ 18762 multiletter control sequences out of 15000+200000
  45780 words of font info for 89 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,13n,61p,1028b,608s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1218,9 +1228,9 @@ uler/eusm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbol
 s/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiK
 TeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on TFGPrincipal.pdf (43 pages, 610054 bytes).
+Output written on TFGPrincipal.pdf (45 pages, 623950 bytes).
 PDF statistics:
- 473 PDF objects out of 1000 (max. 8388607)
- 126 named destinations out of 1000 (max. 500000)
- 175 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 488 PDF objects out of 1000 (max. 8388607)
+ 131 named destinations out of 1000 (max. 500000)
+ 180 words of extra memory for PDF output out of 10000 (max. 10000000)
 
