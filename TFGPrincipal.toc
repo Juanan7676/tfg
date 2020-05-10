@@ -15,7 +15,8 @@
 \contentsline {subsection}{\numberline {4.2.1}Bits y qubits}{22}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Puertas cu\'anticas y circuitos cu\'anticos}{25}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}El circuito para encontrar el orden}{29}{subsection.4.2.3}%
-\contentsline {chapter}{\numberline {5}Algoritmos de criptograf\IeC {\'\i }a poscu\'antica}{31}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Criptograf\IeC {\'\i }a basada en funciones hash}{31}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{31}{section.5.2}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{33}{chapter*.8}%
+\contentsline {chapter}{\numberline {5}Algoritmos de criptograf\IeC {\'\i }a poscu\'antica}{35}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Criptograf\IeC {\'\i }a basada en funciones hash}{35}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{35}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Conclusiones}{37}{chapter.6}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{39}{chapter*.9}%

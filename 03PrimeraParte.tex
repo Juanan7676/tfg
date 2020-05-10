@@ -1,7 +1,7 @@
 \def\Z{\mathbb{Z}}
 \def\C{\mathbb{C}}
 \def\R{\mathbb{R}}
-\def\ket#1{| #1 \rangle}
+\def\ket#1{\left| #1 \right\rangle}
 
 \chapter{El algoritmo de Shor}
 
@@ -229,7 +229,8 @@ Puesto que ahora los últimos $b$ qubits son siempre constantes y valen $k$, pode
 La justificación formal de estas ideas intuitivas se apoya en la teoría de operadores de medida (ver \cite{quantuminformation}).
 
 \begin{ejemplo}
-Con la notación anterior, si $\alpha_{ik}=\frac{1}{\sqrt{2^n}}$ para $n$ amplitudes y valen 0 $0$ en las demás, entonces
+\label{ejemplo45}
+Con la notación anterior, si $\alpha_{ik}=\frac{1}{\sqrt{2^n}}$ para $n$ amplitudes y valen $0$ en las demás, entonces
 
 \[ \ket{y} = \frac{\frac{1}{\sqrt{2^n}}\sum_i \ket{i}}{\sqrt{\sum_i \left|\frac{1}{\sqrt{2^n}}\right|^2}} = \frac{\sum_i \ket{i}}{\sqrt{n}} \]
 
@@ -241,9 +242,9 @@ Es decir, el resultado de medir un subconjunto de un conjunto de qubits en estad
 
 \subsection{El circuito para encontrar el orden}
 
-Con estas nociones básicas, finalmente podemos presentar el circuito para resolver el problema de encontrar el orden. Algunos detalles formales se omitirán, por ejemplo, cómo se calcula el orden si resulta que es impar (recordemos que aunque es un caso en el cual no podemos calcular los factores, debemos ser capaces de calcularlo para poder descartarlo y elegir otro elemento).
+Con estas nociones básicas, finalmente podemos presentar el circuito para resolver el problema de encontrar el orden. Con tal de dar una visión general del algoritmo, supondremos que $r$ es una potencia de $2$. El caso general requiere usar un algoritmo de fracciones continuas (ver \cite{quantuminformation}) para poder hallar $r$ en el caso general. El circuito, no obstante, no varía; solo se trata de un paso extra al final del proceso. \\
 
-Para ello, necesitamos dos puertas cuánticas. Una de ellas es la \textit{transformada cuántica de Fourier}. Esta transformación actúa sobre los estados básicos $\ket{0},\cdots,\ket{N-1}$ (por ejemplo, en 2 qubits, $N=4$) de la siguiente forma: para cada $0\leq j \leq N-1$
+Necesitaremos dos puertas cuánticas principalmente, además de la puerta de Hadamard $H^{\otimes n}$ presentada anteriormente. Una de ellas es la \textit{transformada cuántica de Fourier}. Esta transformación actúa sobre los estados básicos $\ket{0},\cdots,\ket{N-1}$ (por ejemplo, en 2 qubits, $N=4$) de la siguiente forma: para cada $0\leq j \leq N-1$
 \[ \ket{j} \mapsto \frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}e^{2\pi ijk/N}\ket{k} \]
 
 La definición de la transformada cuántica de Fourier (abreviadamente, \textit{QFT}, de \textit{Quantum Fourier Transform}) sobre un qubit se extiende por linealidad. Para que sea una puerta cuántica, debe ser un operador unitario.
@@ -276,8 +277,88 @@ La transformada cuántica de Fourier es un operador unitario.
 	
 \end{proof}
 
+La otra puerta cuántica clave en la construcción del circuito es la siguiente. Dada $f : \Z_2^m \to \Z_2^n$ una función clásica, se define el operador $U_f$ definido sobre $m+n$ qubits como:
 
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[height=40px]{images/quantum7.png}
-%\end{figure}
+\[ \ket{x,y} \mapsto \ket{x,y\oplus f(x)} \]
+
+donde $\oplus$ denota la suma en $\Z^2$ bit a bit. Es posible ver que este operador es unitario, y por tanto, es una puerta cuántica válida, para cualquier $f$ (\cite{quantuminformation}). La gran utilidad de esta puerta viene cuando el primer conjunto de qubits, $x$, está en un estado de superposición equiprobable y el segundo, $y$, vale $\ket{0}$:
+
+\[ U_f\left(\frac{1}{\sqrt{2^m}}\sum_{j=0}^{2^m-1} \ket{j,0}\right) = \frac{1}{\sqrt{2^m}}\sum_{j=0}^{2^m-1} \ket{j,0\oplus f(j)} = \frac{1}{\sqrt{2^m}}\sum_{j=0}^{2^m-1} \ket{j,f(j)}  \]
+
+Como podemos ver, la puerta cuántica $U_f$ nos permite hacer $2^m$ evaluaciones simultáneas de $f$, con cada valor en un estado de superposición equiprobable junto con los valores de entrada. Es posible ver que $U_f$ puede ser ejecutada en un tiempo eficiente. Esto no se puede conseguir en general en un ordenador clásico, y es por ello que este algoritmo sólo puede ser ejecutado en un ordenador cuántico. \\
+
+La función que nos interesa en nuestro caso es, dado $N$ el número a factorizar y $a$ un número coprimo con $N$, la función definida para cada $x\in\Z$ por
+\[ f_{a,N}(x) = a^x \mod N \]
+
+Queremos, pues, encontrar el periodo de esta función, es decir, encontrar el menor $r\in\mathbb{N}$ tal que para todo $x\in\Z$,
+\[ f_{a,N}(r+x) = f_{a,N}(x) \]
+
+Esta función devuelve siempre un número menor que $N$, por tanto, necesita $n = \log_2 N$ bits de salida. Para encontrar el periodo con seguridad, es necesario evaluar $f_{a,N}$ para todo $0 \leq x \leq N^2$ (en el peor caso, el periodo es $r=N-1$). Por tanto, necesitaremos $m = \log_2 N^2 = 2\log_2 N = 2n$ qubits de entrada. \\
+
+El circuito que nos permite hallar el orden es el siguiente.
+\eject
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=60px]{images/quantum7.png}
+	\caption{El circuito para encontrar el periodo de la función $f_{a,N}$.}
+\end{figure}
+
+Veamos cómo va evolucionando el sistema tras cada aplicación de cada puerta cuántica.
+\begin{enumerate}
+	\item Comenzamos con los $m$ y $n$ qubits en estado $\ket{0}$, es decir, el estado del sistema es $\ket{0,0}$.
+	\item Aplicamos una puerta Hadamard a los primeros $m$ qubits, obteniendo el estado
+	\[ \left( H^{\otimes m}\ket{0} \right) \otimes \ket{0} = \frac{1}{\sqrt{2^m}}\sum_{j=0}^{2^m-1}\ket{j,0} \]
+	\item Aplicamos ahora el operador $U_{f_{a,N}}$, obteniendo:
+	\[ U_{f_{a,N}}\left( \frac{1}{\sqrt{2^m}}\sum_{j=0}^{2^m-1}\ket{j,0} \right) = \frac{1}{\sqrt{2^m}}\sum_{j=0}^{2^m-1}\ket{j,f_{a,N}(j)} =  \frac{1}{\sqrt{2^m}}\sum_{j=0}^{2^m-1}\ket{j, a^j \text{ mód } N}  \]
+	\item Medimos los últimos $n$ qubits del sistema. Por tanto, mediremos $\alpha = a^{\overline{x}} \text{ mód } N$, para cierto $ 0 \leq \overline{x} \leq N-1$. Sin embargo, como $r$ es el orden del elemento $a$, entonces se verifica que $ a^{\overline{x}+kr} = a^{\overline{x}} \text{ mód } N $ para todo $k\in\Z$. En total, de los $2^m$ valores en los que hemos evaluado $f$, en total habrá
+	
+	\[ \left\lfloor \frac{2^m}{r} \right\rfloor \]
+	
+	valores de $x$ que son iguales a $\alpha$, módulo $N$.
+	
+	Tal y como habíamos anunciado, haremos la asunción que $r$ divide a $2^m$ con el objetivo de simplificar los resultados de aquí en adelante. Por tanto, el número de valores es exactamente $\frac{2^m}{r}$. Siguiendo pues el razonamiento del Ejemplo \ref{ejemplo45}, el estado del sistema será
+	
+	\[ \frac{\displaystyle\sum_{\{ x : a^x = \alpha \text{ mód } N \}} \ket{x,\alpha}}{\sqrt{\frac{2^m}{r}}} \]
+	
+	Por la periodicidad de $f_{a,N}$, podemos reescribir el estado anterior observando que podemos expresar los $\frac{2^m}{r}$ valores como $t_0+kr$ para cierto $t_0\in\Z$ y $k=0,\cdots,\frac{2^m}{r}-1$:
+	
+	\[ \frac{\displaystyle \sum_{k=0}^{\frac{2^m}{r}-1} \ket{t_0+kr,\alpha}}{\sqrt{\frac{2^m}{r}}} \]
+	
+	Los últimos $n$ qubits ya pueden ser descartados puesto que ya han sido medidos, quedándonos los $m$ qubits en el siguiente estado en superposición:
+	
+	\[ \frac{\displaystyle\sum_{k=0}^{\frac{2^m}{r}-1} \ket{t_0+kr}}{\sqrt{\frac{2^m}{r}}} \]
+	
+	\item Aplicamos $QFT$. Denotaremos $A = \frac{1}{\sqrt{\frac{2^m}{r}}}$.
+	
+	\begin{equation} \label{qft}
+	\begin{split}
+	&QFT\left( \frac{\displaystyle\sum_{k=0}^{\frac{2^m}{r}-1} \ket{t_0+kr}}{\sqrt{\frac{2^m}{r}}} \right) = A\sum_{k=0}^{\frac{2^m}{r}-1} \sum_{j=0}^{2^m-1} e^{\frac{2\pi i(t_0+kr)j}{2^m}}\ket{j} = \\ 
+	&= A \sum_{j=0}^{2^m-1} \sum_{k=0}^{\frac{2^m}{r}-1} e^{\frac{2\pi i(t_0+kr)j}{2^m}}\ket{j} = A\sum_{j=0}^{2^m-1} e^{\frac{2\pi it_0 j}{2^m}} \left( \sum_{k=0}^{\frac{2^m}{r}-1} e^{\frac{2\pi ikrj}{2^m}} \right) \ket{j}  
+	\end{split}
+	\end{equation}
+	
+	Veamos cuánto vale el sumatorio entre paréntesis de la expresión \eqref{qft}.
+	\begin{itemize}
+		\item Si $j$ es un múltiplo de $\frac{2^m}{r}$, es decir, $j = \lambda \frac{2^m}{r}$, entonces
+		
+		\[ \sum_{k=0}^{\frac{2^m}{r}-1} e^{\frac{2\pi ikrj}{2^m}} = \sum_{k=0}^{\frac{2^m}{r}-1} e^{\frac{2\pi ikr\lambda\frac{2^m}{r}}{2^m}} = \sum_{k=0}^{\frac{2^m}{r}-1} e^{2\pi i k \lambda} = \sum_{k=0}^{\frac{2^m}{r}-1} 1 = \frac{2^m}{r}  \] \\
+		
+		\item En caso contrario, entonces como $ e^{2\pi i \frac{r}{2^m}j} \neq 1  $ al no cancelarse $\frac{r}{2^m} \notin \Z$:
+		
+		\[ \sum_{k=0}^{\frac{2^m}{r}-1} e^{\frac{2\pi ikrj}{2^m}} = \frac{1- \left(  e^{\frac{2\pi irj}{2^m}} \right)^{\frac{2^m}{r}}}{1-e^{\frac{2\pi irj}{2^m}}} = \frac{1-e^{2\pi ij}}{1-e^{\frac{2\pi irj}{2^m}}} = 0  \]
+	\end{itemize}
+	
+	Por tanto, podemos reescribir \eqref{qft} como
+	
+	\begin{equation} \label{superp} A \sum_{\lambda=0}^{\lfloor r/2^m - 1 \rfloor} \frac{2^m}{r} e^{\frac{2\pi i t_0 \lambda\frac{2^m}{r}}{2^m}} \ket{\lambda\frac{2^m}{r}} = A \sum_{\lambda=0}^{\lfloor r/2^m - 1 \rfloor} \frac{2^m}{r} e^{\frac{2\pi i t_0 \lambda}{r}} \ket{\lambda\frac{2^m}{r}} \end{equation}
+	
+	\item Medimos los $m$ qubits. A partir de la ecuación \eqref{superp} es fácil ver que al medir, obtendremos
+	
+	\[ x = k\frac{2^m}{r} \]
+	
+	Para cierto $k\in\Z $. Entonces,
+	
+	\[ \frac{x}{2^m} = \frac{k}{r} \]
+	
+	El miembro de la derecha de la igualdad es conocido, por tanto, basta reducir esta fracción a su forma irreducible para obtener el valor de $r$, terminando así el algoritmo.
+\end{enumerate}
