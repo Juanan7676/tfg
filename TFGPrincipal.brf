@@ -1,3 +1,9 @@
+\backcite {rsa}{{3}{2.1}{section.2.1}}
+\backcite {dsa}{{3}{2.1}{section.2.1}}
+\backcite {ecdsa}{{3}{2.1}{section.2.1}}
+\backcite {postquantumBernstein}{{4}{2.1}{section.2.1}}
+\backcite {grovertoAES}{{4}{2.1}{section.2.1}}
+\backcite {grovertoMcEliece}{{4}{2.1}{section.2.1}}
 \backcite {afuncional}{{11}{3.1}{Item.21}}
 \backcite {afuncional}{{11}{3.1}{Item.21}}
 \backcite {afuncional}{{12}{3.1}{teorema.3.1}}
@@ -7,3 +13,6 @@
 \backcite {quantuminformation}{{29}{4.2.2}{figure.caption.7}}
 \backcite {quantuminformation}{{29}{4.2.3}{subsection.4.2.3}}
 \backcite {quantuminformation}{{31}{4.2.3}{proposicion.4.3}}
+\backcite {hashfunctions}{{37}{5.1.1}{definicion.5.6}}
+\backcite {sha256security}{{37}{5.1.1}{definicion.5.6}}
+\backcite {sha256collisions}{{37}{5.1.1}{definicion.5.6}}

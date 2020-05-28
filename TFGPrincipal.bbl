@@ -1,4 +1,41 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{rsa}
+R.L. Rivest, A.~Shamir, and L.~Adleman.
+\newblock A method for obtaining digital signatures and public-key
+  cryptosystems.
+\newblock {\em Communications of the ACM}, pages 120--126, 1978.
+
+\bibitem{dsa}
+T.~ElGamal.
+\newblock A public key cryptosystem and a signature scheme based on discrete
+  logarithms.
+\newblock {\em Advances in Cryptology - {CRYPTO '84, LNCS 196}}, pages 10--18,
+  1985.
+
+\bibitem{ecdsa}
+Don Johnson, Alfred Menezes, and Scott Vanstone.
+\newblock The elliptic curve digital signature algorithm {(ECDSA)}.
+\newblock {\em International Journal of Information Security}, 1(1):36--63, Aug
+  2001.
+
+\bibitem{postquantumBernstein}
+Daniel J.~Bernstein and {Johannes Buchmann And {Erik Dahmen}}, editors.
+\newblock {\em Post-Quantum Cryptography}.
+\newblock Springer, 2009.
+
+\bibitem{grovertoAES}
+Markus Grassl, Brandon Langenberg, Martin Roetteler, and Rainer Steinwandt.
+\newblock Applying {Grover's} {Algorithm} to {AES}: {Quantum} {Resource}
+  {Estimates}.
+\newblock In Tsuyoshi Takagi, editor, {\em Post-Quantum Cryptography}, pages
+  29--43, Cham, 2016. Springer International Publishing.
+
+\bibitem{grovertoMcEliece}
+Daniel~J. Bernstein.
+\newblock {Grover} vs. {McEliece}.
+\newblock In Nicolas Sendrier, editor, {\em Post-Quantum Cryptography}, pages
+  73--80, Berlin, Heidelberg, 2010. Springer Berlin Heidelberg.
 
 \bibitem{afuncional}
 A.~Aizpuru Tomás.
@@ -10,10 +47,27 @@ Michael~A. Nielsen and {Isaac L.Chuang}.
 \newblock {\em Quantum Computation and Quantum Information}.
 \newblock Cambridge University Press, 2000.
 
-\bibitem{postquantumBernstein}
-Daniel J.~Bernstein and {Johannes Buchmann And {Erik Dahmen}}, editors.
-\newblock {\em Post-Quantum Cryptography}.
-\newblock Springer, 2009.
+\bibitem{hashfunctions}
+Phillip Rogaway and Thomas Shrimpton.
+\newblock {Cryptographic Hash-Function Basics: Definitions, Implications, and
+  Separations for Preimage Resistance, Second-Preimage Resistance, and
+  Collision Resistance}.
+\newblock In Bimal Roy and Willi Meier, editors, {\em Fast Software
+  Encryption}, pages 371--388, Berlin, Heidelberg, 2004. Springer Berlin
+  Heidelberg.
+
+\bibitem{sha256security}
+Henri Gilbert and Helena Handschuh.
+\newblock {Security Analysis of SHA-256 and Sisters}.
+\newblock In Mitsuru Matsui and Robert~J. Zuccherato, editors, {\em Selected
+  Areas in Cryptography}, pages 175--193, Berlin, Heidelberg, 2004. Springer
+  Berlin Heidelberg.
+
+\bibitem{sha256collisions}
+Xiaoyun Wang, Yiqun~Lisa Yin, and Hongbo Yu.
+\newblock {Finding Collisions in the Full SHA-1}.
+\newblock In Victor Shoup, editor, {\em Advances in Cryptology -- CRYPTO 2005},
+  pages 17--36, Berlin, Heidelberg, 2005. Springer Berlin Heidelberg.
 
 \bibitem{cryptographyTAP}
 Douglas~R. Stinson.

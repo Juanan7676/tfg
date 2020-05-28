@@ -41,5 +41,114 @@
 	title = {Finite-Dimensional Vector Spaces},
 	publisher = {Springer},
 	year = {1916},
-	
 }
+
+@article{rsa,
+	author = {R.L. Rivest And A. Shamir And L. Adleman},
+	title = {A Method for Obtaining Digital Signatures and Public-Key Cryptosystems},
+	journal = {Communications of the ACM},
+	year = {1978},
+	series = {21(2)},
+	pages = {120-126}
+}
+
+@article{dsa,
+	author = {ElGamal, T.},
+	title = {A Public Key Cryptosystem and a Signature Scheme Based on Discrete Logarithms.},
+	journal = {Advances in Cryptology - {CRYPTO '84, LNCS 196}},
+	publisher = {Springer},
+	year = {1985},
+	pages = {10-18}
+}
+
+@Article{ecdsa,
+	author={Johnson, Don
+	and Menezes, Alfred
+	and Vanstone, Scott},
+	title={The Elliptic Curve Digital Signature Algorithm {(ECDSA)}},
+	journal={International Journal of Information Security},
+	year={2001},
+	month={Aug},
+	day={01},
+	volume={1},
+	number={1},
+	pages={36-63},
+	issn={1615-5262},
+	doi={10.1007/s102070100002},
+	url={https://doi.org/10.1007/s102070100002}
+}
+
+@InProceedings{grovertoAES,
+	author="Grassl, Markus
+	and Langenberg, Brandon
+	and Roetteler, Martin
+	and Steinwandt, Rainer",
+	editor="Takagi, Tsuyoshi",
+	title="Applying {Grover's} {Algorithm} to {AES}: {Quantum} {Resource} {Estimates}",
+	booktitle="Post-Quantum Cryptography",
+	year="2016",
+	publisher="Springer International Publishing",
+	address="Cham",
+	pages="29--43",
+	abstract="We present quantum circuits to implement an exhaustive key search for the Advanced Encryption Standard (AES) and analyze the quantum resources required to carry out such an attack. We consider the overall circuit size, the number of qubits, and the circuit depth as measures for the cost of the presented quantum algorithms. Throughout, we focus on Clifford{\$}{\$}+T{\$}{\$}gates as the underlying fault-tolerant logical quantum gate set. In particular, for all three variants of AES (key size 128, 192, and 256Â bit) that are standardized in FIPS-PUB 197, we establish precise bounds for the number of qubits and the number of elementary logical quantum gates that are needed to implement Grover's quantum algorithm to extract the key from a small number of AES plaintext-ciphertext pairs.",
+	isbn="978-3-319-29360-8"
+}
+
+@InProceedings{grovertoMcEliece,
+	author="Daniel J. Bernstein",
+	editor="Sendrier, Nicolas",
+	title="{Grover} vs. {McEliece}",
+	booktitle="Post-Quantum Cryptography",
+	year="2010",
+	publisher="Springer Berlin Heidelberg",
+	address="Berlin, Heidelberg",
+	pages="73--80",
+	abstract="This paper shows that quantum information-set-decoding attacks are asymptotically much faster than non-quantum information-set-decoding attacks.",
+	isbn="978-3-642-12929-2"
+}
+
+@InProceedings{hashfunctions,
+	author="Rogaway, Phillip
+	and Shrimpton, Thomas",
+	editor="Roy, Bimal
+	and Meier, Willi",
+	title="{Cryptographic Hash-Function Basics: Definitions, Implications, and Separations for Preimage Resistance, Second-Preimage Resistance, and Collision Resistance}",
+	booktitle="Fast Software Encryption",
+	year="2004",
+	publisher="Springer Berlin Heidelberg",
+	address="Berlin, Heidelberg",
+	pages="371--388",
+	abstract="We consider basic notions of security for cryptographic hash functions: collision resistance, preimage resistance, and second-preimage resistance. We give seven different definitions that correspond to these three underlying ideas, and then we work out all of the implications and separations among these seven definitions within the concrete-security, provable-security framework. Because our results are concrete, we can show two types of implications, conventional and provisional, where the strength of the latter depends on the amount of compression achieved by the hash function. We also distinguish two types of separations, conditional and unconditional. When constructing counterexamples for our separations, we are careful to preserve specified hash-function domains and ranges; this rules out some pathological counterexamples and makes the separations more meaningful in practice. Four of our definitions are standard while three appear to be new; some of our relations and separations have appeared, others have not. Here we give a modern treatment that acts to catalog, in one place and with carefully-considered nomenclature, the most basic security notions for cryptographic hash functions.",
+	isbn="978-3-540-25937-4"
+}
+
+@InProceedings{sha256security,
+	author="Gilbert, Henri
+	and Handschuh, Helena",
+	editor="Matsui, Mitsuru
+	and Zuccherato, Robert J.",
+	title="{Security Analysis of SHA-256 and Sisters}",
+	booktitle="Selected Areas in Cryptography",
+	year="2004",
+	publisher="Springer Berlin Heidelberg",
+	address="Berlin, Heidelberg",
+	pages="175--193",
+	abstract="This paper studies the security of SHA-256, SHA-384 and SHA-512 against collision attacks and provides some insight into the security properties of the basic building blocks of the structure. It is concluded that neither Chabaud and Joux's attack, nor Dobbertin-style attacks apply. Differential and linear attacks also don't apply on the underlying structure. However we show that slightly simplified versions of the hash functions are surprisingly weak : whenever symmetric constants and initialization values are used throughout the computations, and modular additions are replaced by exclusive or operations, symmetric messages hash to symmetric digests. Therefore the complexity of collision search on these modified hash functions potentially becomes as low as one wishes.",
+	isbn="978-3-540-24654-1"
+}
+
+@InProceedings{sha256collisions,
+	author="Wang, Xiaoyun
+	and Yin, Yiqun Lisa
+	and Yu, Hongbo",
+	editor="Shoup, Victor",
+	title="{Finding Collisions in the Full SHA-1}",
+	booktitle="Advances in Cryptology -- CRYPTO 2005",
+	year="2005",
+	publisher="Springer Berlin Heidelberg",
+	address="Berlin, Heidelberg",
+	pages="17--36",
+	abstract="In this paper, we present new collision search attacks on the hash function SHA-1. We show that collisions of SHA-1 can be found with complexity less than 269 hash operations. This is the first attack on the full 80-step SHA-1 with complexity less than the 280 theoretical bound.",
+	isbn="978-3-540-31870-5"
+}
+

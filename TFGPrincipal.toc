@@ -16,7 +16,11 @@
 \contentsline {subsection}{\numberline {4.2.2}Puertas cu\'anticas y circuitos cu\'anticos}{25}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}El circuito para encontrar el orden}{29}{subsection.4.2.3}%
 \contentsline {chapter}{\numberline {5}Algoritmos de criptograf\IeC {\'\i }a poscu\'antica}{35}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Criptograf\IeC {\'\i }a basada en funciones hash}{35}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{35}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Conclusiones}{37}{chapter.6}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{39}{chapter*.9}%
+\contentsline {section}{\numberline {5.1}Criptograf\IeC {\'\i }a basada en funciones hash}{36}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Introducci\'on a las funciones hash}{36}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Un esquema de firma: el esquema de un solo uso de Lamport-Diffie (LD-OTS)}{38}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{40}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Conclusiones}{41}{chapter.6}%
+\contentsline {chapter}{\numberline {A}Productos tensoriales}{43}{appendix.A}%
+\contentsline {chapter}{\numberline {B}C\'odigo de los programas}{45}{appendix.B}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{47}{appendix*.10}%

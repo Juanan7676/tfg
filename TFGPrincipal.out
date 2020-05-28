@@ -14,6 +14,10 @@
 \BOOKMARK [2][]{subsection.4.2.3}{4.2.3 El circuito para encontrar el orden}{section.4.2}% 14
 \BOOKMARK [0][]{chapter.5}{5 Algoritmos de criptograf\355a poscu\341ntica}{}% 15
 \BOOKMARK [1][]{section.5.1}{5.1 Criptograf\355a basada en funciones hash}{chapter.5}% 16
-\BOOKMARK [1][]{section.5.2}{5.2 Criptograf\355a basada en c\363digos}{chapter.5}% 17
-\BOOKMARK [0][]{chapter.6}{6 Conclusiones}{}% 18
-\BOOKMARK [0][]{chapter*.9}{Bibliograf\355a}{}% 19
+\BOOKMARK [2][]{subsection.5.1.1}{5.1.1 Introducci\363n a las funciones hash}{section.5.1}% 17
+\BOOKMARK [2][]{subsection.5.1.2}{5.1.2 Un esquema de firma: el esquema de un solo uso de Lamport-Diffie \(LD-OTS\)}{section.5.1}% 18
+\BOOKMARK [1][]{section.5.2}{5.2 Criptograf\355a basada en c\363digos}{chapter.5}% 19
+\BOOKMARK [0][]{chapter.6}{6 Conclusiones}{}% 20
+\BOOKMARK [0][]{appendix.A}{A Productos tensoriales}{}% 21
+\BOOKMARK [0][]{appendix.B}{B C\363digo de los programas}{}% 22
+\BOOKMARK [0][]{appendix*.10}{Bibliograf\355a}{}% 23
