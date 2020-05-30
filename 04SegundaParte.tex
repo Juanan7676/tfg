@@ -1,4 +1,5 @@
 
+
 \chapter{Algoritmos de criptografía poscuántica}
 \label{cha:segunda}
 
@@ -98,7 +99,7 @@ La seguridad de este esquema radica en la resistencia a la preimagen y las carac
 	\item Firmar con $\sigma = (x_j)_{j=0,\dots,n-1}$.
 \end{enumerate}
 
-Para aquellos $j$ en los que $d_j=d_j'$, Óscar puede elegir $x_j := \sigma_j$ de la firma del documento $M$ que Alice proporcionó. Pero para los otros casos, la propiedad de resistencia a la preimagen de $f$ hace que para Óscar sea computacionalmente infactible hallar dichos elementos. Por tanto, su única opción sería encontrar $M'$ tal que $H(M)=H(M')$, de manera que $d_j=d_j'$ para todo $j=0,\dots,n-1$. Pero la propiedad de resistencia a la segunda preimagen de $H$ hace que hallar dicho $M'$ sea computacionalmente infactible para Óscar. \\
+Para aquellos $j$ en los que $d_j=d_j'$, Óscar puede elegir $x_j := \sigma_j$ de la firma del documento $M$ que Alice proporcionó. Pero para los otros casos, la propiedad de resistencia a la preimagen de $f$ hace que para Óscar sea computacionalmente infactible hallar dichos elementos. Por tanto, su única opción\footnote{Esta idea intuitiva ha de probarse formalmente. En la última parte de esta sección, probaremos que si existe un ataque contra este sistema, entonces podremos construir un algoritmo que encuentre colisiones de $H$. Por tanto, este sistema será seguro si la función hash subyacente es segura.} sería encontrar $M'$ tal que $H(M)=H(M')$, de manera que $d_j=d_j'$ para todo $j=0,\dots,n-1$. Pero la propiedad de resistencia a la segunda preimagen de $H$ hace que hallar dicho $M'$ sea computacionalmente infactible para Óscar. \\
 
 Mediante este ejemplo es sencillo ver por qué este esquema solo debe usarse una vez para cada par de claves. Si Alice emitiera dos documentos firmados $(M,\sigma)$ y $(M',\sigma')$ distintos con el mismo par de claves privada y pública $(X,Y)$, entonces se harían públicos
 \[ \sigma = ( x_{n-1}[d_{n-1}], \dots, x_1[d_1],x_0[d_0] ) \]
@@ -108,7 +109,105 @@ Entonces, ahora Óscar podría generar firmas de documentos cuyos hashes fuesen co
 \[H(M'') = (d_{n-1},d_{n-2}',\dots,d_3',d_2,d_1',d_0) \] 
 De hecho, si resultase que $d_j \neq d_j'$ para todo $j$, Óscar conocería la clave privada $X$ completa y podría firmar cualquier documento.
 
+\subsection{Experimento computacional: rompiendo el sistema LD-OTS con 2 firmas}
 
+En este experimento, veremos cómo se puede atacar el sistema si Alice, en contra del protocolo, firma dos documentos diferentes con el mismo par de claves $(X,Y)$. Haremos una comparación entre un ataque de fuerza bruta y un ataque específico cuando se tienen dos firmas con una misma clave. \\
+
+Supongamos, en primer lugar, que un atacante Óscar recibe un documento firmado $(M,\sigma)$ de Alice con una clave pública $Y$, y quiere emitir otro documento firmado $(M',\sigma')$ usando su clave pública. El algoritmo de búsqueda por fuerza bruta que ejecutaría Óscar sería el siguiente:
+
+\balgoritmo
+Búsqueda por fuerza bruta \\
+
+\noindent
+\textbf{Entrada:} Un conjunto de documentos posibles $S$, una clave pública $X$ y un documento firmado $(M,\sigma)$ tal que $M \notin S$. \\
+\textbf{Salida:} Un documento firmado $(M',\sigma')$ con $M'\in S$, o \textit{error}. \\
+\setlist{nolistsep}
+\begin{enumerate}[noitemsep]
+	\item Calcular $d := H(M)$.
+	\item Para cada $M' \in S$ hacer:
+	\begin{enumerate}
+		\item Calcular $d' := H(M')$.
+		\item \textbf{Si} $ d = d' $, \textbf{entonces devolver} $(M',\sigma)$.
+	\end{enumerate}
+	\item \textbf{Devolver} \textit{error}.
+\end{enumerate}
+\ealgoritmo
+
+Evidentemente, cuanto más grande sea el conjunto $S$ de mensajes posibles, más probable es que el algoritmo dé con un documento firmado. Por contrario, cuanto más grande sea el parámetro $n$ del sistema de firma, menos probable es dar con un elemento cuyo hash coincida con el documento firmado original. \\
+
+En la siguiente tabla se recogen la cantidad de documentos probados antes de dar con un documento firmado con la misma firma que el original para cada valor de $n$. Los detalles de la implementación en Python se pueden consultar en el último apéndice de este trabajo; para las funciones $f$ y $H$ se ha usado la función \textit{SHA-256} truncada a los primeros $n$ bits deseados en cada caso.
+
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{|c|c|c|}
+	\hline
+	$n$ & Número de documentos & Tiempo \\
+	\hline
+	8 & $64$ & $0.0021$ segundos \\
+	\hline
+	16 & $10.350$ & $0.1206$ segundos \\
+	\hline
+	24\tnote{1} & $>30.233.088$ & $ >6.1 $ minutos \\
+	\hline
+	32\tnote{1} & $>30.233.088$ & $ >6.1 $ minutos \\
+	\hline
+	
+\end{tabular}
+\begin{tablenotes}
+	\item[1] El algoritmo no fue capaz de producir un documento firmado falsificado.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+
+Como podemos ver, la complejidad del problema escala extremadamente rápido conforme aumenta el valor de $n$. Sin embargo, si Alice firmase dos documentos distintos, entonces Óscar podría abordar este problema de manera ligeramente distinta, pues no solo le valdría encontrar un documento cuyo hash sea el de alguno de los dos documentos que ha firmado Alice; podría hacer combinaciones de ellos.
+
+\balgoritmo
+Búsqueda con dos documentos firmados \\
+
+\noindent
+\textbf{Entrada:} Un conjunto de documentos posibles $S$, una clave pública $X$ y dos documentos firmados $(M,\sigma),(M',\sigma')$ con $M\neq M'$, tales que $M,M'\notin S$. \\
+\textbf{Salida:} Un documento firmado $(M'',\sigma'')$ con $M''\in S$, o \textit{error}. \\
+\setlist{nolistsep}
+\begin{enumerate}[noitemsep]
+	\item Calcular $d := H(M)$ y $d' := H(M')$.
+	\item Para cada $M'' \in S$ hacer:
+	\begin{enumerate}
+		\item Calcular $d'' := H(M')$.
+		\item Poner $\sigma'' := ()$ (una lista vacía).
+		\item Para cada $j=0,\dots,n-1$ hacer:
+		\begin{enumerate}
+			\item \textbf{Si} $d''_j = d_j$, \textbf{entonces} poner $\sigma''_j = \sigma_j$.
+			\item \textbf{Si no, si} $d''_j = d'_j$, \textbf{entonces} poner $\sigma''_j = \sigma'_j$.
+			\item \textbf{Si no}, \textbf{volver al paso 2}.
+		\end{enumerate}
+		\item \textbf{Devolver} $(M'',\sigma'')$.
+	\end{enumerate}
+	\item \textbf{Devolver} \textit{error}.
+\end{enumerate}
+\ealgoritmo
+
+En la siguiente tabla se recogen los resultados de aplicar este algoritmo para distintos valores de $n$, con las mismas claves que se usaron en el caso anterior.
+
+\begin{center}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			$n$ & Número de documentos & Tiempo \\
+			\hline
+			8 & $17$ & $0.000986$ segundos \\
+			\hline
+			16 & $1.679$ & $0.0229$ segundos \\
+			\hline
+			24 & $12.071$ & $0.1556$ segundos \\
+			\hline
+			32 & $38.320$ & $ 0.5392 $ segundos \\
+			\hline
+			
+		\end{tabular}
+\end{center}
+
+Como vemos, este ataque comparado con la búsqueda por fuerza bruta es sumamente efectivo. Por ello, se dice que esta firma es de \textit{un solo uso}.
+
+\subsection{Seguridad del esquema LD-OTS}
 
 \section{Criptografía basada en códigos}
 

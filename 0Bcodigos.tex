@@ -1,1 +1,113 @@
 \chapter{Código de los programas}
+
+\section{Implementación de la firma LD-OTS en Python}
+
+\begin{lstlisting}[language=Python]
+class LDOTS:
+    # Inicializa la clase. Especificar el numero de bits que devuelve la funcion hash y la funcion de ida (n), la funcion
+    # hash y la funcion de ida correspondientes y si queremos verificar usando una clave publica, se pasa como ultimo parametro.
+    def __init__(self, n, hash_f, ow_f, pubK = None):
+        self.n = n
+        self.hash_f = hash_f
+        self.ow_f = ow_f
+        
+        if pubK:
+            self.pubK = pubK
+            self.privK = None
+    
+    # Genera un par de claves aleatorias criptograficamente seguras
+    def generate_keys(self):
+        self.privK = [ ( secrets.randbits(self.n).to_bytes(self.n//8,'big'),secrets.randbits(self.n).to_bytes(self.n//8,'big')) for k in range(self.n) ]
+        self.pubK = [ (self.ow_f(k[0]),self.ow_f(k[1])) for k in self.privK ]
+    
+    # Exporta las claves en los dos ficheros indicados
+    def export_keys(self, pubName, privName):
+        pubFile = open(pubName+".PUK","wb")
+        pubFile.write(pickle.dumps(self.pubK))
+        pubFile.close()
+        
+        privFile = open(privName+".PRK","wb")
+        privFile.write(pickle.dumps(self.privK))
+        privFile.close()
+    
+    # Importa la clave publica del fichero especificado 
+    def import_pubK(self,name):
+        file = open(name,"rb")
+        self.pubK = pickle.loads(file.read())
+        file.close()
+    
+    # Importa la clave privada del fichero especificado
+    def import_privK(self,name):
+        file = open(name,"rb")
+        self.privK = pickle.loads(file.read())
+        file.close()
+    
+    # Importa las dos claves del fichero especificado
+    def import_keys(self,public,private):
+        self.import_pubK(public)
+        self.import_privK(private)
+    
+    # Firma el mensaje especificado. El valor devuelto puede pasarse directamente al metodo verify(). Es necesario contar con la clave privada para usar este metodo.
+    def sign(self,msg):
+        if self.privK:
+            d = bytestobits(self.hash_f(msg))
+            return [ self.privK[j][d[j]] for j in range(self.n) ]
+        else:
+            raise Exception("No hay clave privada; use generate_keys() para generar un par de claves!")
+    
+    # Devuelve True si el mensaje es autentico, False si no lo es. Es necesario haber inicializado esta clase con la clave publica del emisor.
+    def verify(self,msg,signature):
+        if self.pubK:
+            d = bytestobits(self.hash_f(msg))
+            
+            for j in range(self.n):
+                if self.ow_f(signature[j]) != self.pubK[j][d[j]]: return False
+            
+            return True
+        else:
+            raise Exception("No hay clave publica!")
+\end{lstlisting}
+
+\section{Algoritmo de búsqueda por fuerza bruta}
+\begin{lstlisting}[language=Python]
+start = time.time() # Para medir el tiempo de ejecucion
+
+k=1
+for msg in msgGen.iterator(): # msgGen es el generador de mensajes
+    digest = lamport.bytestobits(sha256(msg.encode('utf-8')))
+    if (digest == dig1):
+        print("Documento falsificado!")
+        print(msg)
+        print("Comprobacion: " + str(l.verify(msg.encode('utf-8'),sig1)))
+        break
+    k += 1
+
+print(str(k)+" documentos probados.")
+print("%s segundos" % (time.time() - start))
+\end{lstlisting}
+
+\section{Algoritmo de búsqueda con 2 firmas}
+\begin{lstlisting}[language=Python]
+start = time.time() # Para medir el tiempo de ejecucion
+
+k=1
+for msg in msgGen.iterator(): # msgGen es el generador de mensajes
+    digest = lamport.bytestobits(sha256(msg.encode('utf-8')))
+    mysig = []
+    for k in range(len(digest)):
+        if digest[k]==dig1[k]:
+            mysig.append(sig1[k])
+        elif digest[k]==dig2[k]:
+            mysig.append(sig2[k])
+        else:
+            break
+    if len(mysig)==len(sig1):
+        print("Documento falsificado!")
+        print(msg)
+        print("Comprobacion: " + str(l.verify(msg.encode('utf-8'),mysig)))
+        break
+    cont += 1
+
+print(str(cont)+" documentos probados.")
+print("%s segundos" % (time.time() - start))
+\end{lstlisting}

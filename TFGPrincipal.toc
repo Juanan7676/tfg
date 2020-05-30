@@ -19,8 +19,13 @@
 \contentsline {section}{\numberline {5.1}Criptograf\IeC {\'\i }a basada en funciones hash}{36}{section.5.1}%
 \contentsline {subsection}{\numberline {5.1.1}Introducci\'on a las funciones hash}{36}{subsection.5.1.1}%
 \contentsline {subsection}{\numberline {5.1.2}Un esquema de firma: el esquema de un solo uso de Lamport-Diffie (LD-OTS)}{38}{subsection.5.1.2}%
-\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{40}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Conclusiones}{41}{chapter.6}%
-\contentsline {chapter}{\numberline {A}Productos tensoriales}{43}{appendix.A}%
-\contentsline {chapter}{\numberline {B}C\'odigo de los programas}{45}{appendix.B}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{47}{appendix*.10}%
+\contentsline {subsection}{\numberline {5.1.3}Experimento computacional: rompiendo el sistema LD-OTS con 2 firmas}{41}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Seguridad del esquema LD-OTS}{43}{subsection.5.1.4}%
+\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{43}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Conclusiones}{45}{chapter.6}%
+\contentsline {chapter}{\numberline {A}Productos tensoriales}{47}{appendix.A}%
+\contentsline {chapter}{\numberline {B}C\'odigo de los programas}{49}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Implementaci\'on de la firma LD-OTS en Python}{49}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Algoritmo de b\'usqueda por fuerza bruta}{51}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Algoritmo de b\'usqueda con 2 firmas}{51}{section.B.3}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{53}{appendix*.11}%
