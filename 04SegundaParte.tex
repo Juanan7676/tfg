@@ -116,6 +116,7 @@ En este experimento, veremos cómo se puede atacar el sistema si Alice, en contra
 Supongamos, en primer lugar, que un atacante Óscar recibe un documento firmado $(M,\sigma)$ de Alice con una clave pública $Y$, y quiere emitir otro documento firmado $(M',\sigma')$ usando su clave pública. El algoritmo de búsqueda por fuerza bruta que ejecutaría Óscar sería el siguiente:
 
 \balgoritmo
+\label{algfuerzabruta}
 Búsqueda por fuerza bruta \\
 
 \noindent
@@ -162,6 +163,7 @@ En la siguiente tabla se recogen la cantidad de documentos probados antes de dar
 Como podemos ver, la complejidad del problema escala extremadamente rápido conforme aumenta el valor de $n$. Sin embargo, si Alice firmase dos documentos distintos, entonces Óscar podría abordar este problema de manera ligeramente distinta, pues no solo le valdría encontrar un documento cuyo hash sea el de alguno de los dos documentos que ha firmado Alice; podría hacer combinaciones de ellos.
 
 \balgoritmo
+\label{alg2doc}
 Búsqueda con dos documentos firmados \\
 
 \noindent
@@ -208,6 +210,22 @@ En la siguiente tabla se recogen los resultados de aplicar este algoritmo para d
 Como vemos, este ataque comparado con la búsqueda por fuerza bruta es sumamente efectivo. Por ello, se dice que esta firma es de \textit{un solo uso}.
 
 \subsection{Seguridad del esquema LD-OTS}
+
+En esta sección, como ya adelantamos, veremos que el esquema de firma $LD-OTS$ es, al menos, tan seguro como la función hash utilizada: esto es, veremos que si existe un ataque que rompe el sistema $LD-OTS$, entonces podremos construir un algoritmo que encuentra colisiones de la función hash correspondiente. Antes de ello, necesitamos precisar el concepto de \textit{resistencia a la colisión} de una función hash un poco más \cite{hashfunctions}.
+
+\bdefinicion
+ Sea $S$ un conjunto. Denotamos $ x \xleftarrow{\$} S $ a un elemento $x \in S$ escogido aleatoriamente con una distribución uniforme. \\
+ 
+ Por contrario, dado $x \in S$, denotamos $y \leftarrow x$ al proceso de definir $y := x$.
+\edefinicion
+\bdefinicion
+Un \textit{adversario}, denotado $\textsc{Adv}$, es cualquier algoritmo probabilístico con cualquier número de entradas.
+\edefinicion
+Por ejemplo, los Algoritmos \ref{algfuerzabruta} y \ref{alg2doc} presentados en la sección anterior son ejemplos de adversarios, que podríamos haber denotado $ \textsc{Adv}_{Bruta} $ y $ \textsc{Adv}_{2documentos} $, por ejemplo.
+\bdefinicion
+Sea $\mathcal{G}=(\mathcal{X},\mathcal{Y},\mathcal{K},\mathcal{H})$ una familia de funciones hash, y sean $t,\varepsilon > 0$. Se dice que la familia $\mathcal{G}$ es $(t,\varepsilon)$ \textit{resistente a la colisión} si para todo adversario \[\textsc{Adv} : \mathcal{K} \to \left( \mathcal{X} \times \mathcal{X} \right) \cup \{ error \} \] que dado $K\in \mathcal{K}$, devuelve $x,x'\in\mathcal{X}$ tales que $x\neq x'$ y $h_K(x)=h_K(x')$ o \textit{error} y que puede ejecutarse en tiempo $t$, verifica que
+\[ Pr\left[ k \xleftarrow{\$} \mathcal{K},(x,x') \xleftarrow{\$} \textsc{Adv}(k) : x \neq x' \wedge g_k(x) = g_k(x') \right] \leq \varepsilon \]
+\edefinicion
 
 \section{Criptografía basada en códigos}
 

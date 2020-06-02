@@ -21,11 +21,10 @@
 \contentsline {subsection}{\numberline {5.1.2}Un esquema de firma: el esquema de un solo uso de Lamport-Diffie (LD-OTS)}{38}{subsection.5.1.2}%
 \contentsline {subsection}{\numberline {5.1.3}Experimento computacional: rompiendo el sistema LD-OTS con 2 firmas}{41}{subsection.5.1.3}%
 \contentsline {subsection}{\numberline {5.1.4}Seguridad del esquema LD-OTS}{43}{subsection.5.1.4}%
-\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{43}{section.5.2}%
+\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{44}{section.5.2}%
 \contentsline {chapter}{\numberline {6}Conclusiones}{45}{chapter.6}%
-\contentsline {chapter}{\numberline {A}Productos tensoriales}{47}{appendix.A}%
-\contentsline {chapter}{\numberline {B}C\'odigo de los programas}{49}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Implementaci\'on de la firma LD-OTS en Python}{49}{section.B.1}%
-\contentsline {section}{\numberline {B.2}Algoritmo de b\'usqueda por fuerza bruta}{51}{section.B.2}%
-\contentsline {section}{\numberline {B.3}Algoritmo de b\'usqueda con 2 firmas}{51}{section.B.3}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{53}{appendix*.11}%
+\contentsline {chapter}{\numberline {A}C\'odigo de los programas}{47}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Implementaci\'on de la firma LD-OTS en Python}{47}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Algoritmo de b\'usqueda por fuerza bruta}{49}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Algoritmo de b\'usqueda con 2 firmas}{49}{section.A.3}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{51}{appendix*.11}%
