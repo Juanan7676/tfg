@@ -21,10 +21,12 @@
 \contentsline {subsection}{\numberline {5.1.2}Un esquema de firma: el esquema de un solo uso de Lamport-Diffie (LD-OTS)}{38}{subsection.5.1.2}%
 \contentsline {subsection}{\numberline {5.1.3}Experimento computacional: rompiendo el sistema LD-OTS con 2 firmas}{41}{subsection.5.1.3}%
 \contentsline {subsection}{\numberline {5.1.4}Seguridad del esquema LD-OTS}{43}{subsection.5.1.4}%
-\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{44}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Conclusiones}{45}{chapter.6}%
-\contentsline {chapter}{\numberline {A}C\'odigo de los programas}{47}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Implementaci\'on de la firma LD-OTS en Python}{47}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Algoritmo de b\'usqueda por fuerza bruta}{49}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Algoritmo de b\'usqueda con 2 firmas}{49}{section.A.3}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{51}{appendix*.11}%
+\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{47}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Introducci\'on a los c\'odigos Goppa}{47}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Un criptosistema: el sistema de McEliece}{50}{subsection.5.2.2}%
+\contentsline {chapter}{\numberline {6}Conclusiones}{53}{chapter.6}%
+\contentsline {chapter}{\numberline {A}C\'odigo de los programas}{55}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Implementaci\'on de la firma LD-OTS en Python}{55}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Algoritmo de b\'usqueda por fuerza bruta}{57}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Algoritmo de b\'usqueda con 2 firmas}{57}{section.A.3}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{59}{appendix*.11}%

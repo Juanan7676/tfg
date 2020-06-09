@@ -1,4 +1,6 @@
-
+\def\mc#1{\mathcal{#1}}
+\def\sc#1{\textsc{#1}}
+\def\F{\mathbb{F}}
 
 \chapter{Algoritmos de criptografía poscuántica}
 \label{cha:segunda}
@@ -40,6 +42,7 @@ La mayor parte de las funciones hash utilizadas no utilizan una clave $K \in \ma
 En lo que sigue, trabajaremos con una función hash $h$ sin clave. Como hemos adelantado, nos interesa que $h$ verifique que sólo sea posible calcular una pareja válida $(x,y)$ conociendo $x$ de antemano. Más formalmente, nos interesa que sea difícil resolver estos problemas para $h$:
 
 \bdefinicion
+\label{preimage}
 	Sea $h : \mathcal{X} \to \mathcal{Y}$ una función hash sin clave. Se dice que $h$ es \textit{resistente a la preimagen} si es difícil resolver el siguiente problema: dado $y \in \mathcal{Y}$, encontrar $x\in \mathcal{X}$ tal que $h(x) = y$.
 \edefinicion
 
@@ -62,6 +65,7 @@ Hay funciones que cumplen con estos criterios, es decir, que no se han encontrad
 Presentamos en esta sección el esquema de firma de un solo uso de Lamport-Diffie (LD-OTS). La seguridad de este esquema depende de la propiedad de resistencia a la segunda preimagen de la función hash utilizada. Además, necesita una función resistente a la preimagen. En caso de que la función hash utilizada posea también esta propiedad, es posible usar la misma función en las dos partes del algoritmo.
 
 \begin{framed}
+\label{ldots}
 	\begin{center}
 	\textbf{Esquema de firma de Lamport-Diffie} \\
 	\end{center}
@@ -99,7 +103,7 @@ La seguridad de este esquema radica en la resistencia a la preimagen y las carac
 	\item Firmar con $\sigma = (x_j)_{j=0,\dots,n-1}$.
 \end{enumerate}
 
-Para aquellos $j$ en los que $d_j=d_j'$, Óscar puede elegir $x_j := \sigma_j$ de la firma del documento $M$ que Alice proporcionó. Pero para los otros casos, la propiedad de resistencia a la preimagen de $f$ hace que para Óscar sea computacionalmente infactible hallar dichos elementos. Por tanto, su única opción\footnote{Esta idea intuitiva ha de probarse formalmente. En la última parte de esta sección, probaremos que si existe un ataque contra este sistema, entonces podremos construir un algoritmo que encuentre colisiones de $H$. Por tanto, este sistema será seguro si la función hash subyacente es segura.} sería encontrar $M'$ tal que $H(M)=H(M')$, de manera que $d_j=d_j'$ para todo $j=0,\dots,n-1$. Pero la propiedad de resistencia a la segunda preimagen de $H$ hace que hallar dicho $M'$ sea computacionalmente infactible para Óscar. \\
+Para aquellos $j$ en los que $d_j=d_j'$, Óscar puede elegir $x_j := \sigma_j$ de la firma del documento $M$ que Alice proporcionó. Pero para los otros casos, la propiedad de resistencia a la preimagen de $f$ hace que para Óscar sea computacionalmente infactible hallar dichos elementos. Por tanto, su única opción sería encontrar $M'$ tal que $H(M)=H(M')$, de manera que $d_j=d_j'$ para todo $j=0,\dots,n-1$. Pero la propiedad de resistencia a la segunda preimagen de $H$ hace que hallar dicho $M'$ sea computacionalmente infactible para Óscar.\footnote{Estas ideas intuitivas han de probarse formalmente. En la última parte de esta sección, probaremos que si existe un ataque contra este sistema, entonces podremos construir un algoritmo que encuentre preimágenes de $f$. Por tanto, este sistema será seguro si la función $f$ subyacente es segura.} \\
 
 Mediante este ejemplo es sencillo ver por qué este esquema solo debe usarse una vez para cada par de claves. Si Alice emitiera dos documentos firmados $(M,\sigma)$ y $(M',\sigma')$ distintos con el mismo par de claves privada y pública $(X,Y)$, entonces se harían públicos
 \[ \sigma = ( x_{n-1}[d_{n-1}], \dots, x_1[d_1],x_0[d_0] ) \]
@@ -211,7 +215,7 @@ Como vemos, este ataque comparado con la búsqueda por fuerza bruta es sumamente 
 
 \subsection{Seguridad del esquema LD-OTS}
 
-En esta sección, como ya adelantamos, veremos que el esquema de firma $LD-OTS$ es, al menos, tan seguro como la función hash utilizada: esto es, veremos que si existe un ataque que rompe el sistema $LD-OTS$, entonces podremos construir un algoritmo que encuentra colisiones de la función hash correspondiente. Antes de ello, necesitamos precisar el concepto de \textit{resistencia a la colisión} de una función hash un poco más \cite{hashfunctions}.
+En esta sección, como ya adelantamos, veremos que el esquema de firma LD-OTS es, al menos, tan seguro como la función resistente a la preimagen utilizada: podremos dar un resultado de irrompibilidad del sistema LD-OTS suponiendo que la función $f$ del esquema cumple ciertas propiedades. Para ello, necesitamos precisar el concepto de \textit{resistencia a la preimagen} de una función hash un poco más \cite{hashfunctions}.
 
 \bdefinicion
  Sea $S$ un conjunto. Denotamos $ x \xleftarrow{\$} S $ a un elemento $x \in S$ escogido aleatoriamente con una distribución uniforme. \\
@@ -223,9 +227,202 @@ Un \textit{adversario}, denotado $\textsc{Adv}$, es cualquier algoritmo probabil
 \edefinicion
 Por ejemplo, los Algoritmos \ref{algfuerzabruta} y \ref{alg2doc} presentados en la sección anterior son ejemplos de adversarios, que podríamos haber denotado $ \textsc{Adv}_{Bruta} $ y $ \textsc{Adv}_{2documentos} $, por ejemplo.
 \bdefinicion
-Sea $\mathcal{G}=(\mathcal{X},\mathcal{Y},\mathcal{K},\mathcal{H})$ una familia de funciones hash, y sean $t,\varepsilon > 0$. Se dice que la familia $\mathcal{G}$ es $(t,\varepsilon)$ \textit{resistente a la colisión} si para todo adversario \[\textsc{Adv} : \mathcal{K} \to \left( \mathcal{X} \times \mathcal{X} \right) \cup \{ error \} \] que dado $K\in \mathcal{K}$, devuelve $x,x'\in\mathcal{X}$ tales que $x\neq x'$ y $h_K(x)=h_K(x')$ o \textit{error} y que puede ejecutarse en tiempo $t$, verifica que
-\[ Pr\left[ k \xleftarrow{\$} \mathcal{K},(x,x') \xleftarrow{\$} \textsc{Adv}(k) : x \neq x' \wedge g_k(x) = g_k(x') \right] \leq \varepsilon \]
+Sea $\mathcal{G}=(\mathcal{X},\mathcal{Y},\mathcal{K},\mathcal{H})$ una familia de funciones hash, y sean $t,\varepsilon > 0$. Se dice que la familia $\mathcal{G}$ es $(t,\varepsilon)$ \textit{resistente a la preimagen} si para todo adversario \[\textsc{Adv} : \mathcal{K} \times \mc{Y} \to \mathcal{X} \cup \{ error \} \] que dado $K\in \mathcal{K}, y = g_k(x)$ para cierto $x\in\mc{X}$, devuelve $x'\in\mathcal{X}$ tal que $h_K(x')=y$ o \textit{error} y que puede ejecutarse en tiempo $t$, verifica que
+\[ Pr\left[ k \xleftarrow{\$} \mathcal{K},x \xleftarrow{\$} \mc{X},y \leftarrow g_k(x),x'\xleftarrow{\$} \sc{Adv}(k,y) : g_k(x') = y\right] \leq \varepsilon \]
 \edefinicion
 
-\section{Criptografía basada en códigos}
+De manera similar, podrían extenderse las Definiciones \ref{2preimage} y \ref{collision}. Ahora, definimos que un sistema de firma sea \textit{irrompible por un ataque de mensajes elegidos adaptativamente}.
 
+\bdefinicion
+	Sea $S = (\mc{P},\mc{A},\mc{K},\mc{S},\mc{V})$ un sistema de firma y $(s_k,p_k)$ las claves pública y privada asociadas a una clave $k\in\mc{K}$. Definimos un \textit{oráculo de firma} $\mc{O}(sk,\cdot) : \mc{P} \to \mc{A}$ como una función que dado un documento $x \in \mc{P}$, devuelve su firma $\sigma \in \mc{A}$.
+\edefinicion
+
+Teóricamente, oráculo de firma hace la misma función que el algoritmo de firma del sistema. Sin embargo, a diferencia del segundo, un atacante tiene acceso a este oráculo, aun sin conocer la clave privada, y que a diferencia del algoritmo de firma, su uso puede tener ciertas limitaciones (por ejemplo, en lo que sigue, un atacante sólo podrá usar este oráculo un número limitado de veces).
+
+\bdefinicion
+Sea $S = (\mc{P},\mc{A},\mc{K},\mc{S},\mc{V})$ un sistema de firma, $(s_k,p_k)$ las claves pública y privada asociadas a una clave $k\in\mc{K}$ y $\mc{O}(sk,\cdot)$ un oráculo de firma del sistema. Definimos un \textit{falsificador} $\sc{For}^{\mc{O}(sk,\cdot)}(pk)$ a un algoritmo probabilístico que, después de hacer como máximo $q\in\mathbb{N}$ consultas al oráculo, es decir, después de obtener $p$ documentos firmados de la forma
+\[ \{ (M_1,\sigma_1),(M_2,\sigma_2),\cdots,(M_p,\sigma_p) \}, p \leq q \]
+encuentra un documento firmado $(M',\sigma')$ con $M'\neq M_i$ para todo $i=1,\dots,p$, o bien devuelve \textit{error}. La elección de los mensajes que se firman con el oráculo puede depender de las firmas anteriores, es decir, los mensajes pueden ser elegidos adaptativamente.
+\edefinicion
+
+El oráculo hace referencia en realidad a los documentos que ya han sido firmados por el usuario legítimo del sistema; por ello, en el sistema LD-OTS tenemos que $q=1$, porque sólo debe firmarse un elemento con cada par de claves.
+
+\bdefinicion
+Sea $S$ un sistema de firma y $t,\varepsilon > 0$, $q\in \mathbb{N}$. Se dice que $S$ es $(t,\varepsilon,q)$  \textit{existencialmente irrompible por un ataque de mensajes elegidos adaptativamente}, o simplemente, es un $(t,\varepsilon,q)$ \textit{sistema de firma}, si para cualquier falsificador $\sc{For}$ con $q$ elegido anteriormente y que es capaz de ejecutarse en tiempo $t$, la probabilidad de que $\sc{For}$ se ejecute con éxito (encuentre el mensaje firmado) es menor o igual que $\varepsilon$.
+\edefinicion
+
+Con estas definiciones, ya podemos dar el resultado que asegura que el sistema LD-OTS es seguro si la función hash $f$ utilizada es resistente a la preimagen.
+
+\bteoremaa
+Sea $n\in\mathbb{N}$, $t_{OW},\varepsilon_{OW} \geq 0$ y $\mc{F}=(\mathcal{X},\mathcal{Y},\mathcal{K},\mathcal{H})$ una familia de funciones hash $(t_{OW},\varepsilon_{OW})$ resistentes a la preimagen. Entonces, la firma LD-OTS con $f\in\mc{F}$ es un $(t_{OTS},\varepsilon_{OTS},1)$ sistema de firma con $\varepsilon_{OTS} = 4n\cdot \varepsilon_{OW}$ y $t_{OTS} = t_{OW} - t_{SIG} - t_{GEN}$, donde $t_{SIG}$ y $t_{GEN}$ son los tiempos de firma y generación de claves del sistema, respectivamente..
+\eteorema
+\begin{proof}
+	Para demostrar el teorema, procederemos por reducción al absurdo. Sea $\sc{For}^{\mc{O}(X,\cdot)}$ un falsificador de LD-OTS, que se ejecuta en tiempo $t = t_{OW}-t_{SIG}-t_{GEN}$ pero con probabilidad de éxito $ \varepsilon > \varepsilon_{OTS} = 4n\cdot \varepsilon_{OW} $. Construiremos un adversario $\sc{Adv}_{Pre}$ que encuentra preimágenes de funciones $f\in F$. Es decir,
+	
+	\[ \sc{Adv}_{Pre} : \mc{K} \times \mc{Y} \to \mc X \cup \{error\} \]
+	tal que dado una clave $k\in\mc{K}$ y una imagen $y = f_k(x) \in \mc{Y}$ para algún $x\in \mc{X}$ y $f_k\in\mc{H}$, devuelve $x'\in\mc{X}$ tal que $f_k(x')=y$, o \textit{error}. Este adversario actuaría de la siguiente manera.
+	\begin{enumerate}
+		\item Genera un par de claves pública y privada $(X,Y)$ del sistema LD-OTS, con $Y=(y_{n-1}[0],y_{n-1}[1],\dots,y_0[0],y_0[1])$.
+		\item Después, elige dos índices $a\in\{0,\dots,n-1\}$ y $b\in\{0,1\}$ de manera aleatoria; y remplaza $y_a[b]$ en la clave pública $Y$ con la imagen objetivo del algoritmo del que queremos hallar la preimagen, $y$.
+		\item El adversario ahora hará el rol de oráculo, y ejecuta $\sc{For}^{\mc{O}(X,\cdot)}$. Ya que $q=1$, este falsificador puede hacer una consulta al oráculo, o ninguna. Si la hace, pedirá firmar un documento $H(M)=(m_{n-1},\dots,m_0)$. Si $m_a = 1-b$, entonces el adversario puede firmar usando la clave privada $X$, ya que $f_k(x_a[1-b]) = y_a[1-b]$ al no haberse modificado $y_a[1-b]$ (sino $y_a[b]$). En caso contrario, devuelve \textit{error}, lo que hace que el falsificador no pueda continuar (en este caso, el algoritmo completo fallaría).
+		\item Si el falsificador se ejecuta con éxito, devolverá un mensaje $M'=(m'_{n-1},\cdots,m'_0)$ firmado con $\sigma'=(\sigma'_{n-1},\cdots,\sigma'_0)$. Si $m'_a = b$, entonces la preimagen buscada es $\sigma'_a$, ya que $f_k(\sigma'_a) = y_a[b] = y$ por definición de documento firmado.
+	\end{enumerate}
+	\balgoritmo
+	\label{alg2doc}
+	$\sc{Adv}_{PRE}$ \\
+	
+	\noindent
+	\textbf{Entrada:} $k \xleftarrow{\$} \mc{K}$ e $y\in\mc{Y}$. \\
+	\textbf{Salida:} $x\in\mc{X}$ tal que $y=f_k(x)$, o \textit{error}. \\
+	\setlist{nolistsep}
+	\begin{enumerate}[noitemsep]
+		\item Generar un par de claves $(X,Y)$ del sistema LD-OTS.
+		\item Escoger $a \xleftarrow{\$} \{0,\dots,n-1\}$ y $b\xleftarrow{\$} \{0,1\}$.
+		\item Reemplazar $y_a[b]$ por $y$ en la clave privada $Y$.
+		\item Ejecutar $ \sc{For}^{\mc{O}(X,\cdot)}(Y) $.
+		\item \textbf{Si}  $ \sc{For}^{\mc{O}(X,\cdot)}(Y) $ consulta al oráculo con $M=(m_{n-1},\dots,m_0)$, \textbf{entonces:}
+		\begin{enumerate}
+			\item \textbf{Si} $m_a = (1-b)$, \textbf{entonces} firmar $M$ usando $X$ y responder a  $ \sc{For}^{\mc{O}(X,\cdot)}(Y) $ con la firma $\sigma$.
+			\item \textbf{Si no}, \textbf{devolver} \textit{error}.
+		\end{enumerate}
+		\item \textbf{Si} $ \sc{For}^{\mc{O}(X,\cdot)}(Y) $ devuelve un documento firmado $(M',\sigma')$, $M'=(m'_{n-1},\dots,m'_0)$, $\sigma'=(\sigma'_{n-1},\dots,\sigma'_0)$, \textbf{entonces:}
+		\begin{enumerate}
+			\item \textbf{Si} $m_a'=b$, \textbf{entonces devolver} $\sigma_a'$.
+			\item \textbf{Si no}, \textbf{devolver} \textit{error}.
+		\end{enumerate}
+		\item \textbf{Si no}, \textbf{devolver} \textit{error}.
+	\end{enumerate}
+	\ealgoritmo
+	Veamos ahora el tiempo que toma en ejecutarse $t_{OW}$ y la probabilidad de éxito $\varepsilon_{OW}$ de este adversario. Denotando $t_{GEN}$ el tiempo de generación de claves del esquema LD-OTS, $t_{SIG}$ el tiempo de firma y $t,\varepsilon$ el tiempo que toma en ejecutarse el falsificador $ \sc{For}^{\mc{O}(X,\cdot)}(Y) $ y su probabilidad de éxito respectivamente, entonces
+	\begin{equation} \label{tiempo} t_{ADV} = t + t_{GEN} + t_{SIG} \end{equation}
+	Por otro lado, observemos que para que el adversario tenga éxito, deben ocurrir tres cosas:
+	\begin{itemize}
+		\item Si el falsificador pregunta al oráculo, que $m_a = (1-b)$. Ya que $b$ se elige de manera aleatoria entre $0$ y $1$ con una distribución uniforme, la probabilidad de que esto ocurra es exactamente $\frac{1}{2}$.
+		\item Que el falsificador tenga éxito en devolver un documento firmado. La probabilidad que esto ocurra es $\varepsilon$.
+		\item Que $m_a'=b=1-m_a$. Ya que $M'\neq M$, existe $c\in\{0,\dots,n-1\}$ tal que $m'_c = 1-m_c$. El adversario tiene éxito si $c=a$, lo que ocurre con probabilidad, al menos, $\frac{1}{2n}$.
+	\end{itemize}
+	Por tanto, tenemos que
+	\begin{equation} \label{probabilidad}
+	\varepsilon_{ADV} \geq \frac{1}{2}\cdot\varepsilon\cdot\frac{1}{2n} = \frac{\varepsilon}{4n}
+	\end{equation}
+	Sin embargo, ya que por hipótesis $t = t_{OW}-t_{SIG}-t_{GEN}$, de la ecuación \eqref{tiempo} deducimos que $t_{ADV} = t_{OW}$, y como $\varepsilon >  4n\cdot \varepsilon_{OW}$, de la ecuación \eqref{probabilidad} deducimos que:
+	\[ \varepsilon_{ADV} \geq \frac{\varepsilon}{4n} > \varepsilon_{OTS} \]
+	Hemos encontrado un adversario que se ejecuta en tiempo $t_{OW}$ y con probabilidad de éxito mayor que $\varepsilon_{OTS}$. Esto contradice el hecho que $\mc{F}$ sea una familia de funciones hash $(t_{OW},\varepsilon_{OW})$ resistente a la preimagen, lo que completa la demostración.
+\end{proof}
+
+Este hecho prueba que toda la seguridad de este equema, se traslada a la seguridad de la función hash utilizada subyacente. Ya que no se han encontrado ataques efectivos a funciones hash comúnmente utilizadas como la familia \textit{SHA-256}, ni en ordenadores clásicos ni cuánticos, este esquema se propone como una alternativa a otros sistemas de firma basados en la factorización de los números enteros, como el \textit{RSA}.
+\section{Criptografía basada en códigos}
+A diferencia de la sección anterior, de la criptografía basada en códigos tenemos ejemplos de criptosistemas (en vez de sistemas de firma). Se basan en el problema de la decodificación de una palabra de tipo de códigos autocorrectores espciales, los \textit{códigos Goppa}.
+\subsection{Introducción a los códigos Goppa}
+Antes de presentar los códigos Goppa y sus propiedades, damos unas pequeñas definciones sobre códigos algebraicos.
+
+\bdefinicion
+ Sea $\F_q$ un cuerpo finito de $q$ elementos. Un \textit{código} es un subconjunto no vacío $\mc{C} \subset \F_q^n$. En este caso, decimos que $\mc{C}$ tiene \textit{longitud} $n$. Sus elementos se denominan \textit{palabras} del código. \\
+ 
+ Si además $\mc{C}$ es un subespacio vectorial de $\F_q^n$ de dimensión $0\leq k \leq n$, entonces decimos que es un $[n,k]$-código lineal sobre $\F_q$.
+\edefinicion
+\bdefinicion
+Sea $\mc{C}$ un $[n,k]$-código lineal sobre $\F_q$. Una \textit{matriz generadora} de $\mc{C}$ es una matriz $G \in M_{k\times n}\left( \F_q \right)$ cuyas filas forman una base algebraica de $\mc{C}$. \\
+
+El \textit{código dual} $\mc{C}^\perp$ de $\mc{C}$ es el subespacio ortogonal de $\mc{C}$ sobre el producto escalar usual de $\F_q$. Es, por tanto, un $[n,n-k]$-código lineal sobre $\F_q$. \\
+
+Llamamos a una matriz $H \in M_{(n-k)\times n}\left( \F_q \right)$ \textit{matriz de control de paridad} de $\mc{C}$ a una matriz generadora de $\mc{C}^\perp$.
+\edefinicion
+\bdefinicion
+Sean $x,y\in \F_q^n$. Denominamos \textit{distancia de Hamming} entre $x$ e $y$ al número de coordenadas que difieren entre $x$ e $y$, es decir:
+\[ d(x,y) = \#\{ i : x_i \neq y_i, i=1,\dots,n \} \]
+Dado un $[n,k]$-código lineal $\mc{C}\subset \F_q^n$, llamamos \textit{distancia mínima de} $\mc{C}$, y lo denotamos $d(\mc{C})$, a la menor distancia de Hamming entre dos palabras distintas cualesquiera de $\mc{C}$, es decir;
+\[ d(\mc{C}) = \min_{\substack{x,y\in\mc{C} \\ x\neq y}}\left\{ d(x,y) \right\} \]
+Un $[n,k]$-código lineal con distancia mínima $d$ lo denotamos un $[n,k,d]$-código lineal.
+\edefinicion
+Es sencillo ver, además, que la distancia de Hamming es una métrica en $\F_q^n$.
+\bdefinicion
+\label{deferrores}
+Sea $\mc{C}$ un código de $\F_q^n$. Un \textit{decodificador} es una aplicación
+\[ D_\mc{C} : \F_q^n \to \mc{C} \]
+Se dice que $D_\mc{C}$ corrige $t$ errores si para cada $e\in\F_q^n$ y todo $x\in\mc{C}$, se verifica que si $wt(e) \leq t$, entonces $D_c(x+e) = x$, donde $wt(x) = \#\{ i : x_i \neq 0, i=0,\dots,n-1 \}$.
+\edefinicion
+Al valor $wt(x)$ se le \textit{peso} de la palabra $x\in\F_q^n$, y al vector $e\in\F_q^n$ se denomina \textit{vector error}. \\
+
+Finalmente, podemos dar una definción de un código Goppa. Aunque existen diversas definiciones, nosotros seguiremos \cite{coding}.
+
+\bdefinicion
+Sea $g(z)$ un polinomio mónico de grado $t$ sobre $\F_{q^m}$. Sea $L = \{ \gamma_0,\gamma_1,\dots,\gamma_{n-1} \} \subset \F_{q^m} $, tal que $g(\gamma_i) \neq 0$ para todo $0 \leq i \leq n-1$. Definimos el \textit{código Goppa} $\Gamma(L,g) $ con el \textit{polinomio de Goppa} $g(z)$ como el conjunto de palabras $c = (c_0,c_1,\dots,c_{n-1}) \in \F_q^n$ tales que
+\begin{equation} \label{goppaeq} \sum_{i=0}^{n-1} \frac{c_i}{z-\gamma_i} \equiv 0 \mod g(z) \end{equation}
+Si el polinomio de Goppa $g(z)$ es además irreducible, entonces se dice que $\Gamma(L,g)$ es un \textit{código de Goppa irreducible}.
+\edefinicion
+
+Con esta definición, es fácil ver que un código de Goppa es lineal viendo que la suma de palabras y el producto de escalares por palabras verifica la ecuación \eqref{goppaeq}. Así, podemos dar el siguiente resultado, cuya demostración puede consultarse en \cite{coding}: \eject
+
+\bproposicion
+Tomando $h_j := g(\gamma_j) - 1$, $j=0,\dots,n-1$, una matriz de control de paridad de $\Gamma(L,g)$ es:
+\[ \left( \begin{array}{cccc}
+h_0 & h_1 & \cdots & h_{n-1} \\
+h_0\gamma_0 & h_1\gamma_1 & \cdots & h_{n-1}\gamma_{n-1} \\
+\vdots & \vdots & \ddots & \vdots \\
+h_0\gamma_0^{t-1} & h_1\gamma_1^{t-1} & \cdots & h_{n-1}\gamma_{n-1}^{t-1}
+ \end{array} \right) \]
+\eproposicion
+
+Sin exigir restricciones al código, tememos las siguientes cotas para la dimensión y distancia mínima de un código de Goppa (véase \cite{coding} para una demostración a partir de otro tipo de códigos, los códigos BCH.)
+
+\bproposicion
+	Con la notación anterior, un código de Goppa $\Gamma(L,g)$ tiene dimensión $k\geq n-mt$ y distancia mínima $d\geq t+1$.
+\eproposicion
+
+Sin embargo, exigiendo $q=2$ y que el polinomio de Goppa $g$ no tenga raíces múltiples (por ejemplo, si es irreducible), se puede demostrar el siguiente resultado (\cite{coding}):
+
+\bproposicion
+\label{goppadist}
+Sea $q=2$, y $g(z)\in\F_{2^m}[X]$ un polinomio mónico de grado $t$ sin raíces múltiples. Entonces, $\Gamma(L,g)$ tiene distancia mínima $d \geq 2t+1$.
+\eproposicion
+
+La utilidad de los códigos de Goppa en criptografía radica en que existen algoritmos eficientes para decodificar palabras correctamente con un número de errores hasta la mitad de la distancia mínima de $\Gamma(L,g)$, con $ \mc{O}(n\cdot t\cdot m^2) $ operaciones binarias (\cite{decoding}).
+
+\subsection{Un criptosistema: el sistema de McEliece}
+
+El criptosistema de clave pública de McEliece fue presentado en 1978 (\cite{mceliece}), y en la actualidad no se han encontrado ataques efectivos contra este sistema (aunque sus parámetros de seguridad deben ser adaptados con la llegada de los ordenadores cuánticos, \cite{grovertoMcEliece}). Presentamos ahora la descripción del sistema.
+
+\begin{framed}
+	\label{mceliece}
+	\begin{center}
+		\textbf{Criptosistema de clave pública de McEliece} \\
+	\end{center}
+	
+	\textbf{Parámetros:} Dos números naturales $n$ y $t$, con $t << n$ (mucho menor que $n$). \\
+	
+	\textbf{Generación de claves:} Se calcula la matriz generadora $G$ de un código de Goppa $\mc{G}$ irreducible sobre $\F_2^n$ de dimensión $k$, con un polinomio de Goppa de grado $t$. Por tanto, la distancia mínima de este código es $d\geq 2t+1$ (Proposición \ref{goppadist}). A continuación, se eligen dos matrices aleatorias
+	\begin{itemize}
+		\item $S\in M_{k\times k}(\F_2)$, siendo $S$ no singular (invertible).
+		\item $ P $, una matriz $n\times n$ de permutación de dimensión $n\times n$.
+	\end{itemize}
+
+	Se calcula $G^{pub} = SGP$, y la clave pública es $(G^{pub},t)$.
+	
+	La clave privada es $(S,D_{\mc{G}},P)$, donde $D_{\mc{G}}$ es un algoritmo de decodificación eficiente del código Goppa $\mc{G}$ que corrige hasta $t$ errores (ver sección anterior, \cite{decoding}). \\
+	
+	\textbf{Encriptado:} Para encriptar un texto plano $m\in \F_2^k$, se elige una clave efímera que consiste en un vector $z\in \F_2^n$ de peso $t$. El texto cifrado $c\in \F_2^n$ se calcula como
+	\[ c = mG^{pub} + z \]
+	
+	\textbf{Desencriptado}: Para desencriptar un texto cifrado $c\in \F_2^n$, se calcula $cP^{-1}$. Seguidamente, se utiliza el algoritmo de decodificación para hallar $ m' := D_\mc{G}(cP^{-1}) $. Posteriormente, se hallan las coordenadas de $m'$ respecto de la base dada por las filas de $G$, $m''$, y finalmente, se recupera el texto plano hallando $m''S^{-1}$.
+\end{framed}
+
+\bteoremaa
+	En el criptosistema de clave pública de McEliece, el proceso de desencriptado es inverso al de encriptado, es decir, verifica la propiedad 4 de la Definición \ref{def:criptosistema}.
+\eteorema
+\begin{proof}
+	Sea $c \in \F_2^n$ un mensaje encriptado usando el algoritmo de encriptado del criptosistema de clave pública de McEliece. Por tanto,
+	\[ c = mG^{pub} + z = mSGP + z \]
+	Hallando $cP^{-1}$ (que existe al ser $P$ una matriz de permutación, luego $\det P = \pm 1$), obtenemos:
+	\[ cP^{-1} = mSG + zP^{-1} \]
+	
+	Al ser $G$ la matriz generadora del código $\mc{G}$, $mSG \in \mc{G}$, por ser un vector formado por una combinación de filas de $G$ (que forman una base del código). Por otro lado, $ wt(zP^{-1}) = wt(z) = t $, por ser $zP^{-1}$ un vector con las mismas coordenadas que $z$, pero permutadas. Ya que el algoritmo $D_{\mc{G}}$ corrige hasta $t$ errores, entonces (ver Definición \ref{deferrores}):
+	\[ D_{\mc{G}}(cP^{-1}) = D_{\mc{G}}(mSG + zP^{-1}) = mSG \]
+	Las coordenadas de $m' := mSG$ respecto de la base del código son $m'' := mS$. Finalmente,
+	\[ m''S^{-1} = mSS^{-1} = m \]
+	que es el texto plano original.
+\end{proof}
+
+\hfill \\ La seguridad de este algoritmo se apoya en que un atacante Óscar que dado $c\in\F_q^n$ quisiera obtener el texto plano $m\in\F_q^k$ sin conocer la clave privada, tiene dos opciones: o bien recuperar la matriz generadora del código original $G$ a partir de $G^{pub}$, con lo que podría aplicar el algoritmo de decodificación $D_G$, o bien recuperar el texto plano original sin usar el algoritmo de decodificación \cite{mceliece}.
+
+El primer ataque, con valores suficientemente grandes de $k$ y $n$, parece infactible dadas las posibilidades para elegir las matrices $P$ y $S$. El segundo se conoce como el problema de la decodificación para códigos lineales, y no se han encontrado algoritmos efectivos clásicos ni cuánticos para resolverlo. Aunque el algoritmo de Grover puede ser aplicado a este sistema, basta con reemplazar el parámetro de seguridad $n$ por $(2+o(1))n$ para protegerse de estos ataques \cite{grovertoMcEliece}.

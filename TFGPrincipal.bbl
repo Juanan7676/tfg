@@ -40,7 +40,7 @@ Daniel~J. Bernstein.
 \bibitem{afuncional}
 A.~Aizpuru Tomás.
 \newblock {\em Apuntes incompletos de Análisis Funcional}.
-\newblock Universidad de Cádiz, 2004.
+\newblock Servicio de Publicaciones de la Universidad de Cádiz, 2009.
 
 \bibitem{quantuminformation}
 Michael~A. Nielsen and {Isaac L.Chuang}.
@@ -68,6 +68,22 @@ Xiaoyun Wang, Yiqun~Lisa Yin, and Hongbo Yu.
 \newblock {Finding Collisions in the Full SHA-1}.
 \newblock In Victor Shoup, editor, {\em Advances in Cryptology -- CRYPTO 2005},
   pages 17--36, Berlin, Heidelberg, 2005. Springer Berlin Heidelberg.
+
+\bibitem{coding}
+J.~H. van Lint.
+\newblock {\em {Introduction to Coding Theory}}.
+\newblock Number~86 in Graduate Texts in Mathematics. Springer-Verlag Berlin
+  Heidelberg, 1999.
+
+\bibitem{decoding}
+Nick Patterson.
+\newblock {The algebraic decoding of Goppa codes}.
+\newblock {\em IEEE Transactions on Information Theory}, 21(2):203--207, 1975.
+
+\bibitem{mceliece}
+R.~J. McEliece.
+\newblock {A public-Key cryptosystem based on algebraic coding theory}.
+\newblock {\em DSN Progress Report}, 42-44:114--116, 1978.
 
 \bibitem{cryptographyTAP}
 Douglas~R. Stinson.

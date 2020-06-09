@@ -17,3 +17,13 @@
 \backcite {sha256security}{{37}{5.1.1}{definicion.5.6}}
 \backcite {sha256collisions}{{37}{5.1.1}{definicion.5.6}}
 \backcite {hashfunctions}{{43}{5.1.4}{subsection.5.1.4}}
+\backcite {coding}{{49}{5.2.1}{definicion.5.16}}
+\backcite {coding}{{49}{5.2.1}{equation.5.2.3}}
+\backcite {coding}{{50}{5.2.1}{proposicion.5.1}}
+\backcite {coding}{{50}{5.2.1}{proposicion.5.2}}
+\backcite {decoding}{{50}{5.2.1}{proposicion.5.3}}
+\backcite {mceliece}{{50}{5.2.2}{subsection.5.2.2}}
+\backcite {grovertoMcEliece}{{50}{5.2.2}{subsection.5.2.2}}
+\backcite {decoding}{{51}{5.2.2}{subsection.5.2.2}}
+\backcite {mceliece}{{52}{5.2.2}{teorema.5.2}}
+\backcite {grovertoMcEliece}{{52}{5.2.2}{teorema.5.2}}
