@@ -6,24 +6,28 @@
 \BOOKMARK [0][]{chapter.3}{3 Espacios de Hilbert}{}% 6
 \BOOKMARK [1][]{section.3.1}{3.1 Definiciones b\341sicas}{chapter.3}% 7
 \BOOKMARK [1][]{section.3.2}{3.2 El operador adjunto y operadores unitarios}{chapter.3}% 8
-\BOOKMARK [0][]{chapter.4}{4 El algoritmo de Shor}{}% 9
-\BOOKMARK [1][]{section.4.1}{4.1 Introducci\363n}{chapter.4}% 10
+\BOOKMARK [0][]{chapter.4}{4 Los algoritmos de Shor y Grover}{}% 9
+\BOOKMARK [1][]{section.4.1}{4.1 Introducci\363n al algoritmo de Shor}{chapter.4}% 10
 \BOOKMARK [1][]{section.4.2}{4.2 Computaci\363n cu\341ntica}{chapter.4}% 11
 \BOOKMARK [2][]{subsection.4.2.1}{4.2.1 Bits y qubits}{section.4.2}% 12
 \BOOKMARK [2][]{subsection.4.2.2}{4.2.2 Puertas cu\341nticas y circuitos cu\341nticos}{section.4.2}% 13
 \BOOKMARK [2][]{subsection.4.2.3}{4.2.3 El circuito para encontrar el orden}{section.4.2}% 14
-\BOOKMARK [0][]{chapter.5}{5 Algoritmos de criptograf\355a poscu\341ntica}{}% 15
-\BOOKMARK [1][]{section.5.1}{5.1 Criptograf\355a basada en funciones hash}{chapter.5}% 16
-\BOOKMARK [2][]{subsection.5.1.1}{5.1.1 Introducci\363n a las funciones hash}{section.5.1}% 17
-\BOOKMARK [2][]{subsection.5.1.2}{5.1.2 Un esquema de firma: el esquema de un solo uso de Lamport-Diffie \(LD-OTS\)}{section.5.1}% 18
-\BOOKMARK [2][]{subsection.5.1.3}{5.1.3 Experimento computacional: rompiendo el sistema LD-OTS con 2 firmas}{section.5.1}% 19
-\BOOKMARK [2][]{subsection.5.1.4}{5.1.4 Seguridad del esquema LD-OTS}{section.5.1}% 20
-\BOOKMARK [1][]{section.5.2}{5.2 Criptograf\355a basada en c\363digos}{chapter.5}% 21
-\BOOKMARK [2][]{subsection.5.2.1}{5.2.1 Introducci\363n a los c\363digos Goppa}{section.5.2}% 22
-\BOOKMARK [2][]{subsection.5.2.2}{5.2.2 Un criptosistema: el sistema de McEliece}{section.5.2}% 23
-\BOOKMARK [0][]{chapter.6}{6 Conclusiones}{}% 24
-\BOOKMARK [0][]{appendix.A}{A C\363digo de los programas}{}% 25
-\BOOKMARK [1][]{section.A.1}{A.1 Implementaci\363n de la firma LD-OTS en Python}{appendix.A}% 26
-\BOOKMARK [1][]{section.A.2}{A.2 Algoritmo de b\372squeda por fuerza bruta}{appendix.A}% 27
-\BOOKMARK [1][]{section.A.3}{A.3 Algoritmo de b\372squeda con 2 firmas}{appendix.A}% 28
-\BOOKMARK [0][]{appendix*.11}{Bibliograf\355a}{}% 29
+\BOOKMARK [1][]{section.4.3}{4.3 El algoritmo de Grover}{chapter.4}% 15
+\BOOKMARK [2][]{subsection.4.3.1}{4.3.1 Introducci\363n}{section.4.3}% 16
+\BOOKMARK [2][]{subsection.4.3.2}{4.3.2 El circuito cu\341ntico del algoritmo}{section.4.3}% 17
+\BOOKMARK [2][]{subsection.4.3.3}{4.3.3 Punto de vista geom\351trico y tiempos de ejecuci\363n}{section.4.3}% 18
+\BOOKMARK [0][]{chapter.5}{5 Algoritmos de criptograf\355a poscu\341ntica}{}% 19
+\BOOKMARK [1][]{section.5.1}{5.1 Criptograf\355a basada en funciones hash}{chapter.5}% 20
+\BOOKMARK [2][]{subsection.5.1.1}{5.1.1 Introducci\363n a las funciones hash}{section.5.1}% 21
+\BOOKMARK [2][]{subsection.5.1.2}{5.1.2 Un esquema de firma: el esquema de un solo uso de Lamport-Diffie \(LD-OTS\)}{section.5.1}% 22
+\BOOKMARK [2][]{subsection.5.1.3}{5.1.3 Experimento computacional: rompiendo el sistema LD-OTS con 2 firmas}{section.5.1}% 23
+\BOOKMARK [2][]{subsection.5.1.4}{5.1.4 Seguridad del esquema LD-OTS}{section.5.1}% 24
+\BOOKMARK [1][]{section.5.2}{5.2 Criptograf\355a basada en c\363digos}{chapter.5}% 25
+\BOOKMARK [2][]{subsection.5.2.1}{5.2.1 Introducci\363n a los c\363digos Goppa}{section.5.2}% 26
+\BOOKMARK [2][]{subsection.5.2.2}{5.2.2 Un criptosistema: el sistema de McEliece}{section.5.2}% 27
+\BOOKMARK [0][]{chapter.6}{6 Conclusiones}{}% 28
+\BOOKMARK [0][]{appendix.A}{A C\363digo de los programas}{}% 29
+\BOOKMARK [1][]{section.A.1}{A.1 Implementaci\363n de la firma LD-OTS en Python}{appendix.A}% 30
+\BOOKMARK [1][]{section.A.2}{A.2 Algoritmo de b\372squeda por fuerza bruta}{appendix.A}% 31
+\BOOKMARK [1][]{section.A.3}{A.3 Algoritmo de b\372squeda con 2 firmas}{appendix.A}% 32
+\BOOKMARK [0][]{appendix*.13}{Bibliograf\355a}{}% 33

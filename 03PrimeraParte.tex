@@ -3,10 +3,15 @@
 \def\R{\mathbb{R}}
 \def\ket#1{\left| #1 \right\rangle}
 
-\chapter{El algoritmo de Shor}
+\chapter{Los algoritmos de Shor y Grover}
 
-\section{Introducción}
-El objetivo de este capítulo es describir el (principal) algoritmo que pone en peligro toda la criptografía clásica que se usa actualmente en gran medida: el algoritmo de Shor, que permite factorizar cualquier número natural en $O((\log N)^3)$ pasos (\cite{quantuminformation}, pág. 233), donde $N$ es el número a factorizar. El algoritmo contiene dos partes, una parte clásica que se ejecutaría en un ordenador clásico, y una parte cuántica que se ejecutaría en un ordenador cuántico. La idea clave del algoritmo subyace en el siguiente resultado.
+El objetivo de este capítulo es describir los dos principales algoritmos que ponen en peligro la criptografía clásica que se usa actualmente en gran medida: el algoritmo de Shor, que permite factorizar cualquier número natural en $\mathcal{O}((\log N)^3)$ pasos (\cite{quantuminformation}, pág. 233), donde $N$ es el número a factorizar; y el algoritmo de Grover, que resuelve el problema de la búsqueda: esto es, encontrar dada una función $f : S \to \{0,1\}$ con $|S|=N\in\mathbb{N}$, un elemento $x\in S$ tal que $f(x) = 1$ en $\mathcal{O}(\sqrt{N})$ operaciones (\cite{quantuminformation}).
+
+Es importante ver que el primer algoritmo ofrece una reducción de tiempo exponencial respecto de los algoritmos de factorización clásicos. Los algoritmos de factorización más rápidos para ordenadores clásicos usan $ \mathcal{O}\left(2^{(k+o(1))(\log N)^{1/3}(\log\log N)^{2/3}} \right) $ operaciones \cite{postquantumBernstein}. Sin embargo, en un ordenador clásico el problema de la búsqueda se puede resolver en $\mathcal{O}(N)$ operaciones (evaluar cada elemento de $S$). Por tanto, al tratarse de una reducción de tiempo cuadrática, no es tan efectivo como el algoritmo de Shor y sus efectos se pueden compensar aumentando el tamaño de las claves que se usan en los sistemas.
+
+\section{Introducción al algoritmo de Shor}
+
+El algoritmo de Shor contiene dos partes, una parte clásica que se ejecutaría en un ordenador clásico, y una parte cuántica que se ejecutaría en un ordenador cuántico. La idea clave del algoritmo subyace en el siguiente resultado.
 
 \bproposicion
 \label{prop1}
@@ -144,6 +149,7 @@ Y según vimos en el capítulo anterior, esto se logra si y sólo si $f$ es unitari
 \end{ejemplo}
 
 \begin{ejemplo}
+	\label{ejemplo43}
 	Un ejemplo importante en la computación cuántica es el operador de Hadamard, aquel dado por la matriz
 	\[ H = \frac{1}{\sqrt{2}}\left( \begin{array}{cc} 1 & 1 \\ 1 & -1 \end{array} \right) \]
 	
@@ -164,12 +170,13 @@ Una sucesión de puertas cuánticas actuando sobre un conjunto de qubits forma un 
 		\includegraphics[height=40px]{images/quantum1.png}
 	\end{figure}
 
-Normalmente, por convenio se supone que la computación ocurre de izquierda a derecha. De esta manera, el circuito \clearpage
+Normalmente, por convenio se supone que la computación ocurre de izquierda a derecha. De esta manera, el siguiente circuito indica la operación de aplicar $A$ y luego $B$ sobre un qubit $\ket{x}$, es decir,  $B(A(x))$:
 	\begin{figure}[h]
 		\centering
 		\includegraphics[height=40px]{images/quantum2.png}
 	\end{figure}
-indica la operación de aplicar $A$ y luego $B$ sobre un qubit $\ket{x}$, es decir,  $B(A(x))$. Estas dos operaciones se dice que son \textit{secuenciales}, porque ocurre una después de la otra. Notemos que podríamos haber simplificado este circuito calculando el operador $C = B\circ A$, cuya matriz asociada viene dada de multiplicar $BA$, las matrices asociadas de $B$ y de $A$, y reescribiendo el circuito con un solo operador actuando sobre $\ket{x}$, $C$.
+
+Estas dos operaciones se dice que son \textit{secuenciales}, porque ocurre una después de la otra. Notemos que podríamos haber simplificado este circuito calculando el operador $C = B\circ A$, cuya matriz asociada viene dada de multiplicar $BA$, las matrices asociadas de $B$ y de $A$, y reescribiendo el circuito con un solo operador actuando sobre $\ket{x}$, $C$.
 
 Cuando tengamos un operador tenga más de un qubit de entrada o salida, en lugar de escribir muchas líneas, lo denotamos de esta manera:
 
@@ -296,7 +303,6 @@ Queremos, pues, encontrar el periodo de esta función, es decir, encontrar el men
 Esta función devuelve siempre un número menor que $N$, por tanto, necesita $n = \log_2 N$ bits de salida. Para encontrar el periodo con seguridad, es necesario evaluar $f_{a,N}$ para todo $0 \leq x \leq N^2$ (en el peor caso, el periodo es $r=N-1$). Por tanto, necesitaremos $m = \log_2 N^2 = 2\log_2 N = 2n$ qubits de entrada. \\
 
 El circuito que nos permite hallar el orden es el siguiente.
-\eject
 \begin{figure}[h]
 	\centering
 	\includegraphics[height=60px]{images/quantum7.png}
@@ -362,3 +368,170 @@ Veamos cómo va evolucionando el sistema tras cada aplicación de cada puerta cuán
 	
 	El miembro de la derecha de la igualdad es conocido, por tanto, basta reducir esta fracción a su forma irreducible para obtener el valor de $r$, terminando así el algoritmo.
 \end{enumerate}
+
+\section{El algoritmo de Grover}
+
+Finalizamos este capítulo con el otro algoritmo cuántico que acelera otro gran problema: el problema de la búsqueda. Como ya adelantamos al principio, el problema de la búsqueda puede formularse de la siguiente manera: dado un conjunto $S$ de cardinal $N$ y una función $f : S \to \{0,1\}$, encontrar $x\in S$ tal que $f(x) = 1$. En un ordenador clásico, este problema puede resolverse en $\mathcal{O}(N)$ operaciones, evaluando cada elemento de $S$ mediante $f$. Gracias al siguiente algoritmo cuántico que veremos, podremos resolver este problema en $\mathcal{O}(\sqrt{N})$ operaciones, una reducción cuadrática de complejidad.
+
+\subsection{Introducción}
+
+Primero, comenzaremos con una traducción del problema a términos de computación cuántica. En vez de buscar entre los elementos de $S$ directamente, ya que $|S|=N<+\infty$, podemos asignar a cada elemento de $S$ un índice numerado entre $0$ y $N-1$. Por tanto, buscaremos entre dichos índices la solución deseada. Denotaremos también por $0<M\leq N$ el número de elementos de $S$ que son solución del problema de la búsqueda, es decir, aquellos elementos que verifican que $f(x) = 1$.
+
+La puerta cuántica clave en el que se basa este algoritmo es el \textit{oráculo} ($O$). Esta puerta, en realidad, es la misma que la puerta $U_f$ del algoritmo de Shor: actúa sobre los estados básicos de la forma
+\[ \ket{x}\ket{q} \xrightarrow{O} \ket{x}\ket{q\oplus f(x)} \]
+para cada $x\in\{0,\dots,N-1\}$, $q\in\{0,1\}$. Por tanto, para comprobar si cierto $x$ es solución del problema de búsqueda, sólo hace falta aplicar el oráculo a $\ket{x}\ket{0}$, medir el último qubit y ver si vale $0$ ó $1$.
+
+\bproposicion
+\label{prop44}
+Si $ \ket{q} = H(\ket 1) $, entonces la acción del oráculo sobre $\ket{x}\ket{q}$ para cada $x\in\{0,\dots,N-1\}$ es $(-1)^{f(x)}\ket{x}H(\ket 1)$, donde $H$ denota la puerta de Hadamard.
+\eproposicion
+
+\begin{proof}
+	Recordemos que $H(\ket 1) = \frac{1}{\sqrt{2}}(\ket{0}-\ket{1}) $ (ver Ejemplo \ref{ejemplo43}). Por tanto,
+	
+	\[ O\left(\ket{x}\left(\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\right)\right) = O\left( \frac{1}{\sqrt{2}} \ket{x}\ket{0}\right) - O\left( \frac{1}{\sqrt{2}} \ket{x}\ket{1} \right) \]
+	Ahora distinguimos dos casos:
+	\begin{enumerate}
+		\item Si $x$ es una solución del problema de búsqueda, $O(\ket{x}\ket{0}) = \ket{x}\ket{1}$ y $O(\ket{x}\ket{1}) = \ket{x}\ket{0}$. Por tanto,
+		\[ O\left(\ket{x}\left(\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\right)\right) = \frac{1}{\sqrt{2}} \ket{x}\ket{1} - \frac{1}{\sqrt{2}} \ket{x}\ket{0} = -\ket{x}\left( \frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\right) \]
+		\item Si $x$ no es una solución del problema de búsqueda, $O(\ket{x}\ket{0})=\ket{x}\ket{0}$ y $O(\ket{x}\ket{1})=\ket{x}\ket{1}$. En este caso,
+		\[ O\left(\ket{x}\left(\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\right)\right) = \frac{1}{\sqrt{2}} \ket{x}\ket{0} - \frac{1}{\sqrt{2}} \ket{x}\ket{1} = \ket{x}\left( \frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\right) \]
+	\end{enumerate}
+	En conclusión, si $f(x)=1$, entonces $O(\ket{x}H(\ket 1)) = (-1)^1\ket{x}H(\ket 1)$, y si $f(x)=0$, entonces $O(\ket{x}H(\ket 1)) = (-1)^0\ket{x}H(\ket 1)$, lo que prueba el resultado.
+\end{proof}
+
+Ya que el segundo qubit se mantiene constante, podemos simplificar la notación diciendo que el oráculo actúa sobre $\ket{x}$ devolviendo $(-1)^{f(x)}\ket{x}$. \\
+
+\subsection{El circuito cuántico del algoritmo}
+
+En lo que sigue, supondremos que $N = 2^n$ para cierto $n \in \mathbb{N}$, con lo que cada elemento de $S$ puede expresarse con $n$ qubits ($\ket 0,\dots,\ket{N-1}$). El esquema del circuito cuántico para el algoritmo de Grover se resume en la siguiente figura.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{images/grover1.png}
+	\caption{El esquema general del circuito para ejecutar el algoritmo de Grover.}
+\end{figure}
+
+En este caso, $G$ es una puerta cuántica, llamada \textit{operador de Grover} o \textit{iteración de Grover}, que se ejecuta $R$ veces (más adelante, daremos cotas para este valor en función de la probabilidad de éxito del algoritmo deseada). Su estructura es la siguiente:
+
+\begin{figure}[h]
+	\label{operadorG}
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/grover2.png}
+	\caption{El esquema del operador de Grover.}
+\end{figure}
+
+Donde $O$ es el oráculo del problema, y $P$ es una puerta cuántica que actúa sobre los estados básicos $\ket{0},\dots,\ket{N-1}$ de la siguiente manera:
+\[ \ket{0} \xrightarrow{P} \ket{0} \]
+\[ \ket{x} \xrightarrow{P} -\ket{x} \mbox{ para todo } x > 0 \]
+
+\bproposicion
+El operador $P$ actuando sobre $n$ qubits viene dado por la matriz
+
+\[ Q = 2M - I \]
+donde $M=(m_{ij})_{i,j\in\{ 1,\dots,2^n \}}$ es una matriz dada por $m_{11}=1$ y $0$ para el resto de entradas.
+\eproposicion
+
+\begin{proof}
+	Veremos primero que el operador dado por la matriz $Q$ es unitario: en efecto, ya que $M^\dagger = M$,
+	\[ Q^{\dagger}Q = (2M^{\dagger} - I)(2M - I) = 4M^2 -4M + I \]
+	
+	Por otro lado, es fácil ver que $M^2 = M$. Por tanto, $4M^2 - 4M + I = 4M - 4M + I = I$, y $Q$ es un operador unitario.
+	
+	Comprobemos, finalmente, que cumple las propiedades buscadas:
+	\[ Q(\ket{0}) = 
+	\begin{pmatrix} 
+		1 & 0 & \ldots & 0 \\
+		0 & -1 & \ldots & 0 \\
+		\vdots & \vdots & \ddots & \vdots \\
+		0 & 0 & \ldots & -1
+	\end{pmatrix} 
+	\begin{pmatrix}
+	1 \\
+	0 \\
+	\vdots \\
+	0
+	\end{pmatrix} = \begin{pmatrix}
+	1 \\
+	0 \\
+	\vdots \\
+	0
+	\end{pmatrix} = \ket{0}
+	\]
+	\[ Q(\ket{x}) = 
+	\begin{pmatrix} 
+	1 & 0 & \ldots & 0 \\
+	0 & -1 & \ldots & 0 \\
+	\vdots & \vdots & \ddots & \vdots \\
+	0 & 0 & \ldots & -1
+	\end{pmatrix} 
+	\begin{pmatrix}
+	0 \\
+	\vdots \\
+	0 \\
+	1 \\
+	0 \\
+	\vdots \\
+	0
+	\end{pmatrix} = \begin{pmatrix}
+	0 \\
+	\vdots \\
+	0 \\
+	-1 \\
+	0 \\
+	\vdots \\
+	0
+	\end{pmatrix} = -\ket{x}
+	\]
+	Donde $x>0$, lo cual concluye la demostración.
+\end{proof}
+
+\subsection{Punto de vista geométrico y tiempos de ejecución}
+
+Para poder dar cotas para $R$, es conveniente ver el algoritmo desde un punto de vista geométrico \cite{quantuminformation}. Los $n$ qubits que se pasan a la primera iteración de Grover $G$ tienen un estado inicial equiprobable $\ket{\psi}$. Denotaremos por $\sum_x'$ una suma sobre los elementos que son solución del problema de búsqueda, y $\sum_x''$ los que no. Entonces, los siguientes estados
+
+\[ \ket\alpha = \frac{1}{\sqrt{N-M}}\sum_x''\ket{x} \]
+\[ \ket\beta = \frac{1}{\sqrt{M}}\sum_x'\ket{x} \]
+representan el conjunto de todas las no soluciones y soluciones del problema en estado equiprobable, respectivamente. Así, es fácil ver dividiendo la suma de todos los $x$ de S en los dos sumandos y multiplicando y dividiendo por las cantidades correspondientes en cada caso, que el estado inicial $\ket\psi$ puede expresarse como
+\begin{equation} \label{inicialpsi} \ket\psi = \sqrt{\frac{N-M}{N}}\ket\alpha + \sqrt{\frac{M}{N}}\ket\beta = a\ket\alpha + b\ket\beta \end{equation}
+
+A partir de la Proposición \ref{prop44} es fácil ver que la acción del oráculo sobre $\ket\psi$ es
+\[ O(\ket\psi)=O(a\ket\alpha+b\ket\beta) = a\ket\alpha-b\ket\beta \]
+
+Esto corresponde a una reflexión del vector $\ket\psi$ en el plano generado por los vectores $\ket\alpha$ y $\ket\beta$ respecto del vector $\ket\alpha$. Es posible ver, con un poco más de trabajo, que el resto de la acción del operador de Grover hace una reflexión respecto del vector $\ket\psi$ en el plano generado por los vectores $\ket\alpha$ y $\ket\beta$ \cite{quantuminformation}. La composición de dos reflexiones es una rotación. Tomando $\theta$ de manera que
+\[ \cos\frac{\theta}{2} = \sqrt{\frac{N-M}{N}} \]
+entonces
+\[ \sin\frac{\theta}{2} = \sqrt{1-\cos^2(\theta/2)} = \sqrt{1-\frac{N-M}{N}} = \sqrt{\frac{M}{N}} \]
+Luego podemos expresar
+\[ \ket\psi = \cos\frac{\theta}{2}\ket\alpha + \sin\frac{\theta}{2}\ket\beta \]
+Y mediante un sencillo argumento geométrico \cite{quantuminformation}, se puede ver aplicando las reflexiones anteriormente citadas que
+\[ G(\ket\psi) = \cos\frac{3\theta}{2}\ket\alpha + \sin\frac{3\theta}{2}\ket\beta \]
+Así que el operador $G$ efectúa una reflexión de ángulo $\theta$ sobre la base $\ket\alpha$,$\ket\beta$. Si suponemos que $0< \theta < \frac{\pi}{2}$ (es suficiente que $0<M<N/2$), ya que el seno es creciente y el coseno es decreciente en $[0,\pi/2]$, las aplicaciones sucesivas de $G$ llevan al estado del ordenador cada vez más próximo a $\ket\beta$. De esta manera, una observación de los qubits producirá uno de los resultados en superposición de $\ket\beta$ con mucha probabilidad, las cuales son todas soluciones del problema que buscábamos.
+
+Ahora sólo queda calcular cuántas veces debemos rotar $\ket\psi$ mediante el ángulo $\theta$ para estar lo más cerca posible del vector $\ket\beta$, es decir, cuántas veces debemos aplicar $G$. A partir de la ecuación \eqref{inicialpsi}, vemos que una rotación de ángulo
+\[ \gamma = \frac{\pi}{2} - \arcsin\sqrt{\frac{M}{N}} \]
+Llevaría $\ket\psi$ al estado $\ket\beta$ (el ángulo en coordenadas polares de $\ket\psi$ es $\arcsen\sqrt{\frac{M}{N}}$, sumar el complementario llevaría el estado a $0\ket\alpha + 1\ket\beta$ ). Desarrollando la expresión anterior, vemos que
+\[ \arcsen\sqrt{\frac{M}{N}} = \frac{\pi}{2} - \gamma \]
+\[ \sqrt{\frac{M}{N}} = \sin\left( \frac{\pi}{2} - \gamma \right) = \cos\gamma  \]
+\[ \gamma = \arccos\sqrt{\frac{M}{N}} \]
+
+De aquí, denotando $CI(x)$ la función entero más próximo a $x\in\R$, el número de veces que debemos rotar $\ket\psi$ por el ángulo $\theta$ para estar más próximo al vector $\ket\beta$ es:
+
+\begin{equation} \label{eq45} R = CI\left( \frac{\arccos\sqrt{\frac{M}{N}}}{\theta}  \right) \end{equation}
+
+La expresión \eqref{eq45} nos da una expresión exacta para el número de iteraciones de Grover $R$ que hay que realizar para maximizar la probabilidad de éxito, pero se puede hallar una cota superior que no depende de relaciones trigonométricas y de $\theta$. Para ello, observemos primero que la función $CI(x) \leq \lceil x \rceil$ para todo $x\in\R$, y que $ 0\leq \arccos(\theta) \leq \frac{\pi}{2} $ para todo $0\leq \theta \leq 1$. Por tanto como, $0\leq\sqrt{\frac{M}{N}}\leq 1$:
+
+\[ R \leq \left\lceil \frac{\arccos\sqrt{\frac{M}{N}}}{\theta} \right\rceil \leq \left\lceil \frac{\pi}{2\theta} \right\rceil \]
+
+Si suponemos que $M\leq\frac{N}{2}$, entonces al ser $0 < \theta < \frac{\pi}{2}:$
+
+\[ \frac{\theta}{2} \geq \sin\frac{\theta}{2} = \sqrt{\frac{M}{N}} \]
+\[ \frac{1}{\theta} \leq \frac{1}{2\sqrt{\frac{M}{N}}} = \frac{1}{2}\sqrt\frac{N}{M} \]
+
+Luego
+
+\[ R \leq \left\lceil \frac{\pi}{4}\sqrt\frac{N}{M} \right\rceil \]
+
+Es decir, se deben efectuar $\mathcal{O}\left( \sqrt\frac{N}{M} \right) $ iteraciones de Grover. En el caso particular de que $M=1$, es decir, que haya una única solución al problema, entonces se deben efectuar $\mathcal{O}(\sqrt{N})$ iteraciones de Grover, como anunciamos al principio de esta sección. \\
+
+Como observación final, en toda la discusión anterior hemos supuesto que $M \leq N/2$. En realidad, es razonable hacer esta suposición: en un problema de búsqueda suelen haber muy pocas soluciones en comparación con el cardinal del conjunto de búsqueda. Si así no fuera, simplemente podemos escoger un elemento al azar de $S$. Como más de la mitad de los elementos de $S$ son soluciones del problema, la probabilidad de encontrar una solución realizando este procedimiento es, al menos, $\frac{1}{2}$. La repetición sucesiva de este procedimiento producirá una solución del problema muy rápidamente.

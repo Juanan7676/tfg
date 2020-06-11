@@ -407,6 +407,8 @@ El criptosistema de clave pública de McEliece fue presentado en 1978 (\cite{mcel
 	\textbf{Desencriptado}: Para desencriptar un texto cifrado $c\in \F_2^n$, se calcula $cP^{-1}$. Seguidamente, se utiliza el algoritmo de decodificación para hallar $ m' := D_\mc{G}(cP^{-1}) $. Posteriormente, se hallan las coordenadas de $m'$ respecto de la base dada por las filas de $G$, $m''$, y finalmente, se recupera el texto plano hallando $m''S^{-1}$.
 \end{framed}
 
+Si el texto a encriptar fuese de longitud mayor que $k$, basta con dividir el mensaje en bloques de longitud $k$, y encriptarlos por separado. La desencriptación sigue un proceso análogo, desencriptando por bloques de longitud $n$ y recuperando el texto plano original. En el siguiente teorema vemos que, efectivamente, el sistema está bien definido. Para ello, debemos verificar que el criptosistema verifica la propiedad 4 de la Definición \ref{def:criptosistema} (en este caso, $\mc{P} = \F_q^k$, $\mc{C} = \F_q^n$, $ \mc{K} $ sería el conjunto de todos los códigos Goppa posibles de $\F_q^n$).
+
 \bteoremaa
 	En el criptosistema de clave pública de McEliece, el proceso de desencriptado es inverso al de encriptado, es decir, verifica la propiedad 4 de la Definición \ref{def:criptosistema}.
 \eteorema
