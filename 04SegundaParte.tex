@@ -5,9 +5,9 @@
 \chapter{Algoritmos de criptografía poscuántica}
 \label{cha:segunda}
 
-En esta sección presentamos varias propuestas, tanto de criptosistemas como de sistemas de firma, que se cree que resisten a los ordenadores cuánticos. La idea para desarrollar sistemas de clave pública es considerar problemas difíciles, es decir, problemas en los que no existan algoritmos clásicos ni cuánticos eficientes que los resuelvan. Hasta la aparición de los ordenadores cuánticos, los dos problemas más utilizados eran el problema de la factorización de números enteros (base del criptosistema y sistema de firma \textit{RSA}) y el problema del logaritmo discreto (base de los sistemas de firma \textit{DSA} y \textit{ECDSA}). Sin embargo, al haberse encontrado algoritmos eficientes que los resuelven en ordenadores cuánticos, estos sistemas quedarán obsoletos cuando la computación cuántica sea una realidad.
+En esta sección presentamos varias propuestas, tanto de criptosistemas como de sistemas de firma, que se cree que resisten a los ordenadores cuánticos. La idea para desarrollar sistemas de clave pública es considerar problemas difíciles, es decir, problemas en los que no existan algoritmos eficientes conocidos que los resuelvan. Hasta la aparición de los ordenadores cuánticos, los dos problemas más utilizados eran el problema de la factorización de números enteros (base del criptosistema y sistema de firma \textit{RSA}) y el problema del logaritmo discreto (base de los sistemas de firma \textit{DSA} y \textit{ECDSA}, y del criptosistema \textit{ElGamal}). \\
 
- Nuestro estudio se centrará en aquellos sistemas basados en funciones hash y aquellos basados en códigos autocorrectores. Estos se basan en dos problemas fundamentales: encontrar la preimagen de una función de un solo sentido (criptografía basada en funciones hash) y el problema de encontrar el síndrome de un código autocorrector (criptografía basada en códigos).
+ Nuestro estudio se centrará en aquellos sistemas basados en funciones hash y aquellos basados en códigos autocorrectores. Estos se basan en dos problemas fundamentales: encontrar la preimagen de una función de un solo sentido (criptografía basada en funciones hash) y el problema de decodificar una palabra de un código autocorrector (criptografía basada en códigos).
 
 \section{Criptografía basada en funciones hash}
 
@@ -56,13 +56,128 @@ Sea $h : \mathcal{X} \to \mathcal{Y}$ una función hash sin clave. Se dice que $h
 Sea $h : \mathcal{X} \to \mathcal{Y}$ una función hash sin clave. Se dice que $h$ es \textit{resistente a la colisión} si es difícil resolver el siguiente problema: encontrar $x,x'\in X$ con $x\neq x'$ tales que $h(x)=h(x')$.
 \edefinicion
 
-Es importante observar la sutil diferencia entre la Definición \ref{2preimage} y la Definición \ref{collision}: mientras que en la primera tenemos un valor $x$ fijado de antemano, en el segundo no. De hecho, la resistencia a la colisión implica la resistencia a la segunda preimagen, pero el recíproco no es cierto en general \cite{hashfunctions}.
+Es importante observar la sutil diferencia entre la Definición \ref{2preimage} y la Definición \ref{collision}: mientras que en la primera tenemos un valor $x$ fijado de antemano, en la segunda no. De hecho, la resistencia a la colisión implica la resistencia a la segunda preimagen, pero el recíproco no es cierto en general \cite{hashfunctions}.
 
-Hay funciones que cumplen con estos criterios, es decir, que no se han encontrado algoritmos que resuelvan ninguno de los tres problemas de forma eficiente. Un buen ejemplo de ello es el \textit{SHA} o \textit{Secure Hash Algorithm}, en sus versiones más modernas (\textit{SHA-256}, \textit{SHA-384}, \textit{SHA-512}) \cite{sha256security}. Para otras versiones más antiguas, sin embargo, como el \textit{SHA-1}, se han encontrado ataques que producen colisiones \cite{sha256collisions}.
+Hay funciones que cumplen con estos criterios, es decir, que no se han encontrado algoritmos que resuelvan ninguno de los tres problemas de forma eficiente. Un buen ejemplo de ello es el \textit{SHA} o \textit{Secure Hash Algorithm}, en sus versiones más modernas (\textit{SHA-256}, \textit{SHA-384}, \textit{SHA-512}) \cite{sha256security}. Para otras versiones más antiguas, sin embargo, como el \textit{SHA-1}, se han encontrado ataques que producen colisiones \cite{sha256collisions}. En la siguiente sección, presentamos un ejemplo de función hash.
+
+
+\subsection{Un ejemplo de función hash: SHA-1}
+
+El ejemplo que vamos a ver es el de la función {\em SHA-1}, tomado de \cite{cryptographyTAP}, pág. 129-139; como hemos indicado anteriormente, esta función ya no está en uso, pero tiene una descripción más simple que las citadas {\em SHA-256}, {\em SHA-384} y {\em SHA-512}. Al igual que estas últimas, se define a través de un proceso, denominado la {\em construcción de Merkle-Damg\r{a}rd}, a partir de una función de compresión\footnote{Una propiedad importante de la construcción de Merkle-Damg\r{a}rd es que conserva la resistencia a la colisión, es decir, si usando la construcción de Merkle-Damg\r{a}rd, se obtiene una función hash a partir de una función de compresión resistente a la colisión, entonces la función hash obtenida también es resistente a la colisión.}. \\
+
+La función {\em SHA-1} está definida sobre sucesiones de a lo más $2^{64}-1$ bits (aunque teóricamente una función hash está definida sobre sucesiones de bits de cualquier longitud, al menos en el momento en el que estuvo en uso la función {\em SHA-1}, $2^{64}-1$ era una cota considerablemente alta en la práctica).
+
+\vspace{.15 in}
+
+Presentamos primero la función de compresión de {\em SHA-1}, que denotamos por \[ \mathbf{f}:\{  0,1 \}^{160+512} \to \{ 0,1  \}^{160} \]
+
+Para ello, haremos uso de las siguientes operaciones básicas en $\{ 0,1 \}$:
+\begin{itemize}
+	\item $X\wedge Y$ definida como: $0 \wedge 0=0$, $0 \wedge 1=0$, $1 \wedge 0=0$, $1 \wedge 1=1$,
+	\item $X\vee Y$ definida como: $0 \vee 0=0$, $0 \vee 1=1$, $1 \vee 0=1$, $1 \vee 1=1$,
+	\item $X\oplus Y$ definida como: $0 \oplus 0=0$, $0 \oplus 1=1$, $1 \oplus 0=1$, $1 \oplus 1=0$,
+	\item $\neg X$ definida como: $\neg 0=1$, $\neg 1=0$,
+\end{itemize}
+y que extendemos a $\{ 0,1 \}^{32}$ realizando las operaciones bit a bit. Definimos además la operación en $\{ 0,1 \}^{32}$:
+\begin{itemize}
+	\item $X+Y$,
+\end{itemize}
+como sigue: a $X$ e $Y$ se asocian los números naturales $a,b$ cuyos desarrollos binarios son $X,Y$ respectivamente; se define $X+Y$ como el desarrollo binario de $a+b \bmod 2^{32}$. Por último, se considera la función de $\{ 0,1 \}^{32}$ en $\{ 0,1 \}^{32}$
+\begin{itemize}
+	\item $\mathbf{ROTL}^s(X),$
+\end{itemize}
+para $0\leqslant s \leqslant 31$, que es la traslación circular a la izquierda de $s$ posiciones en $X$.
+%Por ejemplo,
+%$$\mathbf{ROTL}^3((10001000000000000011111111111110))=(01000000000000011111111111110100) \, .$$
+
+\vspace{.1 in}
+
+Sean $P\in \{ 0,1 \}^{160}$, $Q\in \{ 0,1 \}^{512}$. Escribimos
+$$P=H_0 \: \| \: H_1 \: \| \: H_2 \: \| \: H_3 \: \| \: H_4 \, ,$$
+donde $H_i$ son sucesiones de $32$ bits, y $X \, \| \, Y$ denota la concatenación de las sucesiones $X,Y$. Análogamente,
+$$Q=W_0 \: \| \: W_1 \: \| \: \ldots \: \| \: W_{15}\, ,$$
+donde $W_i$ son sucesiones de $32$ bits. Se definen las funciones $\mathbf{f}_t$, $0\leqslant t \leqslant 79$, de $\{ 0,1 \}^{32}\times
+\{ 0,1 \}^{32}\times \{ 0,1 \}^{32}$ en $\{ 0,1 \}^{32}$ como:
+$$\mathbf{f}_t(B,C,D)=\left\{ \begin{array}{ll}
+(B\wedge C)\vee (\neg B\wedge D) & \mathrm{si} \; 0\leqslant t \leqslant 19\, , \\
+B\oplus C \oplus D & \mathrm{si} \; 20\leqslant t \leqslant 39\, , \\
+(B\wedge C)\vee (B\wedge D) \vee (C\wedge D) & \mathrm{si} \; 40\leqslant t \leqslant 59\, ,\\
+B\oplus C \oplus D & \mathrm{si} \; 60\leqslant t \leqslant 79 \, .
+\end{array}
+\right.$$
+Se definen las sucesiones de $32$ bits $K_t$ (escritas en hexadecimal), $0\leqslant t \leqslant 79$, como
+$$K_t=
+\left\{ \begin{array}{ll}
+\verb"5A827999" & \mathrm{si} \; 0\leqslant t \leqslant 19\, , \\
+\verb"6ED9EBA1" & \mathrm{si} \; 20\leqslant t \leqslant 39\, , \\
+\verb"8F1BBCDC" & \mathrm{si} \; 40\leqslant t \leqslant 59\, ,\\
+\verb"CA62C1D6" & \mathrm{si} \; 60\leqslant t \leqslant 79 \, .
+\end{array}
+\right.$$
+Para $16\leqslant t \leqslant 79$, se define $W_t$ por recurrencia como
+$$W_t=\mathbf{ROTL}^1(W_{t-3}\oplus W_{t-8}\oplus W_{t-14} \oplus W_{t-16}) \, .$$
+Partiendo de $P=H_0 \: \| \: H_1 \: \| \: H_2 \: \| \: H_3 \: \| \: H_4$ y $Q=W_0 \: \| \: W_1 \: \| \: \ldots \: \| \: W_{15}$,
+aplicamos el siguiente algoritmo:
+\balgoritmo
+Función de compresión $f$ \\
+
+\noindent
+\textbf{Entrada}: $P\in\{0,1\}^{160},Q\in\{0,1\}^{512}$.\\
+\textbf{Salida}: Un elemento de $\{0,1\}^{160}$. \\
+
+\setlist{nolistsep}
+\begin{enumerate}[noitemsep]
+\item Poner $A:=H_0$.
+\item Poner $B:=H_1$.
+\item Poner $C:=H_2$.
+\item Poner $D:=H_3$.
+\item Poner $E:=H_4$.
+\item \textbf{Para cada } $t=0 \: \mathbf{hasta}\:79$ \textbf{ hacer:}
+\begin{enumerate}
+	\item Calcular $temp:=\mathbf{ROTL}^5(A)+\mathbf{f}_t(B,C,D)+E+W_t+K_t$.
+	\item Poner $E:=D$.
+	\item Poner $D:=C$.
+	\item Calcular $C:=\mathbf{ROTL}^{30}(B)$.
+	\item Poner $B:=A$.
+	\item Poner $A:=temp$.
+\end{enumerate}
+\item Poner $H_0:=H_0+A$.
+\item Poner $H_1:=H_1+B$.
+\item Poner $H_2:=H_2+C$.
+\item Poner $H_3:=H_3+D$.
+\item Poner $H_4:=H_4+E$.
+\item \textbf{Devolver } $H_0 \: \| \: H_1 \: \| \: H_2 \: \| \: H_3 \: \| \: H_4$.
+\end{enumerate}
+\ealgoritmo
+
+\vspace{.1 in}
+
+Vemos ahora la construcción de Merkle-Damg\r{a}rd. Partimos de la función de compresión $\mathbf{f}:\{  0,1 \}^{160+512} \to \{ 0,1  \}^{160}$
+definida antes, y vamos a definir la función {\em SHA-1} : ${\cal X}\to \{ 0,1 \}^{160}$, donde
+$${\cal X}=\bigcup_{i=0}^{2^{64}-1} \{ 0,1 \}^i \, .$$ 
+Sea $x\in {\cal X}$; entonces $x\in \{ 0,1 \}^{i}$ para cierto $0\leq i \leq 2^{64}-1$. Sea $d\equiv 447-i \bmod 512$, $d\geqslant 0$, y sea $l$ la representación binaria de $i$ de longitud $64$, es decir, $l\in \{ 0,1 \}^{64}$. Definimos el ``acolchado'' de $x$ como:
+$$PAD(x)=x \: \| \: 1 \: \| \: 0^d \: \| \: l  \, .$$ $PAD(x)$ tiene un número de bits múltiplo de $512$ ya que la longitud de $PAD(x)$ es $ i+1+d+64 \equiv i+1+447-i+64 \equiv 512 \equiv 0 \mod 512 $; luego podemos escribir 
+$$PAD(x)=y_1 \: \| \: y_2 \: \| \: \ldots \: \| \: y_n \, ,$$
+donde $y_i$ es una sucesión de $512$ bits. Consideramos ahora las sucesiones iniciales de $32$ bits (escritas en hexadecimal) siguientes:
+$$ \begin{array}{l}
+H_0=\verb"67452301" \, ,\\
+H_1=\verb"EFCDAB89" \, ,\\
+H_2=\verb"98BADCFE" \, ,\\
+H_3=\verb"10325476" \, ,\\
+H_4=\verb"C3D2E1F0" \, .
+\end{array}$$
+Sea $z_0=H_0 \: \| \: H_1 \: \| \: H_2 \: \| \: H_3 \: \| \: H_4$. Para $i=1,\ldots ,n$, definimos por recurrencia\footnote{La construcción de Merkle-Damg\r{a}rd sobre la función de compresión $\mathbf{f}$ es la recurrencia $z_i=\mathbf{f}(z_{i-1},y_i)$, partiendo de la sucesión inicial $z_0$.}
+$$z_i=\mathbf{f}(z_{i-1},y_i) \, .$$
+Finalmente {\em SHA-1}$(x)=z_n$. 
+
+\vspace{.1 in}
+
+La familia de funciones hash {\em SHA-3} es una alternativa a la familia {\em SHA-2} (formada por las citadas {\em SHA-256}, {\em SHA-384} y {\em SHA-512}, que aún siguen en uso). Una de las cosas novedosas de la familia {\em SHA-3} es que no utiliza la construcción de Merkle-Damg\r{a}rd.
 
 \subsection{Un esquema de firma: el esquema de un solo uso de Lamport-Diffie (LD-OTS)}
 
-Presentamos en esta sección el esquema de firma de un solo uso de Lamport-Diffie (LD-OTS). La seguridad de este esquema depende de la propiedad de resistencia a la segunda preimagen de la función hash utilizada. Además, necesita una función resistente a la preimagen. En caso de que la función hash utilizada posea también esta propiedad, es posible usar la misma función en las dos partes del algoritmo.
+Presentamos en esta sección el esquema de firma de un solo uso de Lamport-Diffie (LD-OTS). La seguridad de este esquema depende de la propiedad de resistencia a la segunda preimagen de la función hash utilizada. Además, necesita una función resistente a la preimagen. En caso de que la función hash utilizada posea también esta propiedad, es posible usar la misma función en las dos partes del algoritmo. En lo que sigue, denotaremos
+\[ \{ 0,1 \}^* = \bigcup_{i=0}^\infty \{0,1\}^i \]
 
 \begin{framed}
 \label{ldots}
@@ -88,7 +203,7 @@ Presentamos en esta sección el esquema de firma de un solo uso de Lamport-Diffie
 \end{framed}
 
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \makebox[\textwidth]{
 \includegraphics[width=1.3\textwidth]{images/lamport.png}}
@@ -106,14 +221,15 @@ La seguridad de este esquema radica en la resistencia a la preimagen y las carac
 Para aquellos $j$ en los que $d_j=d_j'$, Óscar puede elegir $x_j := \sigma_j$ de la firma del documento $M$ que Alice proporcionó. Pero para los otros casos, la propiedad de resistencia a la preimagen de $f$ hace que para Óscar sea computacionalmente infactible hallar dichos elementos. Por tanto, su única opción sería encontrar $M'$ tal que $H(M)=H(M')$, de manera que $d_j=d_j'$ para todo $j=0,\dots,n-1$. Pero la propiedad de resistencia a la segunda preimagen de $H$ hace que hallar dicho $M'$ sea computacionalmente infactible para Óscar.\footnote{Estas ideas intuitivas han de probarse formalmente. En la última parte de esta sección, probaremos que si existe un ataque contra este sistema, entonces podremos construir un algoritmo que encuentre preimágenes de $f$. Por tanto, este sistema será seguro si la función $f$ subyacente es segura.} \\
 
 Mediante este ejemplo es sencillo ver por qué este esquema solo debe usarse una vez para cada par de claves. Si Alice emitiera dos documentos firmados $(M,\sigma)$ y $(M',\sigma')$ distintos con el mismo par de claves privada y pública $(X,Y)$, entonces se harían públicos
-\[ \sigma = ( x_{n-1}[d_{n-1}], \dots, x_1[d_1],x_0[d_0] ) \]
-\[ \sigma' = ( x_{n-1}[d_{n-1}'], \dots, x_1[d_1'],x_0[d_0'] ) \]
+\[ \begin{split} \sigma = ( x_{n-1}[d_{n-1}], \dots, x_1[d_1],x_0[d_0] ) \\
+\sigma' = ( x_{n-1}[d_{n-1}'], \dots, x_1[d_1'],x_0[d_0'] ) \end{split} \]
 
 Entonces, ahora Óscar podría generar firmas de documentos cuyos hashes fuesen combinaciones de los hashes de $M$ y $M'$; por ejemplo $M''$ tal que
 \[H(M'') = (d_{n-1},d_{n-2}',\dots,d_3',d_2,d_1',d_0) \] 
 De hecho, si resultase que $d_j \neq d_j'$ para todo $j$, Óscar conocería la clave privada $X$ completa y podría firmar cualquier documento.
 
 \subsection{Experimento computacional: rompiendo el sistema LD-OTS con 2 firmas}
+\label{sec:experiment}
 
 En este experimento, veremos cómo se puede atacar el sistema si Alice, en contra del protocolo, firma dos documentos diferentes con el mismo par de claves $(X,Y)$. Haremos una comparación entre un ataque de fuerza bruta y un ataque específico cuando se tienen dos firmas con una misma clave. \\
 
@@ -229,29 +345,30 @@ Por ejemplo, los Algoritmos \ref{algfuerzabruta} y \ref{alg2doc} presentados en 
 \bdefinicion
 Sea $\mathcal{G}=(\mathcal{X},\mathcal{Y},\mathcal{K},\mathcal{H})$ una familia de funciones hash, y sean $t,\varepsilon > 0$. Se dice que la familia $\mathcal{G}$ es $(t,\varepsilon)$ \textit{resistente a la preimagen} si para todo adversario \[\textsc{Adv} : \mathcal{K} \times \mc{Y} \to \mathcal{X} \cup \{ error \} \] que dado $K\in \mathcal{K}, y = g_k(x)$ para cierto $x\in\mc{X}$, devuelve $x'\in\mathcal{X}$ tal que $h_K(x')=y$ o \textit{error} y que puede ejecutarse en tiempo $t$, verifica que
 \[ Pr\left[ k \xleftarrow{\$} \mathcal{K},x \xleftarrow{\$} \mc{X},y \leftarrow g_k(x),x'\xleftarrow{\$} \sc{Adv}(k,y) : g_k(x') = y\right] \leq \varepsilon \]
+Es decir, que su probabilidad de éxito es, a lo sumo, $\varepsilon$.
 \edefinicion
 
-De manera similar, podrían extenderse las Definiciones \ref{2preimage} y \ref{collision}. Ahora, definimos que un sistema de firma sea \textit{irrompible por un ataque de mensajes elegidos adaptativamente}.
+De manera similar, podrían extenderse las Definiciones \ref{2preimage} y \ref{collision}.
 
 \bdefinicion
-	Sea $S = (\mc{P},\mc{A},\mc{K},\mc{S},\mc{V})$ un sistema de firma y $(s_k,p_k)$ las claves pública y privada asociadas a una clave $k\in\mc{K}$. Definimos un \textit{oráculo de firma} $\mc{O}(sk,\cdot) : \mc{P} \to \mc{A}$ como una función que dado un documento $x \in \mc{P}$, devuelve su firma $\sigma \in \mc{A}$.
+	Sea $S = (\mc{P},\mc{A},\mc{K},\mc{S},\mc{V})$ un sistema de firma y $(s_k,p_k)$ las claves pública y privada asociadas a una clave $k\in\mc{K}$. Definimos un \textit{oráculo de firma} $\mc{O}(s_k,\cdot) : \mc{P} \to \mc{A}$ como una función que dado un documento $x \in \mc{P}$, devuelve su firma $\sigma \in \mc{A}$.
 \edefinicion
 
-Teóricamente, oráculo de firma hace la misma función que el algoritmo de firma del sistema. Sin embargo, a diferencia del segundo, un atacante tiene acceso a este oráculo, aun sin conocer la clave privada, y que a diferencia del algoritmo de firma, su uso puede tener ciertas limitaciones (por ejemplo, en lo que sigue, un atacante sólo podrá usar este oráculo un número limitado de veces).
+Teóricamente, un oráculo de firma hace la misma función que el algoritmo de firma del sistema. Sin embargo, a diferencia de éste, un atacante tiene acceso al oráculo, aun sin conocer la clave privada, y a diferencia del algoritmo de firma, su uso puede tener ciertas limitaciones (por ejemplo, en lo que sigue, un atacante sólo podrá usar este oráculo un número limitado de veces).
 
 \bdefinicion
-Sea $S = (\mc{P},\mc{A},\mc{K},\mc{S},\mc{V})$ un sistema de firma, $(s_k,p_k)$ las claves pública y privada asociadas a una clave $k\in\mc{K}$ y $\mc{O}(sk,\cdot)$ un oráculo de firma del sistema. Definimos un \textit{falsificador} $\sc{For}^{\mc{O}(sk,\cdot)}(pk)$ a un algoritmo probabilístico que, después de hacer como máximo $q\in\mathbb{N}$ consultas al oráculo, es decir, después de obtener $p$ documentos firmados de la forma
-\[ \{ (M_1,\sigma_1),(M_2,\sigma_2),\cdots,(M_p,\sigma_p) \}, p \leq q \]
+Sea $S = (\mc{P},\mc{A},\mc{K},\mc{S},\mc{V})$ un sistema de firma, $(s_k,p_k)$ las claves pública y privada asociadas a una clave $k\in\mc{K}$ y $\mc{O}(s_k,\cdot)$ un oráculo de firma del sistema. Definimos un \textit{falsificador} $\sc{For}^{\mc{O}(s_k,\cdot)}(p_k)$ a un algoritmo probabilístico que, después de hacer como máximo $q\in\mathbb{N}$ consultas al oráculo, es decir, después de obtener $p$ documentos firmados de la forma
+\[ \{ (M_1,\sigma_1),(M_2,\sigma_2),\cdots,(M_p,\sigma_p) \}, \quad p \leq q \]
 encuentra un documento firmado $(M',\sigma')$ con $M'\neq M_i$ para todo $i=1,\dots,p$, o bien devuelve \textit{error}. La elección de los mensajes que se firman con el oráculo puede depender de las firmas anteriores, es decir, los mensajes pueden ser elegidos adaptativamente.
 \edefinicion
 
-El oráculo hace referencia en realidad a los documentos que ya han sido firmados por el usuario legítimo del sistema; por ello, en el sistema LD-OTS tenemos que $q=1$, porque sólo debe firmarse un elemento con cada par de claves.
+El oráculo hace referencia en realidad a los documentos que ya han sido firmados por el usuario legítimo del sistema; por ello, en el sistema LD-OTS tenemos que $q=1$, porque sólo debe firmarse un documento con cada par de claves. Finalmente, definimos que un sistema de firma sea \textit{existencialmente irrompible por un ataque de mensajes elegidos adaptativamente}.
 
 \bdefinicion
-Sea $S$ un sistema de firma y $t,\varepsilon > 0$, $q\in \mathbb{N}$. Se dice que $S$ es $(t,\varepsilon,q)$  \textit{existencialmente irrompible por un ataque de mensajes elegidos adaptativamente}, o simplemente, es un $(t,\varepsilon,q)$ \textit{sistema de firma}, si para cualquier falsificador $\sc{For}$ con $q$ elegido anteriormente y que es capaz de ejecutarse en tiempo $t$, la probabilidad de que $\sc{For}$ se ejecute con éxito (encuentre el mensaje firmado) es menor o igual que $\varepsilon$.
+Sea $S$ un sistema de firma y $t,\varepsilon > 0$, $q\in \mathbb{N}$. Se dice que $S$ es $(t,\varepsilon,q)$  \textit{existencialmente irrompible por un ataque de mensajes elegidos adaptativamente}, o simplemente, es un $(t,\varepsilon,q)$ \textit{sistema de firma}, si para cualquier falsificador $\sc{For}$ que haga como máximo $q$ consultas al oráculo de firma y que es capaz de ejecutarse en tiempo $t$, la probabilidad de que $\sc{For}$ se ejecute con éxito (encuentre el mensaje firmado) es menor o igual que $\varepsilon$.
 \edefinicion
 
-Con estas definiciones, ya podemos dar el resultado que asegura que el sistema LD-OTS es seguro si la función hash $f$ utilizada es resistente a la preimagen.
+Con estas definiciones, ya podemos dar el resultado que asegura que el sistema LD-OTS es seguro si la función hash $f$ utilizada es resistente a la preimagen. En la demostración del teorema, identificaremos los mensajes a firmar como su imagen por la función hash, $H(M)$, con tal de simplificar la notación. De esta manera, todo documento a firmar $M\in\{0,1\}^n $ (el espacio de salida de $H$, tal y como se especifica en el esquema de la sección \ref{ldots}).
 
 \bteoremaa
 Sea $n\in\mathbb{N}$, $t_{OW},\varepsilon_{OW} \geq 0$ y $\mc{F}=(\mathcal{X},\mathcal{Y},\mathcal{K},\mathcal{H})$ una familia de funciones hash $(t_{OW},\varepsilon_{OW})$ resistentes a la preimagen. Entonces, la firma LD-OTS con $f\in\mc{F}$ es un $(t_{OTS},\varepsilon_{OTS},1)$ sistema de firma con $\varepsilon_{OTS} = 4n\cdot \varepsilon_{OW}$ y $t_{OTS} = t_{OW} - t_{SIG} - t_{GEN}$, donde $t_{SIG}$ y $t_{GEN}$ son los tiempos de firma y generación de claves del sistema, respectivamente..
@@ -268,7 +385,6 @@ Sea $n\in\mathbb{N}$, $t_{OW},\varepsilon_{OW} \geq 0$ y $\mc{F}=(\mathcal{X},\m
 		\item Si el falsificador se ejecuta con éxito, devolverá un mensaje $M'=(m'_{n-1},\cdots,m'_0)$ firmado con $\sigma'=(\sigma'_{n-1},\cdots,\sigma'_0)$. Si $m'_a = b$, entonces la preimagen buscada es $\sigma'_a$, ya que $f_k(\sigma'_a) = y_a[b] = y$ por definición de documento firmado.
 	\end{enumerate}
 	\balgoritmo
-	\label{alg2doc}
 	$\sc{Adv}_{PRE}$ \\
 	
 	\noindent
@@ -276,9 +392,9 @@ Sea $n\in\mathbb{N}$, $t_{OW},\varepsilon_{OW} \geq 0$ y $\mc{F}=(\mathcal{X},\m
 	\textbf{Salida:} $x\in\mc{X}$ tal que $y=f_k(x)$, o \textit{error}. \\
 	\setlist{nolistsep}
 	\begin{enumerate}[noitemsep]
-		\item Generar un par de claves $(X,Y)$ del sistema LD-OTS.
+		\item Generar un par de claves privada y pública $(X,Y)$ del sistema LD-OTS.
 		\item Escoger $a \xleftarrow{\$} \{0,\dots,n-1\}$ y $b\xleftarrow{\$} \{0,1\}$.
-		\item Reemplazar $y_a[b]$ por $y$ en la clave privada $Y$.
+		\item Reemplazar $y_a[b]$ por $y$ en la clave pública $Y$.
 		\item Ejecutar $ \sc{For}^{\mc{O}(X,\cdot)}(Y) $.
 		\item \textbf{Si}  $ \sc{For}^{\mc{O}(X,\cdot)}(Y) $ consulta al oráculo con $M=(m_{n-1},\dots,m_0)$, \textbf{entonces:}
 		\begin{enumerate}
@@ -293,7 +409,7 @@ Sea $n\in\mathbb{N}$, $t_{OW},\varepsilon_{OW} \geq 0$ y $\mc{F}=(\mathcal{X},\m
 		\item \textbf{Si no}, \textbf{devolver} \textit{error}.
 	\end{enumerate}
 	\ealgoritmo
-	Veamos ahora el tiempo que toma en ejecutarse $t_{OW}$ y la probabilidad de éxito $\varepsilon_{OW}$ de este adversario. Denotando $t_{GEN}$ el tiempo de generación de claves del esquema LD-OTS, $t_{SIG}$ el tiempo de firma y $t,\varepsilon$ el tiempo que toma en ejecutarse el falsificador $ \sc{For}^{\mc{O}(X,\cdot)}(Y) $ y su probabilidad de éxito respectivamente, entonces
+	Veamos ahora el tiempo que toma en ejecutarse $t_{ADV}$ y la probabilidad de éxito $\varepsilon_{ADV}$ de este adversario. Denotando $t_{GEN}$ el tiempo de generación de claves del esquema LD-OTS, $t_{SIG}$ el tiempo de firma y $t,\varepsilon$ el tiempo que toma en ejecutarse el falsificador $ \sc{For}^{\mc{O}(X,\cdot)}(Y) $ y su probabilidad de éxito respectivamente, entonces el tiempo que tarda en ejecutarse este adversario es
 	\begin{equation} \label{tiempo} t_{ADV} = t + t_{GEN} + t_{SIG} \end{equation}
 	Por otro lado, observemos que para que el adversario tenga éxito, deben ocurrir tres cosas:
 	\begin{itemize}
@@ -306,15 +422,73 @@ Sea $n\in\mathbb{N}$, $t_{OW},\varepsilon_{OW} \geq 0$ y $\mc{F}=(\mathcal{X},\m
 	\varepsilon_{ADV} \geq \frac{1}{2}\cdot\varepsilon\cdot\frac{1}{2n} = \frac{\varepsilon}{4n}
 	\end{equation}
 	Sin embargo, ya que por hipótesis $t = t_{OW}-t_{SIG}-t_{GEN}$, de la ecuación \eqref{tiempo} deducimos que $t_{ADV} = t_{OW}$, y como $\varepsilon >  4n\cdot \varepsilon_{OW}$, de la ecuación \eqref{probabilidad} deducimos que:
-	\[ \varepsilon_{ADV} \geq \frac{\varepsilon}{4n} > \varepsilon_{OTS} \]
+	\[ \varepsilon_{ADV} \geq \frac{\varepsilon}{4n} > \varepsilon_{OW} \]
 	Hemos encontrado un adversario que se ejecuta en tiempo $t_{OW}$ y con probabilidad de éxito mayor que $\varepsilon_{OTS}$. Esto contradice el hecho que $\mc{F}$ sea una familia de funciones hash $(t_{OW},\varepsilon_{OW})$ resistente a la preimagen, lo que completa la demostración.
 \end{proof}
 
 Este hecho prueba que toda la seguridad de este equema, se traslada a la seguridad de la función hash utilizada subyacente. Ya que no se han encontrado ataques efectivos a funciones hash comúnmente utilizadas como la familia \textit{SHA-256}, ni en ordenadores clásicos ni cuánticos, este esquema se propone como una alternativa a otros sistemas de firma basados en la factorización de los números enteros, como el \textit{RSA}.
+
+\subsection{El sistema de firma basado en árboles hash de Merkle}
+\label{sec:merkle}
+
+El sistema de firma de Lamport-Diffie en la práctica no es útil, puesto que sólo es posible firmar un solo documento con cada par de claves. Sin embargo, Ralph Merkle propuso en 1979 una solución a este problema \cite{merkle}. La idea es extender cualquier sistema de firma de un solo uso, generando un número arbitrario pero finito de pares de claves y reducir la validez de cada una de ellas a una sola clave pública. De esta manera, cuando un usuario Alice quiera firmar un documento, incluye la firma y la clave pública con la que fue firmada. Un usuario, Bob, solo debe comprobar que la firma es correcta mediante el algoritmo de verificación del sistema de un solo uso, usando la clave pública que proporcionó Alice junto con la firma; y seguidamente comprobar que la clave pública es auténtica usando la clave pública general de Alice.
+
+El esquema de firma de Merkle (MSS) funciona con cualquier firma de un solo uso (por ejemplo, la firma de Lamport-Diffie) y con una función hash, que denotaremos
+\[ g : \{0,1\}^* \to \{0,1\}^n \]
+Estudiaremos cada parte del esquema por separado, dada su extensión.
+\subsubsection{Generación de claves}
+Primero se selecciona un número natural $H\geq 2$. La cantidad de documentos que se pueden firmar con este sistema son $2^H$. Seguidamente, se generan $2^H$ pares de claves privada y pública del sistema de firma de un solo uso $(X_j,Y_j)$, $0\leq j < 2^H$. A continuación, se construye una estructura de datos denominada ``árbol de Merkle''. En la base del árbol, se encuentran las imágenes $g(Y_j)$ de las claves públicas. Luego, se prosigue construyendo los demás niveles hasta llegar a la raíz del árbol; en cada nivel se construye un nodo a partir de los dos inmediatamente inferiores a partir de la siguiente expresión:
+
+\[ v_h[j] = g(v_{h-1}[2j] || v_{h-1}[2j+1]), \qquad 1\leq h \leq H, 0\leq j < 2^{H-h} \]
+
+donde $h$ es el nivel del árbol, y $j$ el número de nodo de ese nivel y $||$ denota la operación de concatenación. Por ejemplo, así sería la estructura de un árbol de Merkle con $H=3$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{images/merkle.png}
+\end{figure}
+
+La clave pública del sistema es la raíz del árbol, $v_H[0]$, y la clave privada es la estructura del árbol completa, con los respectivos pares de claves privadas y públicas del sistema de un solo uso subyacente.
+
+\subsubsection{Algoritmo de firma}
+
+Sea $M$ un documento a firmar. Supongamos que ya han sido utilizadas $s$ firmas anteriormente, $0 \leq s \leq 2^H-1$. Por tanto, este documento se firmará con el par de claves $(X_s,Y_s)$. Se firma el documento usando el esquema de un solo uso, obteniendo así la firma $\sigma_{OTS}$. Seguidamente, se calcula una \textit{ruta de autentificación}, que es una secuencia $A_s = (a_0,\dots,a_{H-1})$ de $H-1$ nodos del árbol de Merkle. Cada $a_h$, $0\leq h \leq H-1$ es el ``hermano'' de cada nodo en el camino del árbol desde el nodo base usado a la raíz del árbol:
+
+\[ a_h = \left\{ 
+\begin{array}{lcc}
+v_h[ \lfloor s/2^h \rfloor -1] & \mbox{si} & \lfloor s/2^h \rfloor \mbox{ es impar} \\
+v_h[ \lfloor s/2^h \rfloor +1] & \mbox{si} & \lfloor s/2^h \rfloor \mbox{ es par}
+\end{array}
+\right. \]
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{images/merkle2.png}
+	\caption{Ruta de autentificación para un árbol de Merkle con $H=3$, $s=4$. Los nodos señalados en rojo son los nodos que se incluyen en la ruta.}
+\end{figure}
+
+La firma del documento, finalmente, es
+\[ \sigma = (\sigma_{OTS},s,Y_s,A_s) \]
+
+\subsubsection{Algoritmo de verificación}
+
+Para verificar un documento firmado $(M,\sigma)$, primero se comprueba que la firma $\sigma_{OTS}$ es correcta usando el algoritmo de verificación del sistema de un solo uso y la clave pública $Y_s$ proporcionada en $\sigma$. A continuación, se verifica que $Y_s$ es correcta. Para ello, reconstruye el camino hasta la raíz del árbol usando la ruta de autentificación $A_s$: se calculan unos elementos $p_h$, $0\leq h \leq H$ de la siguiente manera:
+
+\[ p_h = \left\{ 
+\begin{array}{lcc}
+g(a_{h-1}||p_{h-1}) & \mbox{si} & \lfloor s/2^{h-1} \rfloor \mbox{ es impar} \\
+g(p_{h-1}||a_{h-1}) & \mbox{si} & \lfloor s/2^{h-1} \rfloor \mbox{ es par}
+\end{array}
+\right. \]
+
+para $1\leq h \leq H$, y $p_0 = g(Y_s)$. La firma es correcta si $p_H$ es igual a la clave pública del sistema. \\
+
+La seguridad de este esquema radica en que un atacante que quisiese falsificar un documento, suponiendo que el sistema de un solo uso es seguro, generaría un par de claves $(X',Y')$ y tendría que calcular una ruta de autentificación $A'$. Sin embargo, por la propiedad de resistencia a la preimagen de la función hash $g$, no puede revertir el proceso para encontrar un nodo $a_{H-1}$ tal que $g(a_{H-1}||p_{H-1})=v_H[0]$, es decir, que coincida con la clave pública del sistema, y de igual manera con el resto de niveles del árbol. Solo Alice, que conoce la estructura del árbol completa, puede generar estas rutas de autentificación.\newpage
+
 \section{Criptografía basada en códigos}
-A diferencia de la sección anterior, de la criptografía basada en códigos tenemos ejemplos de criptosistemas (en vez de sistemas de firma). Se basan en el problema de la decodificación de una palabra de tipo de códigos autocorrectores espciales, los \textit{códigos Goppa}.
+A diferencia de la sección anterior, de la criptografía basada en códigos tenemos ejemplos de criptosistemas (en vez de sistemas de firma). Se basan en el problema de la decodificación de una palabra de un tipo de códigos autocorrectores especiales, los \textit{códigos Goppa}.
 \subsection{Introducción a los códigos Goppa}
-Antes de presentar los códigos Goppa y sus propiedades, damos unas pequeñas definciones sobre códigos algebraicos.
+Antes de presentar los códigos Goppa y sus propiedades, recordaremos algunas definciones básicas sobre códigos.
 
 \bdefinicion
  Sea $\F_q$ un cuerpo finito de $q$ elementos. Un \textit{código} es un subconjunto no vacío $\mc{C} \subset \F_q^n$. En este caso, decimos que $\mc{C}$ tiene \textit{longitud} $n$. Sus elementos se denominan \textit{palabras} del código. \\
@@ -328,6 +502,9 @@ El \textit{código dual} $\mc{C}^\perp$ de $\mc{C}$ es el subespacio ortogonal de
 
 Llamamos a una matriz $H \in M_{(n-k)\times n}\left( \F_q \right)$ \textit{matriz de control de paridad} de $\mc{C}$ a una matriz generadora de $\mc{C}^\perp$.
 \edefinicion
+
+Observemos que un $[n,k]$-código lineal $\mc{C}$ puede definirse a través de una matriz de control de paridad $H$ como $\mc{C} = \{ x\in \F_q^n : Hx = 0 \}$, lo cual define al código según unas ecuaciones implícitas sobre $\F_q^n$. Por extensión, llamaremos también matriz de control de paridad a la matriz de coeficientes de cualquier sistema de ecuaciones que defina a $\mathcal{C}$ (no necesariamente sobre $\F_q$, ni de orden $(n-k)\times n$).
+
 \bdefinicion
 Sean $x,y\in \F_q^n$. Denominamos \textit{distancia de Hamming} entre $x$ e $y$ al número de coordenadas que difieren entre $x$ e $y$, es decir:
 \[ d(x,y) = \#\{ i : x_i \neq y_i, i=1,\dots,n \} \]
@@ -347,15 +524,16 @@ Al valor $wt(x)$ se le \textit{peso} de la palabra $x\in\F_q^n$, y al vector $e\
 Finalmente, podemos dar una definción de un código Goppa. Aunque existen diversas definiciones, nosotros seguiremos \cite{coding}.
 
 \bdefinicion
-Sea $g(z)$ un polinomio mónico de grado $t$ sobre $\F_{q^m}$. Sea $L = \{ \gamma_0,\gamma_1,\dots,\gamma_{n-1} \} \subset \F_{q^m} $, tal que $g(\gamma_i) \neq 0$ para todo $0 \leq i \leq n-1$. Definimos el \textit{código Goppa} $\Gamma(L,g) $ con el \textit{polinomio de Goppa} $g(z)$ como el conjunto de palabras $c = (c_0,c_1,\dots,c_{n-1}) \in \F_q^n$ tales que
+Sea $g(z)$ un polinomio mónico de grado $t$ sobre $\F_{q^m}$. Sea $L = \{ \gamma_0,\gamma_1,\dots,\gamma_{n-1} \} \subset \F_{q^m} $, $|L|=n$, tal que $g(\gamma_i) \neq 0$ para todo $0 \leq i \leq n-1$. Definimos el \textit{código Goppa} $\Gamma(L,g) $ con el \textit{polinomio de Goppa} $g(z)$ como el conjunto de palabras $c = (c_0,c_1,\dots,c_{n-1}) \in \F_q^n$ tales que
 \begin{equation} \label{goppaeq} \sum_{i=0}^{n-1} \frac{c_i}{z-\gamma_i} \equiv 0 \mod g(z) \end{equation}
 Si el polinomio de Goppa $g(z)$ es además irreducible, entonces se dice que $\Gamma(L,g)$ es un \textit{código de Goppa irreducible}.
 \edefinicion
 
-Con esta definición, es fácil ver que un código de Goppa es lineal viendo que la suma de palabras y el producto de escalares por palabras verifica la ecuación \eqref{goppaeq}. Así, podemos dar el siguiente resultado, cuya demostración puede consultarse en \cite{coding}: \eject
+Con esta definición, es fácil ver que un código de Goppa es lineal viendo que la suma de palabras y el producto de escalares por palabras verifica la ecuación \eqref{goppaeq}. Así, podemos dar el siguiente resultado (las demostraciones están tomadas de \cite{coding}):
 
 \bproposicion
-Tomando $h_j := g(\gamma_j) - 1$, $j=0,\dots,n-1$, una matriz de control de paridad de $\Gamma(L,g)$ es:
+\label{prop31}
+Tomando $h_j := \frac{1}{g(\gamma_j)}$, $j=0,\dots,n-1$, una matriz de control de paridad de $\Gamma(L,g)$ es:
 \[ \left( \begin{array}{cccc}
 h_0 & h_1 & \cdots & h_{n-1} \\
 h_0\gamma_0 & h_1\gamma_1 & \cdots & h_{n-1}\gamma_{n-1} \\
@@ -363,19 +541,161 @@ h_0\gamma_0 & h_1\gamma_1 & \cdots & h_{n-1}\gamma_{n-1} \\
 h_0\gamma_0^{t-1} & h_1\gamma_1^{t-1} & \cdots & h_{n-1}\gamma_{n-1}^{t-1}
  \end{array} \right) \]
 \eproposicion
+\begin{proof}
+	Vamos a comprobar que $\Gamma(L,g)$ es el conjunto de palabras $(c_0,c_1,\ldots , c_{n-1})\in \mathbb{F}_{q}^{n}$ tales que
+	$$\left(\begin{array}{cccc}
+	h_0 & h_1 & \cdots & h_{n-1} \\
+	h_0 \gamma_0 & h_1 \gamma_1 & \cdots & h_{n-1} \gamma_{n-1} \\
+	\vdots & \vdots & \ddots & \vdots  \\
+	h_0 \gamma_{0}^{t-1} & h_1 \gamma_{1}^{t-1} & \cdots & h_{n-1} \gamma_{n-1}^{t-1} \\
+	\end{array}
+	\right)
+	\;
+	\left(\begin{array}{c}
+	c_0 \\
+	c_1 \\
+	\vdots \\
+	c_{n-1}
+	\end{array}
+	\right)=
+	\left(\begin{array}{c}
+	0 \\
+	0 \\
+	\vdots \\
+	0
+	\end{array}
+	\right) \, .
+	$$
+	Como $g(\gamma_j)\neq 0$, $\mcd(z-\gamma_j,g(z))=1$. Del lema de Bézout se deduce que la clase de $z-\gamma_j$ en el anillo
+	cociente $\mathbb{F}_{q^m}[z]/\langle g(z) \rangle$ es una unidad\footnote{Ya que existen dos polinomios $a(z),b(z)\in \mathbb{F}_{q^m}[z]/\langle g(z) \rangle$ tales que $ a(z)(z-\gamma_j)+b(z)g(z)=1 $; tomando clases concluimos que $a(z)(z-\gamma_j)=1$, lo que significa que es una unidad.}; un representante de su inverso es\footnote{Basta multiplicar y tomar clases para ver que el producto con $(z-\gamma_j)$ vale $1$.}
+	$$-{h_j} \, \cdot \frac{g(z)-g(\gamma_j)}{z-\gamma_j} \, ,$$
+	donde $h_j=1/g(\gamma_j)$. Sea $g(z)=g_0+g_1 z+\ldots +g_t z^t$ (donde $g_t=1$); entonces
+	$$ \frac{g(z)-g(\gamma_j)}{z-\gamma_j}=z^{t-1}+\sum_{i=1}^{t-1} \left( \gamma_{j}^{i}+\gamma_{j}^{i-1}g_{t-1}+\ldots +g_{t-i}\right)\emph{} z^{t-i-1} \, .$$
+	La condición $\displaystyle{\sum_{j=0}^{n-1} \frac{c_j}{z-\gamma_j}\equiv 0 \bmod g(z)}$ que define $\Gamma(L,g)$ equivale a
+	\begin{equation}
+	\label{ecgoppa1}
+	\sum_{j=0}^{n-1} -c_j h_j \, \cdot \frac{g(z)-g(\gamma_j)}{z-\gamma_j}=0\, ,
+	\end{equation}
+	pues el lado izquierdo de la ecuación (\ref{ecgoppa1}) es un polinomio en $z$ de grado menor que $t$. Esta ecuación es equivalente al
+	sistema, igualando los coeficientes del miembro izquierdo de \eqref{ecgoppa1} a $0$:
+	$$H \left(\begin{array}{c}
+	c_0 \\
+	\vdots \\
+	c_{n-1}
+	\end{array}
+	\right)=
+	\left(\begin{array}{c}
+	0 \\
+	\vdots \\
+	0
+	\end{array}
+	\right) \, ,
+	$$ donde
+	$$H=\left( \begin{array}{ccc}
+	h_0 & \cdots & h_{n-1}  \\
+	h_0(g_{t-1}+\gamma_0) & \cdots & h_{n-1}(g_{t-1}+\gamma_{n-1}) \\
+	\vdots  & \ddots & \vdots \\
+	h_0(g_1+g_2 \gamma_0+\ldots +\gamma_{0}^{t-1}) & \ldots & h_{n-1}(g_1+g_2 \gamma_{n-1}+\ldots +\gamma_{n-1}^{t-1})
+	\end{array}
+	\right) \, .
+	$$
+	Aplicando Gauss a $H$ (simplificamos primero la segunda fila y después hacia abajo hasta simplificar la última fila), concluimos que la ecuación (\ref{ecgoppa1}) es equivalente a
+	$$\left( \begin{array}{ccc}
+	h_0 & \cdots & h_{n-1}  \\
+	h_0\gamma_0 & \cdots & h_{n-1}\gamma_{n-1} \\
+	\vdots  & \ddots & \vdots \\
+	h_0\gamma_{0}^{t-1} & \ldots & h_{n-1} \gamma_{n-1}^{t-1}
+	\end{array}
+	\right)
+	\left(\begin{array}{c}
+	c_0 \\
+	\vdots \\
+	c_{n-1}
+	\end{array}
+	\right)=
+	\left(\begin{array}{c}
+	0 \\
+	0 \\
+	\vdots \\
+	0
+	\end{array}
+	\right) \, ,
+	$$ que es lo que queríamos justificar.
+\end{proof}
 
-Sin exigir restricciones al código, tememos las siguientes cotas para la dimensión y distancia mínima de un código de Goppa (véase \cite{coding} para una demostración a partir de otro tipo de códigos, los códigos BCH.)
+Sin exigir restricciones al código, tememos las siguientes cotas para la dimensión y distancia mínima de un código de Goppa:
 
 \bproposicion
 	Con la notación anterior, un código de Goppa $\Gamma(L,g)$ tiene dimensión $k\geq n-mt$ y distancia mínima $d\geq t+1$.
 \eproposicion
+\begin{proof}
+	Consideramos la matriz
+	$$H'=\left(\begin{array}{cccc}
+	h_0 & h_1 & \cdots & h_{n-1} \\
+	h_0 \gamma_0 & h_1 \gamma_1 & \cdots & h_{n-1} \gamma_{n-1} \\
+	\vdots & \vdots & \ddots & \vdots  \\
+	h_0 \gamma_{0}^{t-1} & h_1 \gamma_{1}^{t-1} & \cdots & h_{n-1} \gamma_{n-1}^{t-1} \\
+	\end{array}
+	\right)\, .$$
+	Por la Proposición \ref{prop31},
+	sabemos que
+	$\Gamma(L,g)$ es el conjunto de palabras $(c_0,c_1,\ldots , c_{n-1})\in \mathbb{F}_{q}^{n}$ tales que
+	\begin{equation}
+	\label{ecgoppa2}
+	H'
+	\left(\begin{array}{c}
+	c_0 \\
+	c_1 \\
+	\vdots \\
+	c_{n-1}
+	\end{array}
+	\right)=
+	\left(\begin{array}{c}
+	0 \\
+	0 \\
+	\vdots \\
+	0
+	\end{array}
+	\right) \, .
+	\end{equation}
+	Denotemos $\beta_{ij}=h_j \gamma_{j}^{i}\in \mathbb{F}_{q^m}$. Fijamos una base $\{ \alpha_1,\ldots,\alpha_m \}$ de $\mathbb{F}_{q^m}$ sobre $\mathbb{F}_q$; escribimos $\beta_{ij}=\sum_{l=1}^{m} b_{ilj} \alpha_l$, $b_{ilj}\in \mathbb{F}_q$. Sea $H''$ la matriz $tm \times n$ cuyas filas son $\left( b_{il,0},\ldots ,b_{il,n-1}  \right)$. De la ecuación \eqref{ecgoppa2}, deducimos que para todo $i=1,\dots,t$, se tiene que $$ \sum_{j=0}^{n-1} \beta_{ij}c_j=0 \iff \sum_{j=0}^{n-1} \sum_{l=0}^{m-1} \beta_{ilj}\alpha_l c_j=0 \iff \sum_{l=0}^{m-1} \left( \sum_{j=0}^{n-1} \beta_{ilj} c_j \right) \alpha_l = 0 $$
+	y de esta última expresión es sencillo ver que esto se verifica si y sólo si $\sum_{j=0}^{n-1} \beta_{ilj}c_j = 0$ para todo $i=1,\dots,t$, $l=1,\dots,m$ (la condición suficiente es trivial, la necesaria se desprende del hecho de que los $\alpha_l$ son linealmente independientes). Por tanto, el código $\Gamma(L,g)$ es el conjunto de palabras $(c_0,c_1,\ldots , c_{n-1})\in \mathbb{F}_{q}^{n}$ tales que
+	$$H'' \left(\begin{array}{c}
+	c_0 \\
+	c_1 \\
+	\vdots \\
+	c_{n-1}
+	\end{array}
+	\right)=
+	\left(\begin{array}{c}
+	0 \\
+	0 \\
+	\vdots \\
+	0
+	\end{array}
+	\right) \, .$$ Luego la dimensión de $\Gamma(L,g)$ es igual a $n-\mathrm{rango}(H'')\geq n-mt$.
+	
+	Vemos ahora que la distancia mínima de $\Gamma(L,g)$ es mayor o igual que $t+1$. Observamos que cualesquiera $t$ columnas de
+	la matriz $H'$ son linealmente independientes; esto se deduce de que $h_j\neq 0$ para $j=0,\ldots,n-1$, de que $\gamma_{j_1}\neq \gamma_{j_2}$ si $j_1\neq j_2$, y de la expresión del determinante de Vandermonde. Deducimos que ninguna palabra $(c_0,c_1,\ldots,c_{n-1})\in \Gamma(L,g)$ distinta de $(0,\ldots,0)$ puede tener peso menor que $t+1$, pues de lo contrario, por la ecuación (\ref{ecgoppa2}), habría una combinación lineal no trivial de $t$ columnas de $H'$ igual a $(0,\ldots,0)^t$, que contradice lo anterior. Por ser $\Gamma(L,g)$ lineal, concluimos que su distancia mínima es mayor o igual que $t+1$.
+\end{proof}
 
-Sin embargo, exigiendo $q=2$ y que el polinomio de Goppa $g$ no tenga raíces múltiples (por ejemplo, si es irreducible), se puede demostrar el siguiente resultado (\cite{coding}):
+Sin embargo, exigiendo $q=2$ y que el polinomio de Goppa $g$ no tenga raíces múltiples (por ejemplo, si es irreducible), llegamos al siguiente resultado.
 
 \bproposicion
 \label{goppadist}
 Sea $q=2$, y $g(z)\in\F_{2^m}[X]$ un polinomio mónico de grado $t$ sin raíces múltiples. Entonces, $\Gamma(L,g)$ tiene distancia mínima $d \geq 2t+1$.
 \eproposicion
+\begin{proof}
+	Sea $L=\{ \gamma_0,\gamma_1,\ldots ,\gamma_{n-1} \}\subset \mathbb{F}_{2^m}$, $|L|=n$. Consideremos el $\mathbb{F}_2$-espacio vectorial
+	$${\cal R}=\left\{  \sum_{j=0}^{n-1} \frac{b_j}{z-\gamma_j}: (b_0,b_1,\ldots ,b_{n-1})\in \mathbb{F}_{2}^{n} \right\} \, .$$ 
+	Sea $\xi(z)\in {\cal R}$ función racional no nula; escribimos $\xi(z)=n(z)/d(z)$, donde $n(z),d(z)\in \mathbb{F}_{2^m}[z]$ con $mcd(n(z),d(z))=1$.  
+	El {\em peso} de $\xi(z)\in {\cal R}$ se define como $wt(\xi(z))=\deg d(z)$.
+	Dadas dos funciones racionales $\xi(z), \eta(z)\in {\cal R}$, $\xi(z)\neq \eta(z)$, se define la {\em distancia} $d(\xi(z),\eta(z))=wt(\xi(z)-\eta(z))$. Ahora, la asignación
+	$$(b_0,b_1,\ldots ,b_{n-1}) \mapsto \sum_{j=0}^{n-1} \frac{b_j}{z-\gamma_j} $$ 
+	es un isomorfismo de $\mathbb{F}_{2}^{n}$ en ${\cal R}$ que conserva las distancias\footnote{En efecto, ya que los $b_j$ valen 0 ó 1,  si $b^{(1)},b^{(2)}$ son dos palabras a distancia $k>0$, $ d(f(b^{(1)})-f(b^{(2)})) = d\left( \sum_{j=0}^{n-1} \frac{b^{(1)}_j}{z-\gamma_j} - \frac{b^{(2)}_j}{z-\gamma_j}  \right) = d\left( \sum_{j : b^{(1)}_j \neq b^{(2)}_j} \frac{b^{(1)}_j-b^{(2)}_j}{z-\gamma_j}\right) $, y sacando común denominador, el denominador de la última expresión es el producto de todos los denominadores de la suma, por tanto, el grado del denominador (por tanto, la distancia entre las imágenes) es el mismo que el número de coordenadas que difieren de $b^{(1)}$ y $b^{(2)}$, que es su distancia de Hamming.} (la distancia en $\mathbb{F}_{2}^{n}$ es la distancia de Hamming).
+	
+	Sea $(c_0,c_1,\ldots,c_{n-1})\in \Gamma(L,g)$ una palabra no nula; consideramos el polinomio $f(z)=\prod_{j=0}^{n-1} \left( z-\gamma_j \right)^{c_j}$. Entonces podemos expresar\footnote{ Sólo hay que observar que, como los $c_j\in\F_2$, valen $0$ ó $1$, luego $f'(z) = \sum_{j : c_j = 1} \prod_{k : k \neq j, c_k = 1} (z-\gamma_k)$, que es el numerador resultante sacar común denominador en la suma de fracciones de $\xi(z)$. } $$\xi(z)=\sum_{j=0}^{n-1} \frac{c_j}{z-\gamma_j}=f'(z)/f(z) \, ,$$ donde $f'(z)$ es la derivada formal de $f(z)$; observamos que $\mcd(f(z),f'(z))=1$ pues las raíces de $f(z)$ son simples. Ahora, $\mcd(f(z),g(z))=1$ ya que $g(\gamma_j)\neq 0$ para cada $j$; como $(c_0,c_1,\ldots,c_{n-1})\in \Gamma(L,g)$, $\xi(z)\equiv 0 \bmod g(z)$, y por tanto $f'(z)\equiv 0 \bmod g(z)$. Como $q=2$, $f'(z)$ sólo tiene términos de grado par, y por tanto $f'(z)=(u(z))^2$, con $u(z)\in \mathbb{F}_{2^m}[z]$; como $g(z)$ no tiene raíces múltiples, $u(z)\equiv 0 \bmod g(z)$. Concluimos que $\deg f(z)\geq 1+\deg f'(z)\geq 1+2 \deg g(z)=1+2t$; por tanto $wt(\xi(z))\geq 2t+1$.
+\end{proof}
 
 La utilidad de los códigos de Goppa en criptografía radica en que existen algoritmos eficientes para decodificar palabras correctamente con un número de errores hasta la mitad de la distancia mínima de $\Gamma(L,g)$, con $ \mc{O}(n\cdot t\cdot m^2) $ operaciones binarias (\cite{decoding}).
 

@@ -1,7 +1,38 @@
 \chapter{Código de los programas}
 
+\section{Implementación del algoritmo de Shor en Mathematica}
+
+Aquí presentamos las principales dos funciones implementadas en Mathematica, que realizan las operaciones de las puertas $U_{f_{a,N}}$ y $QFT$ del algoritmo de Shor, estudiado en la sección \ref{sec:circuitorden}. El resto del algoritmo particularizado para $N=15$ puede consultarse en el archivo \verb|shor.nb|.
+
+\subsection{Puerta $U_f$}
+\begin{lstlisting}[language=Mathematica]
+    Uf[estado_, a_, N_, m_, n_] := Module[{final = 0},
+    For[i = 0, i <= 2^m - 1, i++,
+        For[j = 0, j <= 2^n - 1, j++,
+            final += Coefficient[estado, TensorProduct[Ket[i], Ket[j]]]*TensorProduct[Ket[i], Ket[Mod[j + PowerMod[a, i, N], 2^n]]];
+        ];
+    ];
+    Return[final];
+];
+\end{lstlisting}
+
+
+\subsection{Puerta $QFT$}
+\begin{lstlisting}[language=Mathematica]
+QFT[estado_, m_] := Module[{final = 0},
+    For[j = 0, j <= 2^m - 1, j++,
+        final += 1/Sqrt[2^m]* Coefficient[estado, Ket[j]]*Sum[Exp[(2 \[Pi] I j k )/(2^m)]*Ket[k], {k, 0, 2^m - 1}];
+    ];
+    Return[final];
+];
+\end{lstlisting}
+
 \section{Implementación de la firma LD-OTS en Python}
 
+Aquí presentamos las principales clases y algoritmos implementados en Python usadas en la sección \ref{sec:experiment}. Las claves públicas y privadas, junto con las firmas generadas se pueden encontrar en la carpeta adjunta. Las claves públicas tienen extensión \verb|.PUK|, las claves privadas, \verb|.PRK|; y las firmas de los documentos son aquellos ficheros acabados en \verb|.SIG|.
+
+\subsection{Esquema de firma}
+Esta es una implementación del sistema de firma de un solo uso de Lamport-Diffie. Las funciones $f$ y $H$ y el parámetro $n$ del esquema se pasan como parámetros. En los experimentos posteriores, hemos usado como $f$ y $H$ la función $SHA-256$ truncada a los primeros \verb|n//8| bytes ($n$ primeros bits si $n$ es múltiplo de $8$).
 \begin{lstlisting}[language=Python]
 class LDOTS:
     # Inicializa la clase. Especificar el numero de bits que devuelve la funcion hash y la funcion de ida (n), la funcion
@@ -68,7 +99,49 @@ class LDOTS:
             raise Exception("No hay clave publica!")
 \end{lstlisting}
 
-\section{Algoritmo de búsqueda por fuerza bruta}
+\subsection{Generador de mensajes}
+Para poder generar un conjunto $S$ de mensajes falsificados, normalmente se suele proceder de la siguiente manera: se elabora un texto base para falsificar, y se van insertando sinónimos entre algunas palabras. Así, eligiendo una palabra de entre cada par de sinónimos a lo largo del texto, se van obteniendo documentos que son equivalentes, pero con imágenes de la función hash distintas. El documento de ejemplo que se ha usado puede consultarse con más detalle en el archivo \verb|crack.py|. Esta clase hace todo el trabajo de ir iterando por las posibles opciones a través de un iterador de Python.
+
+\begin{lstlisting}[language=Python]
+class TextoVariable:
+    
+    def __init__(self,numpos,baseStr):
+        self.bstr = baseStr
+        self.n = numpos
+        self.options = []
+        for k in range(numpos):
+            self.options.append((2,("","")))
+        self.curr = [0 for k in range(self.n)]
+    
+    def setOption(self,index,options):
+        self.options[index] = (len(options),options)
+    
+    def nextString(self):
+        for k in range(self.n):
+            if self.curr[k] < (self.options[k][0] - 1):
+                self.curr[k] += 1
+                break
+            else:
+                self.curr[k]=0
+                if k==self.n - 1:
+                    return ""
+        
+        ret = self.bstr
+        for k in range(self.n):
+            ret = ret.replace("~", self.options[k][1][self.curr[k]],1)
+        return ret
+
+    def iterator(self):
+        str = self.nextString()
+        while (str!=""):
+            yield str
+            str = self.nextString()
+    def reset(self):
+        self.curr = [0 for k in range(self.n)]
+\end{lstlisting}
+
+\subsection{Algoritmo de búsqueda por fuerza bruta}
+Esta es la implementación del Algoritmo \ref{algfuerzabruta}.
 \begin{lstlisting}[language=Python]
 start = time.time() # Para medir el tiempo de ejecucion
 
@@ -86,7 +159,8 @@ print(str(k)+" documentos probados.")
 print("%s segundos" % (time.time() - start))
 \end{lstlisting}
 
-\section{Algoritmo de búsqueda con 2 firmas}
+\subsection{Algoritmo de búsqueda con 2 firmas}
+Esta es la implementación del Algoritmo \ref{alg2doc}.
 \begin{lstlisting}[language=Python]
 start = time.time() # Para medir el tiempo de ejecucion
 

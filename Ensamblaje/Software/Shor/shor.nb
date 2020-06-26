@@ -1,0 +1,3320 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     86557,       3312]
+NotebookOptionsPosition[     82779,       3243]
+NotebookOutlinePosition[     83128,       3258]
+CellTagsIndexPosition[     83085,       3255]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Uf", " ", "implementa", " ", "la", " ", "puerta", " ", "cu\[AAcute]ntica",
+     " ", "Uf"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"Uf", "[", 
+      RowBox[{"estado_", ",", "a_", ",", "N_", ",", "m_", ",", "n_"}], "]"}], 
+     ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"final", "=", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"For", "[", 
+         RowBox[{
+          RowBox[{"i", "=", "0"}], ",", 
+          RowBox[{"i", "\[LessEqual]", " ", 
+           RowBox[{
+            RowBox[{"2", "^", "m"}], " ", "-", "1"}]}], ",", " ", 
+          RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"For", "[", 
+            RowBox[{
+             RowBox[{"j", "=", "0"}], ",", 
+             RowBox[{"j", "\[LessEqual]", 
+              RowBox[{
+               RowBox[{"2", "^", "n"}], "-", "1"}]}], ",", 
+             RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"final", " ", "+=", " ", 
+               RowBox[{
+                RowBox[{"Coefficient", "[", 
+                 RowBox[{"estado", ",", 
+                  RowBox[{"TensorProduct", "[", 
+                   RowBox[{
+                    RowBox[{"Ket", "[", "i", "]"}], ",", 
+                    RowBox[{"Ket", "[", "j", "]"}]}], "]"}]}], "]"}], "*", 
+                RowBox[{"TensorProduct", "[", 
+                 RowBox[{
+                  RowBox[{"Ket", "[", "i", "]"}], ",", 
+                  RowBox[{"Ket", "[", 
+                   RowBox[{"Mod", "[", 
+                    RowBox[{
+                    RowBox[{"j", "+", 
+                    RowBox[{"PowerMod", "[", 
+                    RowBox[{"a", ",", "i", ",", "N"}], "]"}]}], ",", 
+                    RowBox[{"2", "^", "n"}]}], "]"}], "]"}]}], "]"}]}]}], 
+              ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+         "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"Return", "[", "final", "]"}], ";"}]}], "\[IndentingNewLine]",
+       "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "QFT", " ", "implementa", " ", "la", " ", "transformada", " ", 
+     "cu\[AAcute]ntica", " ", "de", " ", "Fourier"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"QFT", "[", 
+      RowBox[{"estado_", ",", "m_"}], "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"final", "=", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"For", "[", 
+         RowBox[{
+          RowBox[{"j", "=", "0"}], ",", 
+          RowBox[{"j", "\[LessEqual]", " ", 
+           RowBox[{
+            RowBox[{"2", "^", "m"}], " ", "-", "1"}]}], ",", " ", 
+          RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"final", " ", "+=", 
+            RowBox[{
+             RowBox[{"1", "/", 
+              RowBox[{"Sqrt", "[", 
+               RowBox[{"2", "^", "m"}], "]"}]}], "*", " ", 
+             RowBox[{"Coefficient", "[", 
+              RowBox[{"estado", ",", 
+               RowBox[{"Ket", "[", "j", "]"}]}], "]"}], "*", 
+             RowBox[{"Sum", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"Exp", "[", 
+                 RowBox[{
+                  RowBox[{"(", 
+                   RowBox[{"2", "\[Pi]", " ", "I", " ", "j", " ", "k"}], " ", 
+                   ")"}], "/", 
+                  RowBox[{"(", 
+                   RowBox[{"2", "^", "m"}], ")"}]}], "]"}], "*", 
+                RowBox[{"Ket", "[", "k", "]"}]}], ",", 
+               RowBox[{"{", 
+                RowBox[{"k", ",", "0", ",", 
+                 RowBox[{
+                  RowBox[{"2", "^", "m"}], "-", "1"}]}], "}"}]}], "]"}]}]}], 
+           ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"Return", "[", "final", "]"}], ";"}]}], "\[IndentingNewLine]",
+       "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.8017403515606594`*^9, 3.8017404203187933`*^9}, {
+  3.801740551711438*^9, 3.8017407066391478`*^9}, {3.801740918768894*^9, 
+  3.801740941135086*^9}, {3.8017410003517346`*^9, 3.8017410006080847`*^9}, {
+  3.8017415556156363`*^9, 3.8017416262318263`*^9}, {3.801741661319974*^9, 
+  3.801741720761023*^9}, {3.8017427998637547`*^9, 3.801742802256008*^9}, {
+  3.801742848600569*^9, 3.8017428531593533`*^9}, {3.801745335559729*^9, 
+  3.801745357615656*^9}, {3.801745417295189*^9, 
+  3.801745459095615*^9}},ExpressionUUID->"e9bea624-6fd5-4a60-9227-\
+5fd51273bae5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"num", " ", "=", " ", "15"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"a", "=", "7"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"n", " ", "=", " ", 
+   RowBox[{"Ceiling", "[", 
+    RowBox[{"Log2", "[", "num", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"m", " ", "=", " ", 
+    RowBox[{"2", "n"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "Comenzamos", " ", "en", " ", "un", " ", "estado", " ", "de", " ", 
+     "superposici\[OAcute]n", " ", "de", " ", "los", " ", "m", " ", 
+     "primeros", " ", "qubits"}], ",", " ", 
+    RowBox[{"y", " ", "el", " ", "resto", " ", "0"}]}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"inicial", " ", "=", " ", 
+  RowBox[{
+   RowBox[{"1", "/", 
+    RowBox[{"Sqrt", "[", 
+     RowBox[{"2", "^", "m"}], "]"}]}], "*", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{"TensorProduct", "[", 
+      RowBox[{
+       RowBox[{"Ket", "[", "i", "]"}], ",", 
+       RowBox[{"Ket", "[", "0", "]"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", 
+       RowBox[{
+        RowBox[{"2", "^", "m"}], "-", "1"}]}], "}"}]}], "]"}]}]}]}], "Input",
+ CellChangeTimes->{{3.8017403160246854`*^9, 3.8017403245030136`*^9}, {
+   3.8017407108798084`*^9, 3.801740911103393*^9}, {3.801740959246677*^9, 
+   3.801740962375287*^9}, 3.801741509775241*^9, {3.801745372597714*^9, 
+   3.801745400558943*^9}, 
+   3.8017454674296446`*^9},ExpressionUUID->"ee7cc3e3-9d69-4c85-a291-\
+1a58c0c605ad"],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox["1", "16"], " ", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{
+     TemplateBox[{"0"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"1"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"2"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"3"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"4"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"5"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"6"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"7"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"8"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"9"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"10"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"11"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"12"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"13"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"14"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"15"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"16"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"17"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"18"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"19"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"20"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"21"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"22"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"23"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"24"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"25"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"26"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"27"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"28"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"29"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"30"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"31"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"32"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"33"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"34"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"35"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"36"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"37"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"38"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"39"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"40"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"41"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"42"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"43"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"44"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"45"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"46"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"47"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"48"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"49"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"50"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"51"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"52"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"53"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"54"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"55"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"56"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"57"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"58"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"59"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"60"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"61"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"62"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"63"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"64"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"65"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"66"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"67"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"68"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"69"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"70"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"71"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"72"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"73"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"74"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"75"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"76"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"77"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"78"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"79"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"80"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"81"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"82"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"83"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"84"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"85"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"86"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"87"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"88"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"89"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"90"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"91"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"92"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"93"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"94"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"95"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"96"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"97"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"98"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"99"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"100"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"101"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"102"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"103"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"104"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"105"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"106"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"107"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"108"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"109"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"110"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"111"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"112"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"113"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"114"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"115"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"116"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"117"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"118"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"119"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"120"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"121"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"122"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"123"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"124"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"125"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"126"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"127"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"128"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"129"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"130"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"131"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"132"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"133"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"134"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"135"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"136"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"137"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"138"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"139"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"140"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"141"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"142"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"143"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"144"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"145"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"146"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"147"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"148"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"149"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"150"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"151"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"152"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"153"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"154"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"155"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"156"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"157"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"158"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"159"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"160"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"161"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"162"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"163"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"164"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"165"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"166"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"167"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"168"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"169"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"170"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"171"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"172"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"173"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"174"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"175"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"176"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"177"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"178"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"179"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"180"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"181"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"182"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"183"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"184"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"185"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"186"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"187"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"188"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"189"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"190"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"191"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"192"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"193"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"194"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"195"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"196"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"197"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"198"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"199"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"200"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"201"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"202"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"203"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"204"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"205"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"206"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"207"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"208"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"209"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"210"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"211"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"212"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"213"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"214"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"215"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"216"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"217"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"218"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"219"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"220"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"221"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"222"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"223"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"224"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"225"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"226"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"227"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"228"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"229"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"230"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"231"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"232"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"233"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"234"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"235"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"236"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"237"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"238"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"239"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"240"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"241"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"242"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"243"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"244"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"245"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"246"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"247"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"248"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"249"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"250"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"251"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"252"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"253"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"254"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"255"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"0"},
+      "Ket"]}]}], ")"}]}]], "Output",
+ CellChangeTimes->{
+  3.801745468516738*^9},ExpressionUUID->"93dc6cee-1e67-4b42-8174-\
+15eeb0196f63"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+  "Aplicamos", " ", "la", " ", "puerta", " ", "cu\[AAcute]ntica", " ", "Uf"}],
+   " ", "*)"}]], "Input",
+ CellChangeTimes->{{3.8017454767058396`*^9, 
+  3.8017454829811316`*^9}},ExpressionUUID->"f431e7a7-5570-4f7f-a36b-\
+dda3f3138260"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"final1", " ", "=", " ", 
+  RowBox[{
+   RowBox[{"Uf", "[", 
+    RowBox[{"inicial", ",", "a", ",", "num", ",", "m", ",", "n"}], "]"}], "//",
+    "Factor"}]}]], "Input",
+ CellChangeTimes->{{3.801740950103104*^9, 3.8017409819260073`*^9}, {
+   3.8017410359834523`*^9, 3.8017410380708704`*^9}, {3.8017413066543803`*^9, 
+   3.801741308070593*^9}, 3.80174151435896*^9, 
+   3.8017454851902237`*^9},ExpressionUUID->"45e5cb41-fb6f-40b8-9435-\
+09330eafefd5"],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox["1", "16"], " ", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{
+     TemplateBox[{"0"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"1"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"2"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"3"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"4"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"5"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"6"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"7"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"8"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"9"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"10"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"11"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"12"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"13"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"14"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"15"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"16"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"17"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"18"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"19"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"20"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"21"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"22"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"23"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"24"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"25"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"26"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"27"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"28"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"29"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"30"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"31"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"32"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"33"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"34"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"35"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"36"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"37"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"38"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"39"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"40"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"41"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"42"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"43"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"44"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"45"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"46"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"47"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"48"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"49"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"50"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"51"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"52"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"53"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"54"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"55"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"56"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"57"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"58"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"59"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"60"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"61"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"62"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"63"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"64"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"65"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"66"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"67"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"68"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"69"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"70"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"71"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"72"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"73"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"74"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"75"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"76"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"77"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"78"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"79"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"80"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"81"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"82"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"83"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"84"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"85"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"86"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"87"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"88"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"89"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"90"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"91"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"92"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"93"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"94"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"95"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"96"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"97"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"98"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"99"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"100"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"101"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"102"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"103"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"104"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"105"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"106"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"107"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"108"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"109"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"110"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"111"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"112"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"113"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"114"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"115"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"116"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"117"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"118"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"119"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"120"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"121"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"122"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"123"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"124"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"125"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"126"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"127"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"128"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"129"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"130"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"131"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"132"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"133"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"134"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"135"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"136"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"137"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"138"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"139"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"140"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"141"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"142"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"143"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"144"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"145"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"146"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"147"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"148"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"149"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"150"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"151"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"152"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"153"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"154"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"155"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"156"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"157"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"158"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"159"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"160"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"161"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"162"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"163"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"164"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"165"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"166"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"167"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"168"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"169"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"170"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"171"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"172"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"173"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"174"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"175"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"176"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"177"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"178"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"179"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"180"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"181"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"182"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"183"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"184"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"185"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"186"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"187"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"188"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"189"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"190"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"191"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"192"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"193"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"194"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"195"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"196"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"197"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"198"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"199"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"200"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"201"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"202"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"203"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"204"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"205"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"206"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"207"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"208"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"209"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"210"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"211"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"212"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"213"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"214"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"215"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"216"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"217"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"218"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"219"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"220"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"221"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"222"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"223"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"224"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"225"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"226"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"227"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"228"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"229"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"230"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"231"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"232"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"233"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"234"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"235"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"236"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"237"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"238"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"239"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"240"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"241"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"242"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"243"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"244"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"245"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"246"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"247"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"248"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"249"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"250"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"251"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"252"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"1"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"253"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"7"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"254"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"4"},
+      "Ket"]}], "+", 
+    RowBox[{
+     TemplateBox[{"255"},
+      "Ket"], "\[TensorProduct]", 
+     TemplateBox[{"13"},
+      "Ket"]}]}], ")"}]}]], "Output",
+ CellChangeTimes->{
+  3.8017454866243887`*^9},ExpressionUUID->"8b72a73c-f9c9-4235-b9e8-\
+28ddb72547eb"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Suponemos", " ", "que", " ", "medimos", " ", "13"}], ",", " ", 
+    RowBox[{
+    "y", " ", "calculamos", " ", "el", " ", "estado", " ", "del", " ", 
+     "sistema", " ", "tras", " ", "medir", " ", "13"}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"medida", " ", "=", " ", "13"}], ";"}]}]], "Input",
+ CellChangeTimes->{{3.8017410640394473`*^9, 3.8017410895272713`*^9}, {
+  3.801741359237768*^9, 3.801741362694524*^9}, {3.8017455021490974`*^9, 
+  3.8017455172128153`*^9}},ExpressionUUID->"700bc8f0-12e0-495d-bd56-\
+ff57fc3bcf72"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"inicial2", " ", "=", " ", 
+  RowBox[{
+   RowBox[{"1", "/", "8"}], "*", 
+   RowBox[{"Sum", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Coefficient", "[", 
+          RowBox[{"final1", ",", 
+           RowBox[{"TensorProduct", "[", 
+            RowBox[{
+             RowBox[{"Ket", "[", "i", "]"}], ",", 
+             RowBox[{"Ket", "[", "medida", "]"}]}], "]"}]}], "]"}], 
+         "\[NotEqual]", " ", "0"}], ",", "1", ",", "0"}], "]"}], "*", 
+      RowBox[{"Ket", "[", "i", "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", 
+       RowBox[{
+        RowBox[{"2", "^", "m"}], "-", "1"}]}], "}"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.8017410949836817`*^9, 3.8017410991904316`*^9}, {
+  3.8017412058148823`*^9, 3.8017412063664064`*^9}, {3.801741290183425*^9, 
+  3.801741290494622*^9}, {3.801741321719096*^9, 
+  3.8017415286308327`*^9}},ExpressionUUID->"a90fb017-96bf-4fec-8fd9-\
+7ff9589150c9"],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox["1", "8"], " ", 
+  RowBox[{"(", 
+   RowBox[{
+    TemplateBox[{"3"},
+     "Ket"], "+", 
+    TemplateBox[{"7"},
+     "Ket"], "+", 
+    TemplateBox[{"11"},
+     "Ket"], "+", 
+    TemplateBox[{"15"},
+     "Ket"], "+", 
+    TemplateBox[{"19"},
+     "Ket"], "+", 
+    TemplateBox[{"23"},
+     "Ket"], "+", 
+    TemplateBox[{"27"},
+     "Ket"], "+", 
+    TemplateBox[{"31"},
+     "Ket"], "+", 
+    TemplateBox[{"35"},
+     "Ket"], "+", 
+    TemplateBox[{"39"},
+     "Ket"], "+", 
+    TemplateBox[{"43"},
+     "Ket"], "+", 
+    TemplateBox[{"47"},
+     "Ket"], "+", 
+    TemplateBox[{"51"},
+     "Ket"], "+", 
+    TemplateBox[{"55"},
+     "Ket"], "+", 
+    TemplateBox[{"59"},
+     "Ket"], "+", 
+    TemplateBox[{"63"},
+     "Ket"], "+", 
+    TemplateBox[{"67"},
+     "Ket"], "+", 
+    TemplateBox[{"71"},
+     "Ket"], "+", 
+    TemplateBox[{"75"},
+     "Ket"], "+", 
+    TemplateBox[{"79"},
+     "Ket"], "+", 
+    TemplateBox[{"83"},
+     "Ket"], "+", 
+    TemplateBox[{"87"},
+     "Ket"], "+", 
+    TemplateBox[{"91"},
+     "Ket"], "+", 
+    TemplateBox[{"95"},
+     "Ket"], "+", 
+    TemplateBox[{"99"},
+     "Ket"], "+", 
+    TemplateBox[{"103"},
+     "Ket"], "+", 
+    TemplateBox[{"107"},
+     "Ket"], "+", 
+    TemplateBox[{"111"},
+     "Ket"], "+", 
+    TemplateBox[{"115"},
+     "Ket"], "+", 
+    TemplateBox[{"119"},
+     "Ket"], "+", 
+    TemplateBox[{"123"},
+     "Ket"], "+", 
+    TemplateBox[{"127"},
+     "Ket"], "+", 
+    TemplateBox[{"131"},
+     "Ket"], "+", 
+    TemplateBox[{"135"},
+     "Ket"], "+", 
+    TemplateBox[{"139"},
+     "Ket"], "+", 
+    TemplateBox[{"143"},
+     "Ket"], "+", 
+    TemplateBox[{"147"},
+     "Ket"], "+", 
+    TemplateBox[{"151"},
+     "Ket"], "+", 
+    TemplateBox[{"155"},
+     "Ket"], "+", 
+    TemplateBox[{"159"},
+     "Ket"], "+", 
+    TemplateBox[{"163"},
+     "Ket"], "+", 
+    TemplateBox[{"167"},
+     "Ket"], "+", 
+    TemplateBox[{"171"},
+     "Ket"], "+", 
+    TemplateBox[{"175"},
+     "Ket"], "+", 
+    TemplateBox[{"179"},
+     "Ket"], "+", 
+    TemplateBox[{"183"},
+     "Ket"], "+", 
+    TemplateBox[{"187"},
+     "Ket"], "+", 
+    TemplateBox[{"191"},
+     "Ket"], "+", 
+    TemplateBox[{"195"},
+     "Ket"], "+", 
+    TemplateBox[{"199"},
+     "Ket"], "+", 
+    TemplateBox[{"203"},
+     "Ket"], "+", 
+    TemplateBox[{"207"},
+     "Ket"], "+", 
+    TemplateBox[{"211"},
+     "Ket"], "+", 
+    TemplateBox[{"215"},
+     "Ket"], "+", 
+    TemplateBox[{"219"},
+     "Ket"], "+", 
+    TemplateBox[{"223"},
+     "Ket"], "+", 
+    TemplateBox[{"227"},
+     "Ket"], "+", 
+    TemplateBox[{"231"},
+     "Ket"], "+", 
+    TemplateBox[{"235"},
+     "Ket"], "+", 
+    TemplateBox[{"239"},
+     "Ket"], "+", 
+    TemplateBox[{"243"},
+     "Ket"], "+", 
+    TemplateBox[{"247"},
+     "Ket"], "+", 
+    TemplateBox[{"251"},
+     "Ket"], "+", 
+    TemplateBox[{"255"},
+     "Ket"]}], ")"}]}]], "Output",
+ CellChangeTimes->{{3.801741468222356*^9, 3.8017414805763307`*^9}, 
+   3.8017415301886525`*^9, 3.8017426650265813`*^9, 
+   3.801745520394308*^9},ExpressionUUID->"1f052c38-a416-4a61-aa1e-\
+5f9c743c0cd7"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+  "Aplicamos", " ", "la", " ", "transformada", " ", "cu\[AAcute]ntica", " ", 
+   "de", " ", "Fourier", " ", "y", " ", "simplificamos", " ", "la", " ", 
+   "expresi\[OAcute]n", " ", "coeficiente", " ", "a", " ", "coeficiente"}], 
+  " ", "*)"}]], "Input",
+ CellChangeTimes->{{3.801745527008621*^9, 
+  3.8017455494457664`*^9}},ExpressionUUID->"456b58ca-dbea-4f23-b988-\
+70d5c3afb050"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"final2", " ", "=", " ", 
+   RowBox[{"QFT", "[", 
+    RowBox[{"inicial2", ",", "m"}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.801742857159397*^9, 3.8017428721826215`*^9}, {
+  3.8017430250143003`*^9, 3.801743036429696*^9}, {3.801743107318324*^9, 
+  3.8017431390378304`*^9}},ExpressionUUID->"251a4c81-38f5-4257-b779-\
+9aa1a101e2ca"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"final2s", " ", "=", " ", 
+  RowBox[{"Sum", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Simplify", "[", 
+      RowBox[{"Coefficient", "[", 
+       RowBox[{"final2", ",", 
+        RowBox[{"Ket", "[", "k", "]"}]}], "]"}], "]"}], "*", 
+     RowBox[{"Ket", "[", "k", "]"}]}], ",", 
+    RowBox[{"{", 
+     RowBox[{"k", ",", "0", ",", 
+      RowBox[{
+       RowBox[{"2", "^", "m"}], "-", "1"}]}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8017431537518888`*^9, 3.801743310077171*^9}, {
+  3.8017433538631525`*^9, 3.801743403270113*^9}, {3.801744045815013*^9, 
+  3.801744054775053*^9}, {3.801744245998578*^9, 
+  3.801744275111309*^9}},ExpressionUUID->"d149b02f-205d-4607-b50b-\
+a6aefc3081ab"],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox[
+   TemplateBox[{"0"},
+    "Ket"], "2"], "-", 
+  FractionBox[
+   RowBox[{"\[ImaginaryI]", " ", 
+    TemplateBox[{"64"},
+     "Ket"]}], "2"], "-", 
+  FractionBox[
+   TemplateBox[{"128"},
+    "Ket"], "2"], "+", 
+  FractionBox[
+   RowBox[{"\[ImaginaryI]", " ", 
+    TemplateBox[{"192"},
+     "Ket"]}], "2"]}]], "Output",
+ CellChangeTimes->{{3.8017431577595344`*^9, 3.8017433106112957`*^9}, {
+   3.801743355615687*^9, 3.8017434041538258`*^9}, 3.8017439941654663`*^9, {
+   3.801744046317669*^9, 3.8017440555120826`*^9}, 3.8017442796965027`*^9, 
+   3.8017455555255957`*^9},ExpressionUUID->"54cdfda4-9a5e-4f16-9a2f-\
+3694f8ce3635"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+   RowBox[{"Supongamos", " ", "que", " ", "medimos", " ", "128"}], ",", " ", 
+   RowBox[{"hallamos", " ", 
+    RowBox[{"x", "/", 
+     RowBox[{"2", "^", "m"}]}]}]}], " ", "*)"}]], "Input",
+ CellChangeTimes->{{3.8017455685203524`*^9, 
+  3.8017456068372946`*^9}},ExpressionUUID->"a778e9f7-3cb6-47cb-a07f-\
+963350ce9461"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"128", "/", 
+  RowBox[{"2", "^", "m"}]}]], "Input",
+ CellChangeTimes->{{3.8017443125915284`*^9, 3.8017443575419536`*^9}, {
+  3.8017456095334115`*^9, 
+  3.801745609678025*^9}},ExpressionUUID->"e7e7367f-ee74-4f5d-afff-\
+b5fc83dd2c5d"],
+
+Cell[BoxData[
+ FractionBox["1", "2"]], "Output",
+ CellChangeTimes->{{3.801744331248205*^9, 3.8017443578411536`*^9}, 
+   3.801745610011134*^9},ExpressionUUID->"0c7e3f34-5be0-4487-86c9-\
+8d9a1bd5c8b8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PowerMod", "[", 
+   RowBox[{"a", ",", "2", ",", "num"}], "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "Vemos", " ", "que", " ", "2", " ", "no", " ", "es", " ", "el", " ", 
+      "orden", " ", "de", " ", "a", " ", "m\[OAcute]dulo", " ", "N"}], ";", 
+     " ", 
+     RowBox[{
+     "tendr\[IAcute]amos", " ", "que", " ", "realizar", " ", "otra", " ", 
+      "medida"}]}], ",", " ", 
+    RowBox[{
+    "supongamos", " ", "que", " ", "obtenemos", " ", "esta", " ", "vez", " ", 
+     "192"}]}], " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.801745612657703*^9, 3.801745615637769*^9}, {
+  3.8017456609102077`*^9, 
+  3.8017456620451736`*^9}},ExpressionUUID->"e9c2548f-54df-4866-9a22-\
+28225aff4635"],
+
+Cell[BoxData["4"], "Output",
+ CellChangeTimes->{
+  3.8017456161284466`*^9},ExpressionUUID->"3158d795-c984-4e45-9659-\
+21f8e74d6390"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.801745616856475*^9, 
+  3.8017456601671934`*^9}},ExpressionUUID->"29572a4c-c317-4dc9-99c5-\
+cfc452fd45c9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"192", "/", 
+  RowBox[{"2", "^", "m"}]}]], "Input",
+ CellChangeTimes->{{3.801745654599084*^9, 
+  3.8017456661422167`*^9}},ExpressionUUID->"ad285264-1103-4554-9613-\
+bf8fd63ce716"],
+
+Cell[BoxData[
+ FractionBox["3", "4"]], "Output",
+ CellChangeTimes->{
+  3.801745666392547*^9},ExpressionUUID->"b63e5cd6-8583-4861-91b8-\
+bde569a436f6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PowerMod", "[", 
+   RowBox[{"a", ",", "4", ",", "num"}], "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "4", " ", "s\[IAcute]", " ", "es", " ", "el", " ", "orden", " ", "de", " ",
+     "a", " ", "m\[OAcute]dulo", " ", "N"}], " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.8017450772322316`*^9, 3.8017450951257863`*^9}, {
+  3.8017451740377946`*^9, 3.8017451897492485`*^9}, {3.801745671109933*^9, 
+  3.8017456791496134`*^9}},ExpressionUUID->"e97fab4b-154f-446e-80a3-\
+e7fa44267b26"],
+
+Cell[BoxData["1"], "Output",
+ CellChangeTimes->{{3.801745089304948*^9, 3.80174509602645*^9}, 
+   3.8017452026437683`*^9, {3.801745675119234*^9, 
+   3.801745679449786*^9}},ExpressionUUID->"47e4e269-00c0-479d-852d-\
+ce8484e8baec"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PowerMod", "[", 
+   RowBox[{"a", ",", "2", ",", "num"}], "]"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SuperscriptBox["a", 
+        RowBox[{"r", "/", "2"}]], " ", "no", " ", "es", " ", "congruente", 
+       " ", "con"}], " ", "-", "1"}], " ", "=", " ", 
+     RowBox[{"14", " ", "m\[OAcute]dulo", " ", "15"}]}], ",", " ", 
+    RowBox[{"por", " ", "tanto"}], ",", " ", 
+    RowBox[{
+    "nos", " ", "sirve", " ", "para", " ", "hallar", " ", "los", " ", 
+     "factores"}]}], " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.801745194661114*^9, 
+  3.8017452537503757`*^9}},ExpressionUUID->"3ca2c6ad-6524-4510-8890-\
+b44bf86c500e"],
+
+Cell[BoxData["4"], "Output",
+ CellChangeTimes->{{3.8017451953722315`*^9, 3.801745206965212*^9}, {
+  3.8017456775617065`*^9, 
+  3.801745681018591*^9}},ExpressionUUID->"959f5a6b-9709-48a6-b5bf-\
+a6862a795c90"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"GCD", "[", 
+  RowBox[{
+   RowBox[{"Mod", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"a", "^", "3"}], "+", "1"}], ",", "num"}], "]"}], ",", "num"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.801745106855492*^9, 
+  3.8017451541901965`*^9}},ExpressionUUID->"f4f9e8a1-12ec-4b9a-bf84-\
+bc329390456a"],
+
+Cell[BoxData["1"], "Output",
+ CellChangeTimes->{{3.8017451339063473`*^9, 3.801745154541258*^9}, 
+   3.80174525756318*^9, 
+   3.8017456857639017`*^9},ExpressionUUID->"3e092eb3-56c8-4a88-98bc-\
+5d2c3f3a4e44"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"GCD", "[", 
+  RowBox[{
+   RowBox[{"Mod", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"a", "^", "3"}], "-", "1"}], ",", "num"}], "]"}], ",", "num"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.801745262246656*^9, 
+  3.8017452625179577`*^9}},ExpressionUUID->"52a248cb-98c0-46a2-9821-\
+46bcc6b1991e"],
+
+Cell[BoxData["3"], "Output",
+ CellChangeTimes->{{3.8017452589604435`*^9, 3.801745262808155*^9}, 
+   3.801745687377613*^9},ExpressionUUID->"307eeb35-3199-4d0e-8a14-\
+6193df728b3e"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{"3", " ", "es", " ", "un", " ", "factor", " ", "no", " ", 
+   RowBox[{"trivial", ".", " ", "El"}], " ", "otro", " ", "factor", " ", "se",
+    " ", "halla", " ", "dividiendo", " ", "N", " ", "por", " ", "el", " ", 
+   "factor", " ", 
+   RowBox[{"hallado", "."}]}], " ", "*)"}]], "Input",
+ CellChangeTimes->{{3.801745264935466*^9, 3.8017452788223305`*^9}, {
+  3.801745691845665*^9, 
+  3.801745702757595*^9}},ExpressionUUID->"fae8bdf9-43f1-47d6-91d9-\
+ebd611efdbf6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"num", "/", "3"}]], "Input",
+ CellChangeTimes->{{3.8017452810168123`*^9, 
+  3.801745291605713*^9}},ExpressionUUID->"6943ab13-2d62-49e8-8ea4-\
+f5e7199991a8"],
+
+Cell[BoxData["5"], "Output",
+ CellChangeTimes->{{3.8017452843840466`*^9, 
+  3.8017452919986916`*^9}},ExpressionUUID->"bcab6964-8f6e-4034-b778-\
+eb93129bb1e1"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+   RowBox[{"Por", " ", "tanto"}], ",", " ", 
+   RowBox[{"15", "=", 
+    RowBox[{
+     RowBox[{"3", "\[Cross]", "5"}], " ", "y", " ", "el", " ", "algoritmo", 
+     " ", 
+     RowBox[{"termina", "."}]}]}]}], " ", "*)"}]], "Input",
+ CellChangeTimes->{{3.8017452940563755`*^9, 
+  3.8017453185411253`*^9}},ExpressionUUID->"5760a625-91d5-4fe4-a7bc-\
+9ad3c50ad7d7"]
+},
+WindowSize->{1920, 997},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+FrontEndVersion->"11.2 para Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 4673, 111, 476, "Input",ExpressionUUID->"e9bea624-6fd5-4a60-9227-5fd51273bae5"],
+Cell[CellGroupData[{
+Cell[5256, 135, 1557, 41, 158, "Input",ExpressionUUID->"ee7cc3e3-9d69-4c85-a291-1a58c0c605ad"],
+Cell[6816, 178, 30811, 1287, 359, "Output",ExpressionUUID->"93dc6cee-1e67-4b42-8174-15eeb0196f63"]
+}, Open  ]],
+Cell[37642, 1468, 280, 7, 28, "Input",ExpressionUUID->"f431e7a7-5570-4f7f-a36b-dda3f3138260"],
+Cell[CellGroupData[{
+Cell[37947, 1479, 470, 10, 45, "Input",ExpressionUUID->"45e5cb41-fb6f-40b8-9435-09330eafefd5"],
+Cell[38420, 1491, 30877, 1287, 359, "Output",ExpressionUUID->"8b72a73c-f9c9-4235-b9e8-28ddb72547eb"]
+}, Open  ]],
+Cell[69312, 2781, 620, 14, 48, "Input",ExpressionUUID->"700bc8f0-12e0-495d-bd56-ff57fc3bcf72"],
+Cell[CellGroupData[{
+Cell[69957, 2799, 1004, 26, 45, "Input",ExpressionUUID->"a90fb017-96bf-4fec-8fd9-7ff9589150c9"],
+Cell[70964, 2827, 3090, 136, 84, "Output",ExpressionUUID->"1f052c38-a416-4a61-aa1e-5f9c743c0cd7"]
+}, Open  ]],
+Cell[74069, 2966, 427, 9, 28, "Input",ExpressionUUID->"456b58ca-dbea-4f23-b988-70d5c3afb050"],
+Cell[74499, 2977, 372, 8, 28, "Input",ExpressionUUID->"251a4c81-38f5-4257-b779-9aa1a101e2ca"],
+Cell[CellGroupData[{
+Cell[74896, 2989, 716, 18, 45, "Input",ExpressionUUID->"d149b02f-205d-4607-b50b-a6aefc3081ab"],
+Cell[75615, 3009, 662, 20, 64, "Output",ExpressionUUID->"54cdfda4-9a5e-4f16-9a2f-3694f8ce3635"]
+}, Open  ]],
+Cell[76292, 3032, 364, 9, 28, "Input",ExpressionUUID->"a778e9f7-3cb6-47cb-a07f-963350ce9461"],
+Cell[CellGroupData[{
+Cell[76681, 3045, 255, 6, 28, "Input",ExpressionUUID->"e7e7367f-ee74-4f5d-afff-b5fc83dd2c5d"],
+Cell[76939, 3053, 199, 4, 55, "Output",ExpressionUUID->"0c7e3f34-5be0-4487-86c9-8d9a1bd5c8b8"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[77175, 3062, 760, 20, 45, "Input",ExpressionUUID->"e9c2548f-54df-4866-9a22-28225aff4635"],
+Cell[77938, 3084, 132, 3, 32, "Output",ExpressionUUID->"3158d795-c984-4e45-9659-21f8e74d6390"]
+}, Open  ]],
+Cell[78085, 3090, 154, 3, 28, "Input",ExpressionUUID->"29572a4c-c317-4dc9-99c5-cfc452fd45c9"],
+Cell[CellGroupData[{
+Cell[78264, 3097, 202, 5, 28, "Input",ExpressionUUID->"ad285264-1103-4554-9613-bf8fd63ce716"],
+Cell[78469, 3104, 150, 4, 55, "Output",ExpressionUUID->"b63e5cd6-8583-4861-91b8-bde569a436f6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[78656, 3113, 518, 11, 45, "Input",ExpressionUUID->"e97fab4b-154f-446e-80a3-e7fa44267b26"],
+Cell[79177, 3126, 228, 4, 32, "Output",ExpressionUUID->"47e4e269-00c0-479d-852d-ce8484e8baec"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[79442, 3135, 705, 19, 45, "Input",ExpressionUUID->"3ca2c6ad-6524-4510-8890-b44bf86c500e"],
+Cell[80150, 3156, 207, 4, 32, "Output",ExpressionUUID->"959f5a6b-9709-48a6-b5bf-a6862a795c90"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[80394, 3165, 323, 10, 45, "Input",ExpressionUUID->"f4f9e8a1-12ec-4b9a-bf84-bc329390456a"],
+Cell[80720, 3177, 206, 4, 32, "Output",ExpressionUUID->"3e092eb3-56c8-4a88-98bc-5d2c3f3a4e44"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[80963, 3186, 323, 10, 45, "Input",ExpressionUUID->"52a248cb-98c0-46a2-9821-46bcc6b1991e"],
+Cell[81289, 3198, 179, 3, 32, "Output",ExpressionUUID->"307eeb35-3199-4d0e-8a14-6193df728b3e"]
+}, Open  ]],
+Cell[81483, 3204, 508, 10, 28, "Input",ExpressionUUID->"fae8bdf9-43f1-47d6-91d9-ebd611efdbf6"],
+Cell[CellGroupData[{
+Cell[82016, 3218, 179, 4, 28, "Input",ExpressionUUID->"6943ab13-2d62-49e8-8ea4-f5e7199991a8"],
+Cell[82198, 3224, 158, 3, 32, "Output",ExpressionUUID->"bcab6964-8f6e-4034-b778-eb93129bb1e1"]
+}, Open  ]],
+Cell[82371, 3230, 404, 11, 28, "Input",ExpressionUUID->"5760a625-91d5-4fe4-a7bc-9ad3c50ad7d7"]
+}
+]
+*)
+

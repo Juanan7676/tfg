@@ -1,36 +1,46 @@
 \babel@toc {british}{}
 \babel@toc {british}{}
 \babel@toc {spanish}{}
-\contentsline {chapter}{\numberline {1}Introducci\'on}{1}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Planteamiento y motivaci\'on}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}El problema de los ordenadores cu\'anticos}{3}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Criptosistemas}{5}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Sistemas de firma}{6}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Espacios de Hilbert}{9}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Definiciones b\'asicas}{9}{section.3.1}%
-\contentsline {section}{\numberline {3.2}El operador adjunto y operadores unitarios}{12}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Los algoritmos de Shor y Grover}{19}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introducci\'on al algoritmo de Shor}{19}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Computaci\'on cu\'antica}{23}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Bits y qubits}{23}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Puertas cu\'anticas y circuitos cu\'anticos}{25}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}El circuito para encontrar el orden}{30}{subsection.4.2.3}%
-\contentsline {section}{\numberline {4.3}El algoritmo de Grover}{35}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Introducci\'on}{35}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}El circuito cu\'antico del algoritmo}{36}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Punto de vista geom\'etrico y tiempos de ejecuci\'on}{38}{subsection.4.3.3}%
-\contentsline {chapter}{\numberline {5}Algoritmos de criptograf\IeC {\'\i }a poscu\'antica}{41}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Criptograf\IeC {\'\i }a basada en funciones hash}{42}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Introducci\'on a las funciones hash}{42}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Un esquema de firma: el esquema de un solo uso de Lamport-Diffie (LD-OTS)}{44}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Experimento computacional: rompiendo el sistema LD-OTS con 2 firmas}{47}{subsection.5.1.3}%
-\contentsline {subsection}{\numberline {5.1.4}Seguridad del esquema LD-OTS}{49}{subsection.5.1.4}%
-\contentsline {section}{\numberline {5.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{53}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Introducci\'on a los c\'odigos Goppa}{53}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Un criptosistema: el sistema de McEliece}{56}{subsection.5.2.2}%
-\contentsline {chapter}{\numberline {6}Conclusiones}{59}{chapter.6}%
-\contentsline {chapter}{\numberline {A}C\'odigo de los programas}{61}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Implementaci\'on de la firma LD-OTS en Python}{61}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Algoritmo de b\'usqueda por fuerza bruta}{63}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Algoritmo de b\'usqueda con 2 firmas}{63}{section.A.3}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{65}{appendix*.13}%
+\contentsline {chapter}{\numberline {1}Planteamiento y motivaci\'on}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}El problema de los ordenadores cu\'anticos}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Criptosistemas}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Sistemas de firma}{5}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Los algoritmos de Shor y Grover}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Introducci\'on al algoritmo de Shor}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Computaci\'on cu\'antica}{11}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Bits y qubits}{11}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Puertas cu\'anticas y circuitos cu\'anticos}{14}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}El circuito para encontrar el orden}{19}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Ejemplo para $N=15$}{24}{subsection.2.2.4}%
+\contentsline {section}{\numberline {2.3}El algoritmo de Grover}{26}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Introducci\'on}{26}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}El circuito cu\'antico del algoritmo}{27}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Punto de vista geom\'etrico y tiempos de ejecuci\'on}{29}{subsection.2.3.3}%
+\contentsline {chapter}{\numberline {3}Algoritmos de criptograf\IeC {\'\i }a poscu\'antica}{33}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Criptograf\IeC {\'\i }a basada en funciones hash}{33}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Introducci\'on a las funciones hash}{33}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Un ejemplo de funci\'on hash: SHA-1}{35}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Un esquema de firma: el esquema de un solo uso de Lamport-Diffie (LD-OTS)}{39}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Experimento computacional: rompiendo el sistema LD-OTS con 2 firmas}{42}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}Seguridad del esquema LD-OTS}{44}{subsection.3.1.5}%
+\contentsline {subsection}{\numberline {3.1.6}El sistema de firma basado en \'arboles hash de Merkle}{48}{subsection.3.1.6}%
+\contentsline {subsubsection}{\numberline {3.1.6.1}Generaci\'on de claves}{49}{subsubsection.3.1.6.1}%
+\contentsline {subsubsection}{\numberline {3.1.6.2}Algoritmo de firma}{50}{subsubsection.3.1.6.2}%
+\contentsline {subsubsection}{\numberline {3.1.6.3}Algoritmo de verificaci\'on}{51}{subsubsection.3.1.6.3}%
+\contentsline {section}{\numberline {3.2}Criptograf\IeC {\'\i }a basada en c\'odigos}{52}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Introducci\'on a los c\'odigos Goppa}{52}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Un criptosistema: el sistema de McEliece}{58}{subsection.3.2.2}%
+\contentsline {chapter}{\numberline {4}Conclusiones}{61}{chapter.4}%
+\contentsline {chapter}{\numberline {A}Productos tensoriales}{65}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Definiciones y propiedades b\'asicas}{65}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Aplicaciones lineales entre productos tensoriales de espacios}{68}{section.A.2}%
+\contentsline {chapter}{\numberline {B}C\'odigo de los programas}{71}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Implementaci\'on del algoritmo de Shor en Mathematica}{71}{section.B.1}%
+\contentsline {subsection}{\numberline {B.1.1}Puerta $U_f$}{71}{subsection.B.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}Puerta $QFT$}{71}{subsection.B.1.2}%
+\contentsline {section}{\numberline {B.2}Implementaci\'on de la firma LD-OTS en Python}{72}{section.B.2}%
+\contentsline {subsection}{\numberline {B.2.1}Esquema de firma}{72}{subsection.B.2.1}%
+\contentsline {subsection}{\numberline {B.2.2}Generador de mensajes}{74}{subsection.B.2.2}%
+\contentsline {subsection}{\numberline {B.2.3}Algoritmo de b\'usqueda por fuerza bruta}{75}{subsection.B.2.3}%
+\contentsline {subsection}{\numberline {B.2.4}Algoritmo de b\'usqueda con 2 firmas}{75}{subsection.B.2.4}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{77}{appendix*.16}%

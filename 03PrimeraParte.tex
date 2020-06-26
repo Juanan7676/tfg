@@ -10,41 +10,46 @@ El objetivo de este capítulo es describir los dos principales algoritmos que pon
 Es importante ver que el primer algoritmo ofrece una reducción de tiempo exponencial respecto de los algoritmos de factorización clásicos. Los algoritmos de factorización más rápidos para ordenadores clásicos usan $ \mathcal{O}\left(2^{(k+o(1))(\log N)^{1/3}(\log\log N)^{2/3}} \right) $ operaciones \cite{postquantumBernstein}. Sin embargo, en un ordenador clásico el problema de la búsqueda se puede resolver en $\mathcal{O}(N)$ operaciones (evaluar cada elemento de $S$). Por tanto, al tratarse de una reducción de tiempo cuadrática, no es tan efectivo como el algoritmo de Shor y sus efectos se pueden compensar aumentando el tamaño de las claves que se usan en los sistemas.
 
 \section{Introducción al algoritmo de Shor}
+\label{sec:shorclassic}
 
 El algoritmo de Shor contiene dos partes, una parte clásica que se ejecutaría en un ordenador clásico, y una parte cuántica que se ejecutaría en un ordenador cuántico. La idea clave del algoritmo subyace en el siguiente resultado.
 
 \bproposicion
 \label{prop1}
-Sea $N$ un número compuesto de $L$ bits, y sea $x\in \mathbb{Z}_N$ con \\ $1<x<N-1$ una solución de la ecuación
-\begin{equation} \label{eqcuadrados} x^2 = 1\mod N \end{equation}
+Sea $N$ un número compuesto de $L$ bits, y sea $x\in \mathbb{Z}/n\mathbb{Z}$ tal que \\ $1<x<N-1$ una solución de la ecuación
+\begin{equation} \label{eqcuadrados} x^2 \equiv 1\mod N \end{equation}
 Entonces, o bien $\mcd(x-1,N)$ o bien $\mcd(x+1,N)$ es un factor no trivial de $N$ y se puede calcular en $O(L^3)$ operaciones.
 \eproposicion
 \begin{proof}
-	Ya que $x^2 - 1 = 0 \mod N$, entonces $N|_{(x^2+1)=(x+1)(x-1)}$. De aquí, $N$ debe tener un factor común con $(x+1)$ ó con $(x-1)$, es decir, $\mcd(x+1,N)>1$ ó $\mcd(x-1,N)>1$. Además, ya que $1 < x < N-1$, entonces $2 < x+1 < N$ y $0 < x-1 < N-2$, en cualquier caso, $x-1 < N$ y $x+1 < N$ y por tanto $\mcd(x-1,N) < N$ y $\mcd(x+1,N) < N$. Esto prueba que ninguno puede ser un factor trivial de $N$. Mediante el algoritmo de Euclides, estos factores pueden calcularse en $O(L^3)$ operaciones (ver \cite{quantuminformation}, pág. 629).
+	Ya que $x^2 - 1 \equiv 0 \mod N$, entonces $N|(x^2-1)=(x+1)(x-1)$. De aquí, $N$ debe tener un factor común con $(x+1)$ ó con $(x-1)$, es decir, $\mcd(x+1,N)>1$ ó $\mcd(x-1,N)>1$.
+	
+	Por otro lado, ya que $1 < x < N-1$, entonces $2 < x+1 < N$ y $0 < x-1 < N-2$, en cualquier caso, $x-1 < N$ y $x+1 < N$ y por tanto $\mcd(x-1,N) < N$ y $\mcd(x+1,N) < N$.
+	
+	Esto prueba que uno de los dos máximos comunes divisores es un factor no trivial de $N$, puesto que está estrictamente comprendido entre $1$ y $N$. Mediante el algoritmo de Euclides, estos factores pueden calcularse en $O(L^3)$ operaciones (ver \cite{quantuminformation}, pág. 629).
 \end{proof}
 
-En general, encontrar una solución de \eqref{eqcuadrados} es difícil. Sin embargo, existe una estrategia para abordar este problema. Si $1 < y < N-1$ es cualquier número coprimo con $N$ y resulta que el orden $r$ del elemento $y$ dentro del grupo multiplicativo $(\mathbb{Z}/N\mathbb{Z})^*$ (es decir, el menor natural tal que $y^r = 1 \mod N$) es par, entonces $y^{r/2}$ sería una solución de \eqref{eqcuadrados}; y además cumpliría las hipótesis de la Proposición \ref{prop1} si $ y^{r/2} \neq - 1 \mod N $ (observemos que no puede ser $1$, ya que ello contradiría la definición de $r$). Resulta que si escogemos este número $y$ aleatoriamente entre $2$ y $N-2$ (si no es coprimo con $N$, entonces habríamos encontrado un factor calculando $\mcd(y,N)$), entonces es muy probable que verifique las condiciones expuestas, lo cual nos permitiría calcular los factores como enuncia la Proposición \ref{prop1}. Este hecho se recoge en el siguiente teorema.
+En general, encontrar una solución de \eqref{eqcuadrados} es difícil. Sin embargo, existe una estrategia para abordar este problema. Si $1 < y < N-1$ es cualquier número coprimo con $N$ y resulta que el orden $r$ del elemento $y$ dentro del grupo multiplicativo $(\mathbb{Z}/N\mathbb{Z})^*$ (es decir, el menor natural tal que $y^r \equiv 1 \mod N$) es par, entonces $y^{r/2}$ es una solución de \eqref{eqcuadrados}; y además cumple las hipótesis de la Proposición \ref{prop1} si $ y^{r/2} \not\equiv - 1 \equiv N-1 \mod N $ (observemos que no puede ser $1$, ya que ello contradiría la definición de $r$). Si escogemos este número $y$ aleatoriamente entre $2$ y $N-2$ (si no es coprimo con $N$, hemos encontrado un factor calculando $\mcd(y,N)$), entonces es muy probable que verifique las condiciones expuestas, lo cual nos permitiría calcular los factores como enuncia la Proposición \ref{prop1}. Este hecho se recoge en el siguiente teorema.
 
 \bteoremaa
 \label{teoremaprob}
-Sea $N = p_1^{\alpha_1}p_2^{\alpha_2}\cdots p_m^{\alpha_m}$ una factorización en números primos de un número impar. Sea $x$ un elemento escogido aleatoriamente de $(\mathbb{Z}/N\mathbb{Z})^*$, y sea $r$ el orden de $x$ módulo $N$. Entonces,
-\[ P[\mbox{r es par y que }x^{r/2}\neq -1 \mod N]\geq 1-\frac{1}{2^m} \]
+Sea $N = p_1^{\alpha_1}p_2^{\alpha_2}\cdots p_m^{\alpha_m}$ una factorización en números primos de un número impar. Sea $x$ un elemento escogido aleatoriamente de $(\mathbb{Z}/N\mathbb{Z})^*$, y sea $r$ el orden de $x$ módulo $N$. Entonces, la probabilidad
+\[ P[\mbox{r es par y que }x^{r/2} \not\equiv -1 \mod N]\geq 1-\frac{1}{2^{m-1}} \]
 \eteorema
 
-Para demostrarlo, necesitamos primero un lema previo.
+Para demostrarlo, necesitamos primero un lema previo. En lo que sigue, $\varphi$ denota la función phi de Euler.
 
 \blema
 \label{lemadivision}
- Sea $p$ un número primo diferente de 2 y sea $\alpha\in\mathbb{N}$. Sea $2^d$ la mayor potencia de $2$ que divide a $\varphi(p^\alpha)$. Entonces, con probabilidad de un medio $2^d$ divide al orden de cualquier elemento de $(\mathbb{Z}/p^\alpha\mathbb{Z})^*$.
+ Sea $p$ un número primo diferente de 2 y sea $\alpha\in\mathbb{N}$. Sea $2^d$ la mayor potencia de $2$ que divide a $\varphi(p^\alpha)$. Entonces la probabilidad de que $2^d$ divida al orden de cualquier elemento de $(\mathbb{Z}/p^\alpha\mathbb{Z})^*$ es $\frac{1}{2}$.
 \elema
 
 \begin{proof}
-	Por ser $p\neq 2$, entonces es impar, y por tanto $\varphi(p^\alpha) = p^{\alpha - 1}(p-1)$ es par. Esto implica que $d \geq 1$. Ya que el grupo $(\mathbb{Z}/p^\alpha\mathbb{Z})^*$ es cíclico, cualquier elemento se escribirá de la forma $g^k$, con $g$ el generador del grupo y $1\leq k \leq \varphi(p^\alpha)$. Sea $r$ el orden de dicho elemento.
+	Por ser $p\neq 2$, entonces es impar, y por tanto $\varphi(p^\alpha) = p^{\alpha - 1}(p-1)$ es par. Esto implica que $d \geq 1$. Ya que el grupo $(\mathbb{Z}/p^\alpha\mathbb{Z})^*$ es cíclico, cualquier elemento se escribirá de la forma $g^k$, con $g$ el generador del grupo y $1\leq k \leq \varphi(p^\alpha)$. Sea $r$ el orden de $g^k$.
 	\begin{itemize}
-		\item Si es $k$ impar, ya que $\left(g^k\right)^r = g^{kr} = 1 \mod p^\alpha$ entonces por el Teorema de Lagrange debe ser $\phi(p^\alpha)|kr$. De aquí, $2^d$ divide a $kr$, y por ser $k$ impar, necesariamente $2^d$ divide a $r$, el orden del elemento.
+		\item Si es $k$ impar, ya que $\left(g^k\right)^r \equiv g^{kr} \equiv 1 \mod p^\alpha$, por ser $\varphi(p^\alpha)$ el orden de $g$ (es un generador del grupo, luego su orden es el cardinal del grupo), $\varphi(p^\alpha)|kr$. De aquí, $2^d$ divide a $kr$, y por ser $k$ impar, necesariamente $2^d$ divide a $r$, el orden de $g^k$.
 		\item Si es $k$ par, entonces
-		\[ g^{\frac{k}{2}\varphi(p^\alpha)} = \left( g^{\varphi(p^\alpha)} \right)^{k/2} = 1^{k/2} = 1 \mod p^\alpha \]
-		Como $r$ es el orden del elemento $g^k$, entonces necesariamente $r|\varphi(p^\alpha)/2$. Ya que $2^{d-1}$ es la mayor potencia de 2 que divide a $\varphi(p^\alpha)/2$, de aquí deducimos que $2^d$ no puede dividir a $r$.
+		\[ \left( g^k\right)^{\frac{\varphi(p^\alpha)}{2}} \equiv \left( g^{\varphi(p^\alpha)} \right)^{k/2} \equiv 1^{k/2} \equiv 1 \mod p^\alpha \]
+		Como $r$ es el orden del elemento $g^k$, entonces necesariamente $r|\varphi(p^\alpha)/2$. Ya que $2^{d-1}$ es la mayor potencia de 2 que divide a $\varphi(p^\alpha)/2$, deducimos que $2^d$ no puede dividir a $r$.
 	\end{itemize}
 	Como exactamente la mitad de elementos de $(\mathbb{Z}/p^\alpha\mathbb{Z})^*$ se expresan con $k$ par y la mitad con $k$ impar, esto concluye la demostración.
 \end{proof}
@@ -54,24 +59,27 @@ Ahora podemos demostrar el Teorema \ref{teoremaprob}.
 \begin{proof}
 	
 	Probaremos que
-	\[ P[r \mbox{ es impar ó } x^{r/2} = -1 \mod N] \leq \frac{1}{2^m} \]
+	\[ P[r \mbox{ es impar ó } x^{r/2} \equiv -1 \mod N] \leq \frac{1}{2^{m-1}} \]
 	
-	Por el Teorema Chino de los Restos, elegir un elemento $x$ aleatoriamente de $(\mathbb{Z}/N\mathbb{Z})^*$ es equivalente a elegir $x_j$ aleatoriamente de $(\mathbb{Z}/p_j^{\alpha_j}\mathbb{Z})^*$, para $j=1,\dots,m$ tales que $x = x_j \mod p_j^{\alpha_j}$. Sea $r_j$ el orden de $x_j$ en $(\mathbb{Z}/p_j^{\alpha_j}\mathbb{Z})^*$, $r$ el orden de $x$ en $(\mathbb{Z}/N\mathbb{Z})^*$, $2^{d}$ la mayor potencia de $2$ que divide a $r$ y $2^{d_j}$ la mayor potencia de $2$ que divide a $r_j$.
+	Por el Teorema Chino de los Restos, elegir un elemento $x$ aleatoriamente de $(\mathbb{Z}/N\mathbb{Z})^*$ es equivalente a elegir $x_j$ aleatoriamente de $(\mathbb{Z}/p_j^{\alpha_j}\mathbb{Z})^*$, para $j=1,\dots,m$ tales que $x \equiv x_j \mod p_j^{\alpha_j}$. Sea $r_j$ el orden de $x_j$ en $(\mathbb{Z}/p_j^{\alpha_j}\mathbb{Z})^*$, $r$ el orden de $x$ en $(\mathbb{Z}/N\mathbb{Z})^*$, $2^{d}$ la mayor potencia de $2$ que divide a $r$ y $2^{d_j}$ la mayor potencia de $2$ que divide a $r_j$.
 	\begin{itemize}
-		\item Si es $r$ impar, entonces ya que $r_j|r$ para cada $j$ (porque $ x_j^r = x^r \mod p_j^{\alpha_j}$. Como $x^r = 1 \mod N$, entonces $x^r = 1 \mod p_j^{\alpha_j}$. Entonces, $x_j^r = 1 \mod p_j^{\alpha_j}$ y de aquí el orden $r_j|r$); si $r$ es impar entonces $r_j$ es impar, y de aquí, $d_j=0$ para todo $j$.
-		\item Si $r$ es par y es $x^{r/2} = -1 \mod N$, entonces $x^{r/2} = -1 \mod p_j^{\alpha_j}$, esto es, $x_j^{r/2} = -1 \mod p_j^{\alpha_j}$. De aquí, $r_j \not| (r/2)$. Ya que $r_j | r$, necesariamente $d = d_j$ para cada $j$ (porque la mayor potencia de 2 que divide a $r_j$ será exactamente $2^d$, no puede ser menor porque $r_j \not| (r/2)$).
+		\item Si es $r$ impar, entonces ya que $r_j|r$ para cada $j$\footnote{Porque $ x_j^r \equiv x^r \mod p_j^{\alpha_j}$. Como $x^r \equiv 1 \mod N$, entonces $x^r \equiv 1 \mod p_j^{\alpha_j}$. Luego $x_j^r \equiv 1 \mod p_j^{\alpha_j}$, y de aquí el orden $r_j|r$.}, de aquí se tiene que $r_j$ es impar, ergo $d_j=0$ para todo $j$.
+		\item Si $r$ es par y es $x^{r/2} \equiv -1 \mod N$, entonces $x^{r/2} \equiv -1 \mod p_j^{\alpha_j}$, esto es, $x_j^{r/2} \equiv -1 \mod p_j^{\alpha_j}$. De aquí, $r_j \not| (r/2)$; porque si no, debería ser $ x_j^{r/2} \equiv x_j^{r_jk} \equiv (x_j^{r_j})^k \equiv 1^k \equiv 1 \mod p_j^{\alpha_j} $. Ya que $r_j | r$, necesariamente $d = d_j$ para cada $j$ (porque la mayor potencia de 2 que divide a $r_j$ será exactamente $2^d$, no puede ser menor porque $r_j \not| (r/2)$).
 	\end{itemize}
 
-	En definitiva, hemos probado que si $r$ es impar ó $x^{r/2} = -1 \mod N$, entonces $d_j$ toma el mismo valor para cada $j$. Esto implica que cada $d_j$ debe dividir (o no dividir) a cada $r_j$ simultáneamente. Por el Lema \ref{lemadivision}, la probabilidad de que esto ocurra es \[ \frac{1}{2} \cdot \frac{1}{2} \cdots \frac{1}{2} = \frac{1}{2^m} \] Por contención de sucesos, finalmente
-	\[ P[r \mbox{ es impar ó } x^{r/2} = -1 \mod N] \leq P[d_j=k \mbox{ para cada } j] \leq P[ d_j|r_j \mbox{ ó } d_j \not| r_j \mbox{ para cada } j ] = \frac{1}{2^m} \]
+	En definitiva, hemos probado que si $r$ es impar ó $x^{r/2} \equiv -1 \mod N$, entonces $d_j$ toma el mismo valor para cada $j$. En particular, $d_2,\dots,d_m$ deben ser iguales a $d_1$, es decir, $2^{d_1}|r_j$ para cada $j=1,\dots,m$. Sea ahora $2^{k_j}$ la mayor potencia de $2$ que divide a $\varphi(p_j^{\alpha_j})$. Entonces, como la mayor potencia de 2 que divide a cada $r_j$ es la misma, debe cumplirse que $ 2^{k_j}|r_j $ si $k_j\leq d_1$ ó $ 2^{k_j}\not| r_j $ si $k_j > d_1$  para todo $j=2,\dots,m$. Por el Lema \ref{lemadivision}, la probabilidad de que esto ocurra es \[ \frac{1}{2} \cdot \frac{1}{2} \cdots \frac{1}{2} = \frac{1}{2^{m-1}} \]
+	Y por contención de sucesos, entonces
+	\[ P[ r\mbox{ es impar ó } x^{r/2}\equiv -1 \mod N ] \leq P[d_j=d_1 \mbox{ para todo }j=2,\dots,m] = \frac{1}{2^{m-1}} \]
+	Lo cual completa la demostración.
+	
 \end{proof}
 
-Una consecuencia inmediata del Teorema \ref{teoremaprob} es que si el número que queremos factorizar $N$ tiene 2 factores primos (como suele usarse en criptografía, como es el caso del algoritmo RSA), entonces tenemos la garantía de que usando el procedimiento descrito anteriormente, daremos al menos un 75\% de las veces con un elemento $y$ que nos permita hallar los factores de $N$ usando la Proposición \ref{prop1}. Un resumen de un algoritmo para factorizar sería el siguiente:
+Una consecuencia inmediata del Teorema \ref{teoremaprob} es que si el número que queremos factorizar $N$ tiene 2 factores primos (como suele usarse en criptografía, por ejemplo, en el algoritmo RSA), entonces tenemos la garantía de que usando el procedimiento descrito anteriormente, hallaremos al menos un 50\% de las veces un elemento $y$ que nos permita hallar los factores de $N$ usando la Proposición \ref{prop1}. Un resumen de un algoritmo para factorizar sería el siguiente:
 \begin{enumerate}
 	\item Si $N$ es par, devolver el factor 2.
-	\item Elegir aleatoriamente $y$ entre $2$ y $N-2$. Si $\mcd(y,N)>1$, devolver el factor $\mcd(y,N)$.
+	\item Elegir aleatoriamente un número $y$ entre $2$ y $N-2$. Si $\mcd(y,N)>1$, devolver el factor $\mcd(y,N)$.
 	\item Encontrar el orden $r$ del elemento $y$ módulo $N$.
-	\item Si $r$ es par y $x^{r/2} \neq -1 \mod N$, entonces calcular $\mcd(x^{r/2} - 1, N)$ y $\mcd(x^{r/2}+1,N)$, comprobar cuál de ellos es un factor no trivial y devolver dicho factor. En caso contrario, volver al paso 2.
+	\item Si $r$ es par e $y^{r/2} \not\equiv -1 \mod N$, entonces calcular $\mcd(y^{r/2} - 1, N)$ y $\mcd(y^{r/2}+1,N)$, comprobar cuál de ellos es un factor no trivial y devolver dicho factor. En caso contrario, volver al paso 2.
 \end{enumerate}
 
 Gracias al algoritmo de Euclides y la exponenciación modular, todos los pasos de este algoritmo se pueden ejecutar en tiempo polinomial excepto el paso $3$. Este problema se conoce como el problema de encontrar el orden, y no existe ningún método eficiente para resolverlo en un ordenador clásico. Sin embargo, usando la computación cuántica, sí es posible resolver este problema eficientemente. En realidad, el algoritmo descrito es un esquema del algoritmo de Shor, con la salvedad de que el paso $3$ se resuelve con un circuito cuántico, se obtienen los resultados y se prosigue en un ordenador clásico para culminar con la obtención del factor. Veremos cómo se construye este circuito en un ordenador cuántico y por qué funciona.
@@ -82,7 +90,7 @@ Ahora que hemos visto la motivación por la que necesitamos un ordenador cuántico
 
 \begin{ejemplo}
 	La puerta lógica AND implementa la operación lógica de conjunción (\&) y se define de esta manera:
-	\[ f : \Z_2^2 \to \Z_2 \]
+	\[ AND : \Z_2^2 \to \Z_2 \]
 	\[ (0,0) \longmapsto 0 \]
 	\[ (0,1) \longmapsto 0 \]
 	\[ (1,0) \longmapsto 0 \]
@@ -95,17 +103,17 @@ La computación cuántica surge como una generalización de estos conceptos. De igu
 	Un \textit{qubit} es la unidad mínima de información describiendo un sistema cuántico 2-dimensional.
 \edefinicion
 
-Un qubit se modela como un elemento del espacio de Hilbert $\C^2$. Como ya vimos, este es un espacio vectorial y posee una base ortonormal $\{e_1,e_2\}$ (por ejemplo, la canónica: $\{ (0,1),(1,0) \}$). Así, todo qubit puede expresarse como una combinación $\C$-lineal de los elementos de la base. En el contexto de la computación cuántica, a estos elementos es usual denotarlos usando la notación de Dirac de esta manera:
+Un qubit se modela como un elemento del espacio de Hilbert\footnote{El producto escalar usual de $\C^2$ es $\langle (z_1,z_2),(z_1',z_2') \rangle = z_1\overline{z_1'}+z_2\overline{z_2'}$, donde $\overline{\cdot}$ denota la conjugación compleja. } $\C^2$, que es un espacio vectorial y posee una base ortonormal $\{e_1,e_2\}$ (por ejemplo, la canónica: $\{ (0,1),(1,0) \}$). Así, todo qubit puede expresarse como una combinación $\C$-lineal de los elementos de la base. En el contexto de la computación cuántica, a estos elementos es usual denotarlos usando la notación de Dirac de esta manera:
 \[ \ket{0} = e_1 \]
 \[ \ket{1} = e_2 \]
 
-y se denominan los \textit{estados básicos}. Con lo que cualquier qubit puede expresarse de la forma $ c_1\ket{0}+c_2\ket{1} $, $c_1,c_2\in\C$. Una restricción importante que se impone sobre los qubits es que para todo qubit $x\in\C^2$, $\|x\|^2 = |c_1|^2+|c_2|^2 = 1$ (lo cual ocurre si y sólo si $\| x \| = 1$, ver ejemplo \ref{normac2}). Así, cuando $c_1=1$ y $c_2=0$ se dice que el qubit está en el estado básico $0$ y al contrario, en el estado básico $1$. En cualquier otra situación, el qubit se dice que está en estado de \textit{superposición}. \\
+Y se denominan los \textit{estados básicos}. Con lo que cualquier qubit puede expresarse de la forma $ c_1\ket{0}+c_2\ket{1} $, $c_1,c_2\in\C$. Una restricción importante que se impone sobre los qubits es que para todo qubit $x\in\C^2$, $\|x\|^2 = |c_1|^2+|c_2|^2 = 1$\footnote{Sobre $\C^2$, se define la norma usual a partir del producto escalar usual: $\|(z_1,z_2)\|$=$\sqrt{\langle (z_1,z_2),(z_2,z_2) \rangle} = \sqrt{z_1\overline{z_1}+z_2\overline{z_2}}=\sqrt{|z_1|^2+|z_2|^2}$.}. Así, cuando $|c_1|^2=1$ y $|c_2|^2=0$ se dice que el qubit está en el estado básico $0$ y al contrario, en el estado básico $1$. En cualquier otra situación, el qubit se dice que está en estado de \textit{superposición}. \\
 
-Los qubits pueden ser, en cualquier momento, ``observados''. Esto saca al qubit de su estado de superposición, y hace que se comporte como un bit clásico, tomando el valor $0$ o el valor $1$ de manera aleatoria. La probabilidad con la que toma cada valor viene dado por las coordenadas del qubit: así, un qubit $c_1\ket{0}+c_2\ket{1}$ tiene una probabilidad $|c_1|$ de valer $0$ al ser observado, y $|c_2|$ de valer $1$ (de aquí la imposición anterior de que $|c_1|^2+|c_2|^2 = 1$). \\
+Los qubits pueden ser, en cualquier momento, ``observados''. Esto saca al qubit de su estado de superposición, y hace que se comporte como un bit clásico, tomando el valor $0$ o el valor $1$ de manera aleatoria. La probabilidad con la que toma cada valor viene dado por las coordenadas del qubit: así, un qubit $c_1\ket{0}+c_2\ket{1}$ tiene una probabilidad $|c_1|^2$ de valer $0$ al ser observado, y $|c_2|^2$ de valer $1$ (de aquí la imposición anterior de que $|c_1|^2+|c_2|^2 = 1$). \\
 
-Varios qubits se modelan matemáticamente usando el producto tensorial $(\C^2)^{\otimes n}$, donde $n$ es el número de qubits. Así, 2 qubits se expresan de la forma $ x = c_{00} \ket{0}\otimes\ket{0} + c_{01} \ket{0}\otimes\ket{1} +c_{01} \ket{1}\otimes\ket{0} + c_{11} \ket{1}\otimes\ket{1}$, $c_{00},c_{01},c_{10},c_{11} \in \C$. En general, $n$ qubits se expresan con $2^n$ coordenadas (pues la dimensión del producto tensorial de dos espacios vectoriales de dimensión $m$ y $n$ es $mn$). En la notación de Dirac es usual simplificar la notación del producto tensorial escribiendo simplemente $\ket{x}\otimes\ket{y} = \ket{x}\ket{y} = \ket{xy}$. En particular, cuando denotemos productos tensoriales de estados básicos, se escribirá $\ket{i_1}\ket{i_2} = \ket{i_1i_2}$, $i_1,i_2 \in \{ 0,1 \}$. \\
+Varios qubits se modelan matemáticamente usando el producto tensorial\footnote{Más detalles pueden consultarse en el apéndice \ref{apA} de este trabajo.}. $(\C^2)^{\otimes n}$, donde $n$ es el número de qubits. Así, 2 qubits se expresan de la forma $ x = c_{00} \ket{0}\otimes\ket{0} + c_{01} \ket{0}\otimes\ket{1} +c_{01} \ket{1}\otimes\ket{0} + c_{11} \ket{1}\otimes\ket{1}$, $c_{00},c_{01},c_{10},c_{11} \in \C$. En general, $n$ qubits se expresan con $2^n$ coordenadas (pues la dimensión del producto tensorial de dos espacios vectoriales de dimensión $m$ y $n$ es $mn$, ver \ref{apA}). En la notación de Dirac es usual simplificar la notación del producto tensorial escribiendo simplemente $\ket{x}\otimes\ket{y} = \ket{x}\ket{y} = \ket{xy}$. En particular, cuando denotemos productos tensoriales de estados básicos, escribiremos $\ket{i_1}\ket{i_2} = \ket{i_1i_2}$, $i_1,i_2 \in \{ 0,1 \}$. También denotaremos $\ket{x}$, $x\in\{ 0,\dots,2^n-1 \}$ a un estado básico de $n$ qubits, entendiendo el número natural $x$ como su representación binaria de $n$ dígitos (por tanto, producto tensorial de $n$ qubits). \\
 
-La observación de varios qubits es análoga a la situación anterior. Por ejemplo, para 2 qubits, tendríamos que hay una probabilidad $|c_{00}|$ de medir un 0 en el primer qubit y un 0 en el segundo, una probabilidad $|c_{10}|$ de medir un 1 en el primero y un 0 en el segundo, y así sucesivamente. Sin embargo, hay que justificar que estas probabilidades efectivamente suman 1.
+La observación de varios qubits es análoga a la situación anterior. Por ejemplo, para 2 qubits, tendríamos que hay una probabilidad $|c_{00}|^2$ de medir un 0 en el primer qubit y un 0 en el segundo, una probabilidad $|c_{10}|^2$ de medir un 1 en el primero y un 0 en el segundo, y así sucesivamente. Sin embargo, hay que justificar que estas probabilidades efectivamente suman 1.
 
 \bproposicion
 \label{qubitmodulo}
@@ -133,10 +141,24 @@ Sean $\ket{x_1},\dots,\ket{x_n}$ $n$ qubits, con $\ket{x_i} = x_0^{(i)}\ket{0} +
 
 \subsection{Puertas cuánticas y circuitos cuánticos}
 
-Una vez que hemos definido el concepto de qubit y cómo se modelan matemáticamente, el siguiente paso es definir el concepto de puerta cuántica; que no es más que una función $f: \C^{\otimes 2n} \to \C^{\otimes 2n}$ (envía $n$ qubits a $n$ qubits). Ya que, como vimos, estos dos espacios son espacios vectoriales, podemos tratar $f$ como una aplicación lineal. Además, ya que $f$ debe enviar qubits a qubits, debe verificarse para todo $x \in \C^{\otimes 2n}$, que
+Una vez que hemos definido el concepto de qubit y cómo se modelan matemáticamente, el siguiente paso es definir el concepto de puerta cuántica; que no es más que una función $f: \C^{\otimes 2n} \to \C^{\otimes 2n}$ (envía $n$ qubits a $n$ qubits). Ya que estos dos espacios son espacios vectoriales, podemos tratar $f$ como una aplicación lineal. Además, ya que $f$ debe enviar qubits a qubits, debe verificarse para todo $x \in \C^{\otimes 2n}$, que
 \[ \| f(x) \| = \| x \| = 1 \]
 
-Y según vimos en el capítulo anterior, esto se logra si y sólo si $f$ es unitaria. Esta condición implica que el operador dado por $A^\dagger$ es la inversa de $A$. Es decir, toda puerta cuántica debe ser reversible (biyectiva), y su inversa está dada por la matriz $A^\dagger$. Es por ello que toda puerta cuántica debe tener exactamente los mismos qubits de entrada y de salida.
+¿Qué aplicaciones lineales verifican esto? Sobre $\C$, la respuesta está en las aplicaciones \textit{unitarias}.
+
+\bdefinicion
+Sea $X$ un espacio de Hilbert complejo de dimensión n y sea $f : X \to X$ una aplicación lineal. Se dice que $A$ es \textit{unitaria} si su matriz asociada $A$ verifica que
+\[ A^\dagger A = I_n \]
+Donde $I_n$ es la matriz identidad de orden $n$, y $A^\dagger$ denota la matriz traspuesta conjugada de $A$.
+\edefinicion
+
+\bteoremaa
+Sea $X$ un espacio de Hilbert complejo de dimensión n y sea $f : X \to X$ una aplicación lineal. Se tiene que $f$ es unitaria si y sólo si para todo $x\in X$,
+\[ \| f(x) \| = \| x \| \]
+\eteorema
+La demostración de este resultado es una consecuencia del estudio de los operadores en espacios de Hilbert en Análisis Funcional, que puede consultarse en \cite{afuncional}.
+
+La definición de una aplicación lineal unitaria con matriz asociada $A$, implica que el operador dado por $A^\dagger$ es la inversa de $A$. Es decir, toda puerta cuántica debe ser reversible (biyectiva), y su inversa está dada por la matriz $A^\dagger$. Es por ello que toda puerta cuántica debe tener exactamente los mismos qubits de entrada y de salida.
 \begin{ejemplo}
 	Las puertas cuánticas generalizan las puertas clásicas. Por ejemplo, la puerta $ NOT: \C^2\otimes \C^2 \to \C^2\otimes \C^2 $ es aquella puerta cuya matriz asociada es
 	\[ \left( \begin{array}{cc} 0 & 1 \\ 1 & 0  \end{array} \right) \]
@@ -178,32 +200,34 @@ Normalmente, por convenio se supone que la computación ocurre de izquierda a der
 
 Estas dos operaciones se dice que son \textit{secuenciales}, porque ocurre una después de la otra. Notemos que podríamos haber simplificado este circuito calculando el operador $C = B\circ A$, cuya matriz asociada viene dada de multiplicar $BA$, las matrices asociadas de $B$ y de $A$, y reescribiendo el circuito con un solo operador actuando sobre $\ket{x}$, $C$.
 
-Cuando tengamos un operador tenga más de un qubit de entrada o salida, en lugar de escribir muchas líneas, lo denotamos de esta manera:
+Cuando tengamos un operador que tenga más de un qubit de entrada o salida, en lugar de escribir muchas líneas, lo denotamos de esta manera:
 
 	\begin{figure}[h]
 	\centering
 	\includegraphics[height=40px]{images/quantum3.png}
-\end{figure}
+\end{figure} 
 
 En este caso, $A$ sería un operador que trabaja sobre $n$ qubits (observemos que hubiese sido equivalente haber dibujado $n$ líneas entrando y saliendo de $A$).
 
 En un circuito cuántico, también pueden ocurrir operaciones \textit{en paralelo} sobre varios qubits. Por ejemplo:
-	\begin{figure}[h]
+	\begin{figure}[H]
 	\centering
 	\includegraphics[height=85px]{images/quantum4.png}
 \end{figure}
 
-Si $\ket{x}$,$\ket{y}$ son $n$ y $m$ qubits respectivamente, Entonces este circuito aplica, sobre la entrada $\ket{x}\otimes\ket{y}$, la operación $A\ket{x} \otimes B\ket{y}$. Este circuito podría simplificarse calculando el operador $C = A\otimes B$ (ver apéndice), cuya entrada son $n+m$ qubits, de manera que la acción del circuito podría escribirse como $C(\ket{x}\otimes\ket{y}) = (A \otimes B) (\ket{x}\otimes \ket{y})$.
+Si $\ket{x}$,$\ket{y}$ son $n$ y $m$ qubits respectivamente, Entonces este circuito aplica, sobre la entrada $\ket{x}\otimes\ket{y}$, la operación $A\ket{x} \otimes B\ket{y}$. Este circuito podría simplificarse calculando el operador $C = A\otimes B$, cuya entrada son $n+m$ qubits, de manera que la acción del circuito podría escribirse como $C(\ket{x}\otimes\ket{y}) = (A \otimes B) (\ket{x}\otimes \ket{y})$, donde la operación matricial $ A\otimes B$ representa el producto de Kronecker de las matrices A y B\footnote{Para más detalles, consultar el apéndice \ref{apA}.}. \\
 
 \begin{ejemplo}
-	El operador de Hadamard $H$ aplicado sobre varios qubits se comporta como sigue. Dados $n$ qubits $\ket{x_1\cdots x_n}$ en estado básico $0$, entonces el resultado de aplicar el operador $H$ a cada uno de ellos en paralelo es:
+	El operador de Hadamard $H$ aplicado sobre varios qubits se comporta como sigue. Dados $n$ qubits $\ket{x_1\cdots x_n}$ en estado básico $0$, entonces el resultado de aplicar el operador $H$ a cada uno de ellos en paralelo es: \\
 	
-	$H\ket{x_1}\otimes H\ket{x_2} \otimes \cdots \otimes H\ket{x_n}$ = $ H\ket{0} \otimes H\ket{0} \otimes \cdots \otimes H\ket{x_n} = \left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}\ket{1} \right) \otimes \dots \otimes \left( \frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}\ket{1} \right) = \frac{1}{\sqrt{2}^n} \sum_{i_1,\dots,i_n\in\{0,1\}}\ket{i_1\cdots i_n} $.
+	$H\ket{x_1}\otimes H\ket{x_2} \otimes \cdots \otimes H\ket{x_n}$ = $ H\ket{0} \otimes H\ket{0} \otimes \cdots \otimes H\ket{0} = \left(\frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}\ket{1} \right) \otimes \dots \otimes \left( \frac{1}{\sqrt{2}}\ket{0}+\frac{1}{\sqrt{2}}\ket{1} \right) = \frac{1}{\sqrt{2}^n} \sum_{i_1,\dots,i_n\in\{0,1\}}\ket{i_1\cdots i_n} $. \\
 	
-	Por simplicidad, este operador se denota $H^{\otimes n}$, y su matriz asociada es $\frac{1}{\sqrt{2}^n} H_{2^n}$, donde $H_{2^n}$ es la matriz de Hadamard de orden $2^n$ \textbf{(añadir referencia)}.
+	Por simplicidad, este operador se denota $H^{\otimes n}$, y su matriz asociada es $\frac{1}{\sqrt{2}^n} H_{2^n}$, donde $H_{2^n}$ es la matriz de Hadamard de orden $2^n$ \cite{quantumcomputing}.
 \end{ejemplo}
 
-Una puerta especial es la de \textit{medición}. Cuando se coloca al final de uno o varios qubits, pasan de ser un bits cuánticos a bits clásicos siguiendo la ley de probabilidad explicada anteriormente. En el siguiente ejemplo, se medirían simultáneamente $n$ qubits tras aplicarles un operador $A$:
+\vspace{.15 in}
+
+Una puerta especial es la de \textit{medición}. Cuando se coloca al final de uno o varios qubits, pasan de ser qubits a bits clásicos siguiendo la ley de probabilidad explicada anteriormente. En el siguiente ejemplo, se medirían simultáneamente $n$ qubits tras aplicarles un operador $A$:
 
 	\begin{figure}[h]
 	\centering
@@ -248,8 +272,9 @@ Es decir, el resultado de medir un subconjunto de un conjunto de qubits en estad
 
 
 \subsection{El circuito para encontrar el orden}
+\label{sec:circuitorden}
 
-Con estas nociones básicas, finalmente podemos presentar el circuito para resolver el problema de encontrar el orden. Con tal de dar una visión general del algoritmo, supondremos que $r$ es una potencia de $2$. El caso general requiere usar un algoritmo de fracciones continuas (ver \cite{quantuminformation}) para poder hallar $r$ en el caso general. El circuito, no obstante, no varía; solo se trata de un paso extra al final del proceso. \\
+Con estas nociones básicas, finalmente podemos presentar el circuito para resolver el problema de encontrar el orden. Con tal de dar un esquema del algoritmo, supondremos que el orden del elemento buscado, $r$, es una potencia de $2$. El caso general requiere usar un algoritmo de fracciones continuas (ver \cite{quantuminformation}) para poder hallar $r$ en el caso general. El circuito, no obstante, no varía; solo se trata de un paso extra al final del proceso. \\
 
 Necesitaremos dos puertas cuánticas principalmente, además de la puerta de Hadamard $H^{\otimes n}$ presentada anteriormente. Una de ellas es la \textit{transformada cuántica de Fourier}. Esta transformación actúa sobre los estados básicos $\ket{0},\cdots,\ket{N-1}$ (por ejemplo, en 2 qubits, $N=4$) de la siguiente forma: para cada $0\leq j \leq N-1$
 \[ \ket{j} \mapsto \frac{1}{\sqrt{N}}\sum_{k=0}^{N-1}e^{2\pi ijk/N}\ket{k} \]
@@ -292,7 +317,7 @@ donde $\oplus$ denota la suma en $\Z^2$ bit a bit. Es posible ver que este opera
 
 \[ U_f\left(\frac{1}{\sqrt{2^m}}\sum_{j=0}^{2^m-1} \ket{j,0}\right) = \frac{1}{\sqrt{2^m}}\sum_{j=0}^{2^m-1} \ket{j,0\oplus f(j)} = \frac{1}{\sqrt{2^m}}\sum_{j=0}^{2^m-1} \ket{j,f(j)}  \]
 
-Como podemos ver, la puerta cuántica $U_f$ nos permite hacer $2^m$ evaluaciones simultáneas de $f$, con cada valor en un estado de superposición equiprobable junto con los valores de entrada. Es posible ver que $U_f$ puede ser ejecutada en un tiempo eficiente. Esto no se puede conseguir en general en un ordenador clásico, y es por ello que este algoritmo sólo puede ser ejecutado en un ordenador cuántico. \\
+Como podemos ver, la puerta cuántica $U_f$ nos permite hacer $2^m$ evaluaciones simultáneas de $f$, con cada valor en un estado de superposición equiprobable junto con los valores de entrada. Esto no se puede conseguir en general en un ordenador clásico, y es por ello que este algoritmo sólo puede ser ejecutado en un ordenador cuántico.
 
 La función que nos interesa en nuestro caso es, dado $N$ el número a factorizar y $a$ un número coprimo con $N$, la función definida para cada $x\in\Z$ por
 \[ f_{a,N}(x) = a^x \mod N \]
@@ -357,7 +382,7 @@ Veamos cómo va evolucionando el sistema tras cada aplicación de cada puerta cuán
 	Por tanto, podemos reescribir \eqref{qft} como
 	
 	\begin{equation} \label{superp} A \sum_{\lambda=0}^{\lfloor r/2^m - 1 \rfloor} \frac{2^m}{r} e^{\frac{2\pi i t_0 \lambda\frac{2^m}{r}}{2^m}} \ket{\lambda\frac{2^m}{r}} = A \sum_{\lambda=0}^{\lfloor r/2^m - 1 \rfloor} \frac{2^m}{r} e^{\frac{2\pi i t_0 \lambda}{r}} \ket{\lambda\frac{2^m}{r}} \end{equation}
-	
+	Como podemos ver, la acción del operador $QFT$ es eliminar el término inicial $t_0$ y cambiar la longitud del periodo de $r$ a $\frac{2^m}{r}$.
 	\item Medimos los $m$ qubits. A partir de la ecuación \eqref{superp} es fácil ver que al medir, obtendremos
 	
 	\[ x = k\frac{2^m}{r} \]
@@ -366,9 +391,37 @@ Veamos cómo va evolucionando el sistema tras cada aplicación de cada puerta cuán
 	
 	\[ \frac{x}{2^m} = \frac{k}{r} \]
 	
-	El miembro de la derecha de la igualdad es conocido, por tanto, basta reducir esta fracción a su forma irreducible para obtener el valor de $r$, terminando así el algoritmo.
+	El miembro de la derecha de la igualdad es conocido. A partir de varias medidas, obtendremos resultados para distintos valores de $k$, a través de los cuales podemos hallar valor $r$ buscado.
 \end{enumerate}
 
+\subsection{Ejemplo para $N=15$}
+Finalmente, veremos un ejemplo práctico para factorizar $N=15$. Ya que los desarrollos del estado del sistema son largos, los resultados aquí presentados han sido obtenidos con ayuda informática (ver apéndice B para el código en \textit{Mathematica} usado). Con la notación de la sección anterior, elegimos, por ejemplo, $a=7$; ya que $\mcd(7,15)=1$ podemos continuar. En este caso, $n= \lceil \log_2 N \rceil = 4$, y $m=2n=8$.
+
+\begin{enumerate}
+	\item El estado inicial del sistema es $\ket{0,0}$.
+	\item Tras aplicar la puerta de Hadamard, el estado del ordenador es \[ \frac{1}{\sqrt{2^8}}\left(\ket{0,0}+\ket{1,0}+\ket{2,0}+\cdots+\ket{255,0}\right) = \frac{1}{16}\left(\ket{0,0}+\ket{1,0}+\ket{2,0}+\cdots+\ket{255,0}\right) \]
+	\item Tras aplicar el operador $U_{f_{7,15}}$, el estado queda: 
+	\[ \begin{split}
+	\frac{1}{16}(\ket{0,1}+\ket{1,7}+\ket{2,4}+\ket{3,13}+\ket{4,1}+\ket{5,7} \\ +\ket{6,4}+\ket{7,13}+\ket{8,1}+\dots+\ket{255,13})\end{split} \]
+	\item Al medir los últimos $4$ qubits, podemos medir $1,7,4$ ó $13$ con igual probabilidad: como en el estado del ordenador cada término aparece con la misma frecuencia, es decir, exactamente $\frac{256}{4} = 64$ veces, la probabilidad de medir cada uno será $64\cdot \left| \frac{1}{16} \right|^2 = \frac{1}{4} $. Supongamos que medimos $13$. Entonces, el estado del ordenador tras realizar esta medición, será:
+	\[ \frac{1}{\sqrt{64}}\left( \ket{3,13}+\ket{7,13}+\ket{11,13}+\ket{15,13}+\cdots+\ket{255,13} \right) \]
+	Ya que en total hay $\frac{256}{4} = 64$ términos, todos con amplitud 1; luego la norma del qubit sin normalizar sería $\sqrt{64\cdot|1|^2} = 8$.
+	
+	\item Aplicamos la transformada cuántica de Fourier a los restantes $8$ qubits no medidos,en estado:
+	\[ \frac{1}{8}\left( \ket{3}+\ket{7}+\ket{11}+\ket{15}+\cdots+\ket{255} \right) \]
+	Así, obtenemos el estado:
+	\[ \frac{1}{2}\ket{0} - \frac{i}{2}\ket{64}-\frac{1}{2}\ket{128}+\frac{i}{2}\ket{192} \]
+	
+	\item Finalmente, medimos los qubits restantes del sistema. En este caso, podremos medir 0, 64, 128 ó 192. La probabilidad de medir cada uno de estos estados es $\frac{1}{4}$ (por ejemplo, para $\ket{64}$, $\left|\frac{-i}{2}\right|^2 = \frac{1}{4}$). Supongamos que medimos $x=128$, entonces, calculamos
+	\[ \frac{x}{2^m} = \frac{128}{256} = \frac{1}{2} \]
+	De aquí, el orden del elemento debe ser un múltiplo de $2$. Pero $7^2 \equiv 4 \mod 15$. Si repetimos el algoritmo para realizar otra medida y medimos, por ejemplo, $x=196$, entonces
+	\[ \frac{x}{2^m} = \frac{192}{256} = \frac{3}{4} \]
+	De aquí, el orden del elemento debe ser múltiplo de $4$. Y ya que $7^4 \equiv 1 \mod 15$, es claro que el orden buscado es $r=4$.
+\end{enumerate}
+El orden que devuelve el ordenador cuántico es par. Además, $7^{4/2} \equiv 7^2 \equiv 4 \not\equiv 14 \mod 15$, por tanto, podemos hallar los factores de $N=15$. En este caso,
+\[ \mcd(7^2+1\mod 15, 15) = 5 \]
+\[ \mcd(7^2-1\mod 15, 15) = 3 \]
+Lo que nos proporciona los dos factores de $15$, y el algoritmo termina.
 \section{El algoritmo de Grover}
 
 Finalizamos este capítulo con el otro algoritmo cuántico que acelera otro gran problema: el problema de la búsqueda. Como ya adelantamos al principio, el problema de la búsqueda puede formularse de la siguiente manera: dado un conjunto $S$ de cardinal $N$ y una función $f : S \to \{0,1\}$, encontrar $x\in S$ tal que $f(x) = 1$. En un ordenador clásico, este problema puede resolverse en $\mathcal{O}(N)$ operaciones, evaluando cada elemento de $S$ mediante $f$. Gracias al siguiente algoritmo cuántico que veremos, podremos resolver este problema en $\mathcal{O}(\sqrt{N})$ operaciones, una reducción cuadrática de complejidad.
@@ -400,21 +453,21 @@ Si $ \ket{q} = H(\ket 1) $, entonces la acción del oráculo sobre $\ket{x}\ket{q}
 	En conclusión, si $f(x)=1$, entonces $O(\ket{x}H(\ket 1)) = (-1)^1\ket{x}H(\ket 1)$, y si $f(x)=0$, entonces $O(\ket{x}H(\ket 1)) = (-1)^0\ket{x}H(\ket 1)$, lo que prueba el resultado.
 \end{proof}
 
-Ya que el segundo qubit se mantiene constante, podemos simplificar la notación diciendo que el oráculo actúa sobre $\ket{x}$ devolviendo $(-1)^{f(x)}\ket{x}$. \\
+Ya que el segundo qubit se mantiene constante, podemos simplificar la notación diciendo que el oráculo actúa sobre $\ket{x}$ devolviendo $(-1)^{f(x)}\ket{x}$, siempre y cuando $\ket q = H(\ket 1)$. \\
 
 \subsection{El circuito cuántico del algoritmo}
 
-En lo que sigue, supondremos que $N = 2^n$ para cierto $n \in \mathbb{N}$, con lo que cada elemento de $S$ puede expresarse con $n$ qubits ($\ket 0,\dots,\ket{N-1}$). El esquema del circuito cuántico para el algoritmo de Grover se resume en la siguiente figura.
+En lo que sigue, supondremos que $N = 2^n$ para cierto $n \in \mathbb{N}$, con lo que cada elemento de $S$ puede expresarse con $n$ qubits ($\ket 0,\dots,\ket{N-1}$). Si así no fuera, podemos ``completar'' el conjunto hasta la siguiente potencia de 2 repitiendo algunos de sus elementos o añadiendo elementos que no son soluciones. El esquema del circuito cuántico para el algoritmo de Grover se resume en la siguiente figura.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{images/grover1.png}
 	\caption{El esquema general del circuito para ejecutar el algoritmo de Grover.}
 \end{figure}
 
-En este caso, $G$ es una puerta cuántica, llamada \textit{operador de Grover} o \textit{iteración de Grover}, que se ejecuta $R$ veces (más adelante, daremos cotas para este valor en función de la probabilidad de éxito del algoritmo deseada). Su estructura es la siguiente:
+Como podemos observar, comenzamos con $n$ qubits en el estado básico $\ket 0$. El último qubit se pone en el estado básico $\ket 1$. De esta manera, el estado del ordenador tras aplicar $H^{\otimes n+1}$ es $H^{\otimes n}\ket 0 \otimes H\ket1 $, lo cual nos permite aplicar la Proposición \ref{prop44} para simplificar la acción del oráculo en el resto del circuito. $G$ es una puerta cuántica, llamada \textit{operador de Grover} o \textit{iteración de Grover}, que se ejecuta $R$ veces (más adelante, daremos cotas para este valor en función de $N$ y $M$). Su estructura es la siguiente: \\
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\label{operadorG}
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/grover2.png}
@@ -534,4 +587,4 @@ Luego
 
 Es decir, se deben efectuar $\mathcal{O}\left( \sqrt\frac{N}{M} \right) $ iteraciones de Grover. En el caso particular de que $M=1$, es decir, que haya una única solución al problema, entonces se deben efectuar $\mathcal{O}(\sqrt{N})$ iteraciones de Grover, como anunciamos al principio de esta sección. \\
 
-Como observación final, en toda la discusión anterior hemos supuesto que $M \leq N/2$. En realidad, es razonable hacer esta suposición: en un problema de búsqueda suelen haber muy pocas soluciones en comparación con el cardinal del conjunto de búsqueda. Si así no fuera, simplemente podemos escoger un elemento al azar de $S$. Como más de la mitad de los elementos de $S$ son soluciones del problema, la probabilidad de encontrar una solución realizando este procedimiento es, al menos, $\frac{1}{2}$. La repetición sucesiva de este procedimiento producirá una solución del problema muy rápidamente.
+Como observación final, en toda la discusión anterior hemos supuesto que $M < N/2$. En realidad, es razonable hacer esta suposición: en un problema de búsqueda suelen haber muy pocas soluciones en comparación con el cardinal del conjunto de búsqueda. Si así no fuera, simplemente podemos escoger un elemento al azar de $S$. Como más de la mitad de los elementos de $S$ son soluciones del problema, la probabilidad de encontrar una solución realizando este procedimiento es, al menos, $\frac{1}{2}$. La repetición sucesiva de este procedimiento producirá una solución del problema muy rápidamente.

@@ -20,7 +20,7 @@ Don Johnson, Alfred Menezes, and Scott Vanstone.
   2001.
 
 \bibitem{postquantumBernstein}
-Daniel J.~Bernstein and {Johannes Buchmann And {Erik Dahmen}}, editors.
+Daniel~J. Bernstein and {Johannes Buchmann And {Erik Dahmen}}, editors.
 \newblock {\em Post-Quantum Cryptography}.
 \newblock Springer, 2009.
 
@@ -37,15 +37,25 @@ Daniel~J. Bernstein.
 \newblock In Nicolas Sendrier, editor, {\em Post-Quantum Cryptography}, pages
   73--80, Berlin, Heidelberg, 2010. Springer Berlin Heidelberg.
 
+\bibitem{quantuminformation}
+Michael~A. Nielsen and {Isaac L.Chuang}.
+\newblock {\em Quantum Computation and Quantum Information}.
+\newblock Cambridge University Press, 2000.
+
+\bibitem{algebra}
+Paul~R. Halmos.
+\newblock {\em Finite-Dimensional Vector Spaces}.
+\newblock Springer, 1916.
+
 \bibitem{afuncional}
 A.~Aizpuru Tomás.
 \newblock {\em Apuntes incompletos de Análisis Funcional}.
 \newblock Servicio de Publicaciones de la Universidad de Cádiz, 2009.
 
-\bibitem{quantuminformation}
-Michael~A. Nielsen and {Isaac L.Chuang}.
-\newblock {\em Quantum Computation and Quantum Information}.
-\newblock Cambridge University Press, 2000.
+\bibitem{quantumcomputing}
+Noson~S. Yanofsky and {Mirco A. Mannucci}.
+\newblock {\em Quantum computing for computer scientists}.
+\newblock Cambridge University Press, 2008.
 
 \bibitem{hashfunctions}
 Phillip Rogaway and Thomas Shrimpton.
@@ -69,6 +79,18 @@ Xiaoyun Wang, Yiqun~Lisa Yin, and Hongbo Yu.
 \newblock In Victor Shoup, editor, {\em Advances in Cryptology -- CRYPTO 2005},
   pages 17--36, Berlin, Heidelberg, 2005. Springer Berlin Heidelberg.
 
+\bibitem{cryptographyTAP}
+Douglas~R. Stinson.
+\newblock {\em Cryptography, Theory and Practice}.
+\newblock Discrete Mathematics And Its Applications. Chapman \& Hall/CRC, 3
+  edition, 2006.
+
+\bibitem{merkle}
+Ralph~C. Merkle.
+\newblock A certified digital signature.
+\newblock In Gilles Brassard, editor, {\em Advances in Cryptology --- CRYPTO'
+  89 Proceedings}, pages 218--238, New York, NY, 1990. Springer New York.
+
 \bibitem{coding}
 J.~H. van Lint.
 \newblock {\em {Introduction to Coding Theory}}.
@@ -76,7 +98,7 @@ J.~H. van Lint.
   Heidelberg, 1999.
 
 \bibitem{decoding}
-Nick Patterson.
+N.~Patterson.
 \newblock {The algebraic decoding of Goppa codes}.
 \newblock {\em IEEE Transactions on Information Theory}, 21(2):203--207, 1975.
 
@@ -85,20 +107,14 @@ R.~J. McEliece.
 \newblock {A public-Key cryptosystem based on algebraic coding theory}.
 \newblock {\em DSN Progress Report}, 42-44:114--116, 1978.
 
-\bibitem{cryptographyTAP}
-Douglas~R. Stinson.
-\newblock {\em Cryptography, Theory and Practice}.
-\newblock Discrete Mathematics And Its Applications. Chapman \& Hall/CRC, 3
-  edition, 2006.
+\bibitem{de2019quantum}
+R.~De Wolf.
+\newblock Quantum computing: Lecture notes.
+\newblock {\em arXiv preprint arXiv:1907.09415}, 2019.
 
-\bibitem{quantumcomputing}
-Noson~S. Yanofsky and {Mirco A. Mannucci}.
-\newblock {\em Quantum computing for computer scientists}.
-\newblock Cambridge University Press, 2008.
-
-\bibitem{algebra}
-Paul~R. Halmos.
-\newblock {\em Finite-Dimensional Vector Spaces}.
-\newblock Springer, 1916.
+\bibitem{pell}
+Edward~J. Barbeau.
+\newblock {\em Pell's Equation}.
+\newblock Problem books in mathematics. Springer, 2003.
 
 \end{thebibliography}

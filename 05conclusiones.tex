@@ -1,2 +1,56 @@
+\def\Z{\mathbb{Z}}
+
 \chapter{Conclusiones}
 
+A través del estudio de la computación cuántica y de la reducción del problema de la factorización al problema de encontrar el orden de un elemento módulo $N$ hecha en el capítulo \ref{sec:shorclassic}, llegamos a la conclusión de que era posible factorizar cualquier número natural en una cantidad razonable de tiempo, viendo finalmente un ejemplo sencillo para $N=15$. A priori, ya que muchos otros sistemas no se basan en el problema de la factorización, como DSA, ECDSA o el criptosistema ElGamal (basados en el problema del logaritmo discreto), se puede pensar que estos sistemas resisten la llegada de los ordenadores cuánticos. Sin embargo, el problema de encontrar el orden puede generalizarse a uno más general, el del subgrupo oculto (HSP). Dicho problema puede formularse de la siguiente manera (\cite{de2019quantum}):
+\bdefinicion El problema del subgrupo oculto (HSP) \\
+
+Dado un grupo $G$ y una función $f: G \to S$, donde $S$ es un conjunto finito que satisface:
+\begin{enumerate}
+	\item Existe un subgrupo $H \leq G$ tal que f es constante en cada conjunto de la forma $gH$, $g\in G$.
+	\item Para cada $g,g'\in G$, $f(g) = f(g')$ si y sólo si $gH = g'H$.
+\end{enumerate}
+
+El problema del subgrupo oculto (HSP) consiste en calcular $H$.
+\edefinicion
+
+En el problema de la factorización, $G=(\Z,+)$, y $f : G \to (\Z/N\Z)^*$ está definida por $f(x) = a^x \mod N$, con $a\in (\Z/N\Z)^*$. Esta función verifica que es constante para cada conjunto de la forma $s+r\Z$, con $r$ el orden del elemento $a$ dentro del grupo multiplicativo $(\Z/N\Z)^*$ por definición de orden ($a^{s+kr} \equiv a^s \mod N$); de aquí es sencillo ver que $f(s+kr)=f(s'+k'r)$ si y sólo si $s+r\Z = s'+r\Z$. Por tanto, la solución de este problema es $H=r\Z$. El algoritmo para resolver el HSP en este caso, es el circuito para encontrar el orden visto en la sección \ref{sec:circuitorden} de este trabajo, que proporciona el generador de $H$, $r$. \\
+
+Para otros problemas, existen problemas HSP asociados. Algunos de ellos se resumen en la siguiente tabla, extraída de \cite{postquantumBernstein}. \\
+
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Grupo $G$} & \textbf{Problema asociado} & \textbf{¿Algoritmo?} \\
+\hline
+Los enteros, $\Z$ & Factorización & Sí \\
+\hline
+Grupos cíclicos finitos & Logaritmo discreto & Sí \\
+\hline
+Los reales, $\R$ & Ecuación de Pell\tnote{3} & Sí \\
+\hline
+El grupo diédrico $D_n$, $n \geq 3$ & Vector más corto de un retículo & No\tnote{1} \\
+\hline
+El grupo simétrico $S_n$, $n\geq 3$ & Isomorfismo de un grafo & No\tnote{2} \\
+\hline
+\end{tabular}
+\begin{tablenotes}
+	\item[1] El algoritmo más rápido conocido toma tiempo subexponencial.
+	\item[2] Hay evidencias de dificultad para resolverlo en ordenadores cuánticos.
+	\item[3] La ecuación de Pell es una ecuación diofántica de la forma $x^2-dy^2=1$ con $d\in\mathbb{N}$ libre de cuadrados. Más información puede consultarse en \cite{pell}.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+
+
+\vspace{0.15 in}
+Para aquellos casos en los que $G$ es abeliano, existe un método estándar para resolver el problema usando ordenadores cuánticos, que es en gran medida una generalización del circuito para encontrar el orden que hemos presentado en este trabajo. Es por ello que todos aquellos sistemas basados en el logaritmo discreto, también están en peligro con la llegada de los ordenadores cuánticos. El problema de resolver el HSP para grupos no abelianos, como los dos últimos presentados en la tabla, es aún un problema abierto. Por esta razón, por ejemplo, surge la criptografía basada en retículos como algoritmos de criptografía poscuántica, ya que no existen aún algoritmos conocidos que puedan resolver los problemas en los que se basan eficientemente. \\
+
+Una vez estudiado cómo se podían romper gran parte de los sistemas actuales, vimos otras alternativas que, al menos por el momento, resisten a los ordenadores cuánticos. De la criptografía basada en funciones hash extraíamos sistemas de firma, primero un esquema de un solo uso, y posteriormente una generalización para poder permitir más firmas con un solo par de claves. Sin embargo, estos sistemas presentan una gran desventaja: el gran tamaño de las claves. En el caso del sistema de firma basdo en árboles hash de Merkle estudiado en la sección \ref{sec:merkle}, el poseedor de la clave privada debe almacenar $2^H$ pares de claves del sistema de un solo uso, además de toda la estructura de árbol completa. Si el sistema de un solo uso es LD-OTS, estos pares de claves tienen en total $2\times 2n$ cadenas de $n$ bits, es decir, $4n^2$ bits, con $n$ el tamaño de la salida de la función hash utilizada. Por ejemplo, para $n=256$, un par de claves ocuparía en total $4\times 256^2 = 262.144$ bits, que son $32,768$ KB. Tomando un valor modesto $H=8$, con lo que podríamos firmar $2^8=256$ veces, en total la clave privada del sistema MSS ocuparía más de 8 MB. En la práctica, es usual firmar muchas más veces (sobre todo en el caso de servidores web o en el caso de Autoridades de Certificación (CA)) y con un parámetro de seguridad $n$ más elevado, lo cual hace que los tamaños de clave aumenten considerablemente. \\
+
+Este problema puede resolverse en parte de dos maneras. En primer lugar, usando el sistema de firma de un solo uso de Winterneitz (W-OTS), también basado en funciones hash, se consiguen tamaños de clave más pequeños a cambio de realizar más evaluaciones de la función hash a la hora de generar el par de claves, con el respectivo aumento de tiempo (ver \cite{postquantumBernstein}). En segundo lugar, es posible evitar la necesidad de almacenar todos los pares de claves usando un generador de números pseudoaleatorios (PRNG). La idea en líneas generales es, en lugar de almacenar todas las claves, almacenar sólo una \textit{semilla} para el generador, elegida de forma aleatoria. La aplicación sucesiva del generador a partir de la semilla inicial se usa para ir generando los pares correspondientes. La principal desventaja es que para acceder a un par en concreto, han de calcularse todos los anteriores; lo cual hace que el acceso a los pares de claves sea más lento en comparación con guardarlos todos en memoria \cite{postquantumBernstein}. \\
+
+A partir de la criptografía basada en códigos, obteníamos criptosistemas. La principal desventaja del sistema McEliece es, de nuevo, los tamaños de las claves: el sistema McEliece usa aproximadamente $n^2/4$ bits, siendo $n$ el parámetro de seguridad del sistema. Para los niveles de seguridad comúnmente usados actualmente, una clave RSA puede ocupar unos pocos miles de bits; mientras que para una clave McEliece la longitud de la clave se acerca al millón \cite{postquantumBernstein}. \\
+
+En definitiva, es por estas y por otras razones, que aún no hemos cambiado los sistemas criptográficos que usamos en la actualidad. La computación cuántica nos obliga a reexaminar los sistemas criptográficos que usamos. Algunos han sido rotos, y otros sistemas deben ser estudiados de nuevo para ajustar los tamaños de claves y parámetros que usan. Las alternativas que hay propuestas aún deben seguirse desarrollando y estudiando, de forma que cuando los ordenadores cuánticos sean una realidad, la comunidad criptográfica esté preparada para dar el salto a la criptografía poscuántica.

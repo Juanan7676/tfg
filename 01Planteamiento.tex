@@ -5,7 +5,7 @@
 \section{El problema de los ordenadores cuánticos}
 \label{sec:problem}
 
-Hoy día, la criptografía está más presente que nunca en nuestro día a día: hacer compras por Internet, navegar por casi cualquier página web, chatear a través del teléfono móvil... Gracias a la criptografía, podemos mantener nuestras comunicaciones privadas y asegurarnos de que cualquier pago que realicemos o documento que publiquemos sólo podemos hacerlo nosotros, es decir, que nadie pueda falsificarlo.
+En la actualidad, la criptografía está más presente que nunca en nuestro día a día: hacer compras por Internet, navegar por casi cualquier página web, chatear a través del teléfono móvil, etc. Gracias a la criptografía, podemos mantener nuestras comunicaciones privadas y asegurarnos de que cualquier pago que realicemos o documento que publiquemos sólo podemos hacerlo nosotros, es decir, que nadie pueda falsificarlo.
 
 El continuo desarrollo de los ordenadores cuánticos, que romperán los principales algoritmos de firma digital y criptosistemas de clave pública usados hoy en día (por ejemplo, \textit{RSA}\cite{rsa}, \textit{DSA}\cite{dsa} y \textit{ECDSA}\cite{ecdsa}), puede hacer pensar que cuando la computación cuántica sea una realidad, la criptografía quedará obsoleta, que será imposible modificar información para que sea incomprensible o infalsificable por atacantes y personas no autorizadas; y que por tanto, la única forma de proteger nuestras comunicaciones y nuestros datos será aislarlos físicamente de ellos, por ejemplo, con dispositivos USB cerrados bajo llave en un maletín. Pero, ¿hasta qué punto es esto cierto?
 
@@ -13,19 +13,21 @@ Un estudio más detallado de los algoritmos criptográficos existentes muestra, si
 \begin{itemize}
 	\item \textbf{Criptografía basada en funciones hash}. El ejemplo más destacado dentro de este grupo es el sistema de firma con clave pública basado en árboles hash de Merkle (en inglés, \textit{Merkle's hash-tree public-key signature system}) de 1979, basado en un sistema de firma digital de un solo uso de Lamport y Diffie.
 	\item \textbf{Criptografía basada en códigos}. El ejemplo clásico es el sistema de encriptación de clave pública con códigos Goppa ocultos de McEliece (1978).
-	\item \textbf{Criptografía basada en retículos}. El ejemplo que más interés ha conseguido atraer, aunque no es el primero propuesto históricamente, esl el sistema de encriptación de clave pública ``NTRU'' de Hoffstein-Pipher-Silverman (1998).
+	\item \textbf{Criptografía basada en retículos}. El ejemplo que más interés ha conseguido atraer, aunque no es el primero propuesto históricamente, es el sistema de encriptación de clave pública ``NTRU'' de Hoffstein-Pipher-Silverman (1998).
 	\item \textbf{Criptografía de ecuaciones cuadráticas de varias variables}. Uno de los ejemplos más interesantes es el sistema de firma con clave pública ``$HFE^{v-}$'' de Patarin (1996), que generaliza una propuesta de Matsumoto e Imai.
 	\item \textbf{Criptografía de clave secreta}. El ejemplo más conocido (y usado actualmente) es el cifrado ``Rijndael'' de Daemen-Rijmen (1998), renombrado como ``AES'', siglas que significan Estándar de Encriptación Avanzada (Advanced Encryption Standard).
 \end{itemize}
 
-Se cree que todos estos sistemas son resistentes a los ordenadores clásicos y cuánticos, es decir, que no existe un algoritmo eficiente que pueda ser implementado en un ordenador clásico o cuántico que rompa estos sistemas \cite{postquantumBernstein}. El algoritmo de Shor (el cual analizaremos más adelante en este trabajo), que permite resolver de manera eficiente el problema de la factorización de números enteros  en ordenadores cuánticos (y por tanto rompe los sistemas de criptografía clásica como el \textit{RSA}), no ha podido ser aplicado a ninguno de estos sistemas. Aunque existen otros algoritmos cuánticos, como el algoritmo de Grover, que pueden ser aplicados a algunos de estos sistemas, no son tan eficientes como el algoritmo de Shor y los criptógrafos pueden compensarlo eligiendo claves un poco más grandes (\cite{grovertoAES}, \cite{grovertoMcEliece}).
+Se cree que todos estos sistemas son resistentes a los ordenadores clásicos y cuánticos, es decir, que no existe un algoritmo eficiente que pueda ser implementado en un ordenador clásico o cuántico que rompa estos sistemas \cite{postquantumBernstein}. El algoritmo de Shor (el cual analizaremos más adelante en este trabajo), que permite resolver de manera eficiente el problema de la factorización de números enteros  en ordenadores cuánticos (y por tanto rompe los sistemas de criptografía clásica como el \textit{RSA}), no ha podido ser aplicado a ninguno de estos sistemas. Aunque existen otros algoritmos cuánticos, como el algoritmo de Grover (el cual estudiaremos también), que pueden ser aplicados a algunos de estos sistemas, no son tan eficientes como el algoritmo de Shor y los criptógrafos pueden compensarlo eligiendo claves un poco más grandes (\cite{grovertoAES, grovertoMcEliece}).
 
 Hay que notar que esto no implica que estos sistemas sean totalmente seguros. Este es un problema muy común en criptografía: algunas veces se encuentran ataques a sistemas que son devastadores, demostrando que un sistema es inútil para la criptografía; otras veces, se encuentran ataques que no son tan devastadores pero que obligan a elegir claves más grandes para que sigan siendo seguros; y otras, se estudian criptosistemas durante años sin encontrar ningún ataque efectivo. En este punto, la comunidad puede ganar confianza en el sistema creyendo que el mejor ataque posible ya ha sido encontrado, o que existe muy poco margen de mejora.
+
+En el resto de este capítulo, veremos qué dos grandes problemas resuelve la criptografía y cómo se usa en la práctica un sistema criptográfico.
 
 \section{Criptosistemas}
 \label{sec:model}
 
-El objetivo principal de la criptografía es permitir que dos personas, normalmente referidas como Alice y Bob, puedan comunicarse entre ellas a través de un canal inseguro de tal manera que una tercera persona, Oscar, no pueda entender qué están diciendo entre ellos, aun teniendo acceso a toda la conversación. La información que Alice quiere enviar a Bob la denominamos ``texto plano'', aunque no tiene que ser necesariamente texto; puede tener la estructura que deseemos: datos numéricos, cadenas de bits, sonido... Alice encripta el texto plano usando una ``clave'' que solo conocen Alice y Bob, obteniendo así un ``texto encriptado''. Oscar, al ver la información a través del canal inseguro, no puede determinar cuál era el texto plano original; pero Bob, que sí conoce la clave, puede desencriptar el texto cifrado y recuperar el texto plano.
+El objetivo principal de la criptografía es permitir que dos personas, normalmente referidas como Alice y Bob\footnote{En la literatura de la criptografía, usar estos personajes ficticios para explicar el funcionamiento de algún sistema o ataque es común. La primera aparición de estos nombres tuvo lugar en el artículo de Rivest, Shamir y Adleman presentando el sistema RSA \cite{rsa}.}, puedan comunicarse entre ellas a través de un canal inseguro de tal manera que una tercera persona, Óscar, no pueda entender qué están diciendo entre ellos, aun teniendo acceso a toda la conversación. La información que Alice quiere enviar a Bob la denominamos ``texto plano'', aunque no tiene que ser necesariamente texto; puede tener la estructura que deseemos: datos numéricos, cadenas de bits, sonido... Alice encripta el texto plano usando una ``clave'' que solo conocen Alice y Bob, obteniendo así un ``texto encriptado''. Óscar, al ver la información a través del canal inseguro, no puede determinar cuál era el texto plano original; pero Bob, que sí conoce la clave, puede desencriptar el texto cifrado y recuperar el texto plano.
 
 Formalmente, un criptosistema se define de la siguiente manera:
 \bdefinicion
@@ -35,7 +37,7 @@ Formalmente, un criptosistema se define de la siguiente manera:
 		\item $\mathcal{P}$ es un conjunto finito de \textit{textos planos} posibles,
 		\item $\mathcal{C}$ es un conjunto finito de \textit{textos cifrados} posibles,
 		\item $\mathcal{K}$ es el conjunto finito de todas las claves posibles,
-		\item Para cada $K\in\mathcal{K} $, existen dos aplicaciones $e_K : \mathcal{P} \to \mathcal{C}$ y $d_K : \mathcal{C} \to \mathcal{P}$, denominadas \textit{regla de encriptación} y \textit{regla de desencriptación} respectivamente, que verifican que $d_K(e_K(x))=x$ para todo $x\in\mathcal{P}$.
+		\item Para cada $K\in\mathcal{K} $, existen dos aplicaciones $e_K\in \mathcal{E}$, $d_K\in\mathcal{D}$, con $e_K : \mathcal{P} \to \mathcal{C}$ y $d_K : \mathcal{C} \to \mathcal{P}$, denominadas \textit{regla de encriptación} y \textit{regla de desencriptación} respectivamente, que verifican que $d_K(e_K(x))=x$ para todo $x\in\mathcal{P}$.
 	\end{enumerate}	
 \edefinicion
 
@@ -58,7 +60,7 @@ Estos criptosistemas son los que se ven principalmente afectados por la aparició
 
 \section{Sistemas de firma}
 
-El otro gran objetivo de la criptografía es permitir la firma de documentos. En este caso, Alice publicaría el mensaje o documento con una \textit{firma} que permite a cualquier persona verificar que el mensaje sólo ha podido ser escrito por Alice. De esta manera, un atacante Oscar que quisiese publicar un documento haciéndose pasar por Alice, debe generar una firma con él para que pueda ser validado por el resto de personas. El proceso de firmar, por tanto, debe ser computacionalmente sencillo para Alice, pero infactible para Oscar, como sucede en los criptosistemas de clave pública.
+El otro gran objetivo de la criptografía es permitir la firma de documentos. En este caso, Alice publicaría el mensaje o documento con una \textit{firma} que permite a cualquier persona verificar que el mensaje sólo ha podido ser escrito por Alice. De esta manera, un atacante Óscar, que quisiese publicar un documento haciéndose pasar por Alice, debe generar una firma con él para que pueda ser validado por el resto de personas. El proceso de firmar, por tanto, debe ser computacionalmente sencillo para Alice, pero infactible para Óscar, como sucede en los criptosistemas de clave pública.
 
 Formalmente, un sistema de firma se define de la siguiente manera:
 
@@ -75,3 +77,12 @@ Formalmente, un sistema de firma se define de la siguiente manera:
 	\end{enumerate}
 \edefinicion
 
+El proceso por el cual Alice utilizaría un sistema de firma para firmar es el siguiente:
+\begin{enumerate}
+	\item Escoge una clave $K\in\mathcal{K}$ de forma aleatoria, y hace público el algoritmo de verificación $ver_K$ (en la práctica, publica una serie de datos que permiten a cualquier persona determinar la función, normalmente referidos como \textit{clave pública}).
+	\item Dado un documento $m\in\mathcal{P}$, utiliza el algoritmo de firma $sig_K$ para hallar $y=sig_K(m) \in \mathcal{A}$, y publica el mensaje firmado $(m,y)$.
+\end{enumerate}
+
+Si Bob, al recibir el mensaje firmado $(m,y)$, quiere comprobar si realmente ha sido escrito por Alice, solo debe aplicar el algoritmo de verificación $ver_K$ emitido por Alice y comprobar que $ver_K(m,y)=1$.
+
+Como el algoritmo de firma $sig_K$ no es público y solo lo conoce Alice, un atacante Óscar que quisiera enviar un documento firmado $(m',y')$ a Bob tendría que calcular $y'\in\mathcal{A}$ tal que $ver_K(m',y')=1$. Si resolver este problema es lo suficientemente difícil, Óscar no podría falsificar ningún documento haciéndose pasar por Alice, lo cual haría al sistema seguro.

@@ -13,6 +13,7 @@
 \usepackage{framed}
 \usepackage{enumitem}
 \usepackage{threeparttable}
+\usepackage{float}
 
 \usepackage{listings}
 \usepackage{color}
@@ -73,13 +74,13 @@
 % ---------------------------------------------        RELLENA CON TUS DATOS
 \title{Criptografía poscuántica} %%%%% XXX   Nombre del trabajo
 \author{\LARGE Juan Antonio Guitarte Fernández}    %%%    XXX Nombre y apellidos alumno/a
-\textadvisor{Tutor: }          %%% XXX  Poner tutor o tutora según proceda
-\advisor{Dr. Nombre apellidos del tutor}  %%% XXX  Nombre del tutor o tutora
-\advisortwo{}                  %%% XXX  Nombre del 2º tutor si lo hay
+\textadvisor{Tutores: }          %%% XXX  Poner tutor o tutora según proceda
+\advisor{Dr. Bartolomé López Jiménez}  %%% XXX  Nombre del tutor o tutora
+\advisortwo{Dr. Juan Ignacio García García}                  %%% XXX  Nombre del 2º tutor si lo hay
 \textsignaturecandidate{Firma del alumno}   %%% XXX  Poner alumno o alumna según proceda
 \textsignatureadvisor{Firma del tutor}    %%% XXX  Poner tutor o tutora según proceda
 \cityofbirth{Puerto Real, Cádiz}
-\degreedate{Julio de 2.020}
+\degreedate{Julio de 2020}
 % ----------------------------------------------------------------------
 
 % Evita los pesados overfull y underfull
@@ -159,17 +160,17 @@
 \pagestyle{fancy}
 
 %: ----------------------- Partes del TFG ------------------------
-% Esta podría ser un estructura posible, pero quizás quieras unir introducción, planteamiento, motivación, etc en un mismo capítulo
+% Esta podría ser un estructura posible, pero quizás quieras unir introducción, planteamiento, motivación, etc en un mismo capítulo -- Pues eso voy a hacer... No le veo mucho sentido a añadir más capítulos de los nececesarios.
 
 % introducción. Cuenta aquí de va el trabajo y lo principal de cada capítulo. Junto al resumen y al abstract será lo último que hagas.
-\include{00introduccion}
+%\include{00introduccion}
 
 
 % Motivación, historia y planteamiento del problema o problemas que la teoría resuelve, puedes incluir algunos ejemplos ilustrativos
-\include{01planteamiento}
+\include{01Planteamiento}
 
 % Incluye ahora la teoría, definiciones, conceptos y resultados básicos que se van a usar.
-\include{02Previos}
+%\include{02Previos}
 	
 % Comienza ahora con el trabajo en sí y divídelo en las partes que consideres para su mejor comprensión.
 \include{03PrimeraParte}	
@@ -192,7 +193,7 @@
 % si tiene sentido en tu trabajo algún apéndice inclúyelo aquí
 
 \appendix
-%\include{0Aprodtensoriales}
+\include{0Aprodtensoriales}
 \include{0Bcodigos}
 
 

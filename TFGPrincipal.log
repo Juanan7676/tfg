@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.16)  11 JUN 2020 13:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2019.12.16)  25 JUN 2020 17:43
 entering extended mode
 **./TFGPrincipal.tex
 (TFGPrincipal.tex
@@ -828,57 +828,60 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 ttable.sty
 Package: threeparttable 2003/06/13  v 3.0
 \@tempboxb=\box76
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count277
+\float@exts=\toks46
+\float@box=\box77
+\@float@everytoks=\toks47
+\@floatcapt=\box78
 )
 \@input{MacrosTFG.aux}
 \openout2 = `MacrosTFG.aux'.
 
 (MacrosTFG.tex
-\c@algoritmo=\count277
+\c@algoritmo=\count278
 ) (TFGPrincipal.aux
 LaTeX Info: Redefining \. on input line 31.
 LaTeX Info: Redefining \% on input line 31.
  (dedicatoria.aux) (resumen.aux)
-(agradecimientos.aux) (00introduccion.aux) (01planteamiento.aux) (02Previos.aux
-) (03PrimeraParte.aux) (04SegundaParte.aux
-
-LaTeX Warning: Label `alg2doc' multiply defined.
-
-) (05conclusiones.aux) (0Bcodigos.aux))
+(agradecimientos.aux) (01Planteamiento.aux) (03PrimeraParte.aux)
+(04SegundaParte.aux) (05conclusiones.aux) (0Aprodtensoriales.aux)
+(0Bcodigos.aux))
 \openout1 = `TFGPrincipal.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 9
-1.
-
-("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\ot1ptm.fd"
+2.
+ ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\ot1ptm.fd"
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 (C:\Users\Juanan76\AppData\Roaming\MiKTeX\2.9\tex/context/base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count278
+\scratchcounter=\count279
 \scratchdimen=\dimen196
-\scratchbox=\box77
-\nofMPsegments=\count279
-\nofMParguments=\count280
-\everyMPshowfont=\toks46
-\MPscratchCnt=\count281
+\scratchbox=\box79
+\nofMPsegments=\count280
+\nofMParguments=\count281
+\everyMPshowfont=\toks48
+\MPscratchCnt=\count282
 \MPscratchDim=\dimen197
-\MPnumerator=\count282
-\makeMPintoPDFobject=\count283
-\everyMPtoPDFconversion=\toks47
+\MPnumerator=\count283
+\makeMPintoPDFobject=\count284
+\everyMPtoPDFconversion=\toks49
 )
 (C:\Users\Juanan76\AppData\Roaming\MiKTeX\2.9\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -887,6 +890,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 )
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: longtable package is loaded.
@@ -897,9 +901,9 @@ Package: ltcaption 2018/08/26 v1.4a longtable captions (AR)
 Package caption Info: rotating package is loaded.
 Package caption Info: threeparttable package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package backref Info: ** backref set up for natbib ** on input line 91.
-\AtBeginShipoutBox=\box78
-Package hyperref Info: Link coloring OFF on input line 91.
+Package backref Info: ** backref set up for natbib ** on input line 92.
+\AtBeginShipoutBox=\box80
+Package hyperref Info: Link coloring OFF on input line 92.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\nameref.sty"
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -910,23 +914,23 @@ Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 ("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\gettitlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count284
+\c@section@level=\count285
 )
-LaTeX Info: Redefining \ref on input line 91.
-LaTeX Info: Redefining \pageref on input line 91.
-LaTeX Info: Redefining \nameref on input line 91.
+LaTeX Info: Redefining \ref on input line 92.
+LaTeX Info: Redefining \pageref on input line 92.
+LaTeX Info: Redefining \nameref on input line 92.
 
 (TFGPrincipal.out) (TFGPrincipal.out)
 \@outlinefile=\write5
 \openout5 = `TFGPrincipal.out'.
 
-\c@lstlisting=\count285
+\c@lstlisting=\count286
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 105.
-<SelloUCA.jpg, id=135, 612.2875pt x 612.2875pt>
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 106.
+<SelloUCA.jpg, id=175, 612.2875pt x 612.2875pt>
 File: SelloUCA.jpg Graphic file (type jpg)
 <use SelloUCA.jpg>
-Package pdftex.def Info: SelloUCA.jpg  used on input line 105.
+Package pdftex.def Info: SelloUCA.jpg  used on input line 106.
 (pdftex.def)             Requested size: 99.58464pt x 99.58429pt.
  [1
 
@@ -935,11 +939,11 @@ Package pdftex.def Info: SelloUCA.jpg  used on input line 105.
 \FN@pp@footnotehinttrue 
 
 {C:/Users/Juanan76/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./SelloU
-CA.jpg>] (abstract.tex [2
+CA.jpg>] [2] (abstract.tex [3
 
-] [3])
-LaTeX Info: Redefining \. on input line 115.
-LaTeX Info: Redefining \% on input line 115.
+])
+LaTeX Info: Redefining \. on input line 116.
+LaTeX Info: Redefining \% on input line 116.
  [4
 
 ]
@@ -987,17 +991,17 @@ l.2 \begin{acknowledgements}
 
 ]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 138.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 139.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <30> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 138.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 139.
  (TFGPrincipal.toc
 LaTeX Info: Redefining \. on input line 3.
 LaTeX Info: Redefining \% on input line 3.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 6.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
  ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 6.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 5.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1005,13 +1009,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \tf@toc=\write6
 \openout6 = `TFGPrincipal.toc'.
 
-LaTeX Info: Redefining \. on input line 156.
-LaTeX Info: Redefining \% on input line 156.
+LaTeX Info: Redefining \. on input line 157.
+LaTeX Info: Redefining \% on input line 157.
  [8]
-\openout2 = `00introduccion.aux'.
+\openout2 = `01Planteamiento.aux'.
 
 
-(00introduccion.tex
+(01Planteamiento.tex
 Cap\'{\i }tulo 1.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
@@ -1019,19 +1023,6 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <90> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <25> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
-) [1
-
-
-
-]
-\openout2 = `01planteamiento.aux'.
-
- (01planteamiento.tex [2
-
-
-
-]
-Cap\'{\i }tulo 2.
 LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 1
 4.
 ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\omsptm.fd"
@@ -1039,362 +1030,471 @@ File: omsptm.fd
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 14.
- [3]
-LaTeX Info: Redefining \. on input line 29.
-LaTeX Info: Redefining \% on input line 29.
- [4]
-LaTeX Font Info:    Trying to load font information for U+eus on input line 33.
+ [1
+
+
+
+]
+LaTeX Info: Redefining \. on input line 26.
+LaTeX Info: Redefining \% on input line 26.
+ [2]
+LaTeX Font Info:    Trying to load font information for U+eus on input line 35.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\ueus.fd"
 File: ueus.fd 2013/01/14 v3.01 Euler Script
 )
-LaTeX Info: Redefining \. on input line 48.
-LaTeX Info: Redefining \% on input line 48.
- [5]
-LaTeX Info: Redefining \. on input line 62.
-LaTeX Info: Redefining \% on input line 62.
- [6])
-LaTeX Info: Redefining \. on input line 169.
-LaTeX Info: Redefining \% on input line 169.
- [7]
-\openout2 = `02Previos.aux'.
+LaTeX Info: Redefining \. on input line 47.
+LaTeX Info: Redefining \% on input line 47.
+ [3]
+LaTeX Info: Redefining \. on input line 61.
+LaTeX Info: Redefining \% on input line 61.
+ [4]
+LaTeX Info: Redefining \. on input line 84.
+LaTeX Info: Redefining \% on input line 84.
+ [5])
+LaTeX Info: Redefining \. on input line 170.
+LaTeX Info: Redefining \% on input line 170.
 
-
-(02Previos.tex [8
-
-
-
-]
-Cap\'{\i }tulo 3.
-[9]
-LaTeX Info: Redefining \. on input line 50.
-LaTeX Info: Redefining \% on input line 50.
- [10]
-LaTeX Info: Redefining \. on input line 76.
-LaTeX Info: Redefining \% on input line 76.
- [11]
-LaTeX Info: Redefining \. on input line 107.
-LaTeX Info: Redefining \% on input line 107.
- [12]
-LaTeX Info: Redefining \. on input line 139.
-LaTeX Info: Redefining \% on input line 139.
- [13]
-LaTeX Info: Redefining \. on input line 174.
-LaTeX Info: Redefining \% on input line 174.
- [14]
-LaTeX Info: Redefining \. on input line 200.
-LaTeX Info: Redefining \% on input line 200.
- [15]
-LaTeX Info: Redefining \. on input line 224.
-LaTeX Info: Redefining \% on input line 224.
- [16])
-LaTeX Info: Redefining \. on input line 172.
-LaTeX Info: Redefining \% on input line 172.
- [17]
-LaTeX Info: Redefining \. on input line 172.
-LaTeX Info: Redefining \% on input line 172.
- [18]
+[6]
 \openout2 = `03PrimeraParte.aux'.
 
  (03PrimeraParte.tex
-Cap\'{\i }tulo 4.
-[19
+Cap\'{\i }tulo 2.
+[7
 
 
 
 ]
-LaTeX Info: Redefining \. on input line 36.
-LaTeX Info: Redefining \% on input line 36.
- [20]
-LaTeX Info: Redefining \. on input line 65.
-LaTeX Info: Redefining \% on input line 65.
- [21]
-Overfull \hbox (54.87605pt too wide) detected at line 66
-\OML/cmm/m/it/10.95 P\OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 r[]x[] \OT1/cmr/m/
-n/10.95 = \OMS/cmsy/m/n/10.95  \OT1/cmr/m/n/10.95 1[]  \OML/cmm/m/it/10.95 N\OT
-1/cmr/m/n/10.95 ] \OMS/cmsy/m/n/10.95  \OML/cmm/m/it/10.95 P\OT1/cmr/m/n/10.95
- [\OML/cmm/m/it/10.95 d[] \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 k[]j\OT1/cmr
-/m/n/10.95 ] \OMS/cmsy/m/n/10.95  \OML/cmm/m/it/10.95 P\OT1/cmr/m/n/10.95 [\OM
-L/cmm/m/it/10.95 d[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 r[][]d[] \OMS/cmsy
-/m/n/10.95 6 j\OML/cmm/m/it/10.95 r[][]j\OT1/cmr/m/n/10.95 ] = []
- []
-
-LaTeX Info: Redefining \. on input line 78.
-LaTeX Info: Redefining \% on input line 78.
-[22]
+LaTeX Info: Redefining \. on input line 40.
+LaTeX Info: Redefining \% on input line 40.
+ [8]
+LaTeX Info: Redefining \. on input line 68.
+LaTeX Info: Redefining \% on input line 68.
+ [9]
+LaTeX Info: Redefining \. on input line 83.
+LaTeX Info: Redefining \% on input line 83.
+ [10]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
-LaTeX Info: Redefining \. on input line 99.
-LaTeX Info: Redefining \% on input line 99.
- [23]
-LaTeX Info: Redefining \. on input line 109.
-LaTeX Info: Redefining \% on input line 109.
- [24]
-LaTeX Info: Redefining \. on input line 137.
-LaTeX Info: Redefining \% on input line 137.
- [25]
-LaTeX Info: Redefining \. on input line 165.
-LaTeX Info: Redefining \% on input line 165.
- [26]
-<images/quantum1.png, id=435, 426.5347pt x 130.36942pt>
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
+LaTeX Info: Redefining \. on input line 102.
+LaTeX Info: Redefining \% on input line 102.
+ [11]
+LaTeX Info: Redefining \. on input line 115.
+LaTeX Info: Redefining \% on input line 115.
+ [12]
+LaTeX Info: Redefining \. on input line 132.
+LaTeX Info: Redefining \% on input line 132.
+ [13]
+LaTeX Info: Redefining \. on input line 155.
+LaTeX Info: Redefining \% on input line 155.
+ [14]
+LaTeX Info: Redefining \. on input line 183.
+LaTeX Info: Redefining \% on input line 183.
+ [15]
+<images/quantum1.png, id=420, 426.5347pt x 130.36942pt>
 File: images/quantum1.png Graphic file (type png)
 <use images/quantum1.png>
-Package pdftex.def Info: images/quantum1.png  used on input line 170.
+Package pdftex.def Info: images/quantum1.png  used on input line 192.
 (pdftex.def)             Requested size: 131.35876pt x 40.15015pt.
-<images/quantum2.png, id=436, 517.935pt x 94.3525pt>
+<images/quantum2.png, id=421, 517.935pt x 94.3525pt>
 File: images/quantum2.png Graphic file (type png)
 <use images/quantum2.png>
-Package pdftex.def Info: images/quantum2.png  used on input line 176.
+Package pdftex.def Info: images/quantum2.png  used on input line 198.
 (pdftex.def)             Requested size: 220.40001pt x 40.15015pt.
-<images/quantum3.png, id=437, 319.1925pt x 94.3525pt>
+<images/quantum3.png, id=422, 319.1925pt x 94.3525pt>
 File: images/quantum3.png Graphic file (type png)
 <use images/quantum3.png>
-Package pdftex.def Info: images/quantum3.png  used on input line 185.
+Package pdftex.def Info: images/quantum3.png  used on input line 207.
 (pdftex.def)             Requested size: 135.82791pt x 40.15015pt.
-<images/quantum4.png, id=438, 319.1925pt x 203.76125pt>
+<images/quantum4.png, id=423, 319.1925pt x 203.76125pt>
 File: images/quantum4.png Graphic file (type png)
 <use images/quantum4.png>
-Package pdftex.def Info: images/quantum4.png  used on input line 193.
+Package pdftex.def Info: images/quantum4.png  used on input line 215.
 (pdftex.def)             Requested size: 133.6508pt x 85.31906pt.
-LaTeX Info: Redefining \. on input line 195.
-LaTeX Info: Redefining \% on input line 195.
- [27 <./images/quantum1.png> <./images/quantum2.png> <./images/quantum3.png>]
-<images/quantum5.png, id=446, 364.36125pt x 94.3525pt>
+LaTeX Info: Redefining \. on input line 216.
+LaTeX Info: Redefining \% on input line 216.
+ [16 <./images/quantum1.png> <./images/quantum2.png> <./images/quantum3.png>]
+<images/quantum5.png, id=434, 364.36125pt x 94.3525pt>
 File: images/quantum5.png Graphic file (type png)
 <use images/quantum5.png>
-Package pdftex.def Info: images/quantum5.png  used on input line 210.
+Package pdftex.def Info: images/quantum5.png  used on input line 234.
 (pdftex.def)             Requested size: 155.04884pt x 40.15015pt.
-<images/quantum6v2.png, id=447, 550.055pt x 99.37125pt>
-File: images/quantum6v2.png Graphic file (type png)
-<use images/quantum6v2.png>
-Package pdftex.def Info: images/quantum6v2.png  used on input line 216.
-(pdftex.def)             Requested size: 222.25067pt x 40.15015pt.
-LaTeX Info: Redefining \. on input line 220.
-LaTeX Info: Redefining \% on input line 220.
- [28 <./images/quantum4.png> <./images/quantum5.png> <./images/quantum6v2.png>]
-LaTeX Info: Redefining \. on input line 246.
-LaTeX Info: Redefining \% on input line 246.
- [29]
-LaTeX Info: Redefining \. on input line 274.
-LaTeX Info: Redefining \% on input line 274.
- [30]
-LaTeX Info: Redefining \. on input line 298.
-LaTeX Info: Redefining \% on input line 298.
- [31]
-<images/quantum7.png, id=474, 768.8725pt x 130.4875pt>
-File: images/quantum7.png Graphic file (type png)
-<use images/quantum7.png>
-Package pdftex.def Info: images/quantum7.png  used on input line 308.
-(pdftex.def)             Requested size: 354.87057pt x 60.22522pt.
-LaTeX Info: Redefining \. on input line 320.
-LaTeX Info: Redefining \% on input line 320.
- [32 <./images/quantum7.png>]
-LaTeX Info: Redefining \. on input line 344.
-LaTeX Info: Redefining \% on input line 344.
- [33]
-LaTeX Info: Redefining \. on input line 370.
-LaTeX Info: Redefining \% on input line 370.
-
-[34]
-LaTeX Info: Redefining \. on input line 392.
-LaTeX Info: Redefining \% on input line 392.
- [35]
-<images/grover1.png, id=508, 738.76pt x 154.5775pt>
-File: images/grover1.png Graphic file (type png)
-<use images/grover1.png>
-Package pdftex.def Info: images/grover1.png  used on input line 411.
-(pdftex.def)             Requested size: 395.49312pt x 82.7512pt.
-<images/grover2.png, id=509, 536.0025pt x 87.32625pt>
-File: images/grover2.png Graphic file (type png)
-<use images/grover2.png>
-Package pdftex.def Info: images/grover2.png  used on input line 420.
-(pdftex.def)             Requested size: 316.39569pt x 51.54735pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-LaTeX Info: Redefining \. on input line 425.
-LaTeX Info: Redefining \% on input line 425.
-[36 <./images/grover1.png>]
-LaTeX Info: Redefining \. on input line 487.
-LaTeX Info: Redefining \% on input line 487.
- [37 <./images/grover2.png>]
-LaTeX Info: Redefining \. on input line 508.
-LaTeX Info: Redefining \% on input line 508.
- [38]
-LaTeX Info: Redefining \. on input line 524.
-LaTeX Info: Redefining \% on input line 524.
- [39])
-LaTeX Info: Redefining \. on input line 175.
-LaTeX Info: Redefining \% on input line 175.
- [40]
+<images/quantum6v2.png, id=435, 550.055pt x 99.37125pt>
+File: images/quantum6v2.png Graphic file (type png)
+<use images/quantum6v2.png>
+Package pdftex.def Info: images/quantum6v2.png  used on input line 240.
+(pdftex.def)             Requested size: 222.25067pt x 40.15015pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+LaTeX Info: Redefining \. on input line 244.
+LaTeX Info: Redefining \% on input line 244.
+[17 <./images/quantum4.png>]
+LaTeX Info: Redefining \. on input line 266.
+LaTeX Info: Redefining \% on input line 266.
+ [18 <./images/quantum5.png> <./images/quantum6v2.png>]
+LaTeX Info: Redefining \. on input line 290.
+LaTeX Info: Redefining \% on input line 290.
+ [19]
+LaTeX Info: Redefining \. on input line 321.
+LaTeX Info: Redefining \% on input line 321.
+ [20]
+<images/quantum7.png, id=464, 768.8725pt x 130.4875pt>
+File: images/quantum7.png Graphic file (type png)
+<use images/quantum7.png>
+Package pdftex.def Info: images/quantum7.png  used on input line 333.
+(pdftex.def)             Requested size: 354.87057pt x 60.22522pt.
+LaTeX Info: Redefining \. on input line 343.
+LaTeX Info: Redefining \% on input line 343.
+ [21 <./images/quantum7.png>]
+LaTeX Info: Redefining \. on input line 360.
+LaTeX Info: Redefining \% on input line 360.
+ [22]
+LaTeX Info: Redefining \. on input line 386.
+LaTeX Info: Redefining \% on input line 386.
+ [23]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 397.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 397.
+
+LaTeX Info: Redefining \. on input line 407.
+LaTeX Info: Redefining \% on input line 407.
+[24]
+LaTeX Info: Redefining \. on input line 428.
+LaTeX Info: Redefining \% on input line 428.
+ [25]
+LaTeX Info: Redefining \. on input line 449.
+LaTeX Info: Redefining \% on input line 449.
+ [26]
+<images/grover1.png, id=515, 738.76pt x 154.5775pt>
+File: images/grover1.png Graphic file (type png)
+<use images/grover1.png>
+Package pdftex.def Info: images/grover1.png  used on input line 464.
+(pdftex.def)             Requested size: 395.49312pt x 82.7512pt.
+LaTeX Info: Redefining \. on input line 469.
+LaTeX Info: Redefining \% on input line 469.
+ [27 <./images/grover1.png>]
+<images/grover2.png, id=524, 536.0025pt x 87.32625pt>
+File: images/grover2.png Graphic file (type png)
+<use images/grover2.png>
+Package pdftex.def Info: images/grover2.png  used on input line 473.
+(pdftex.def)             Requested size: 316.39569pt x 51.54735pt.
+LaTeX Info: Redefining \. on input line 538.
+LaTeX Info: Redefining \% on input line 538.
+ [28 <./images/grover2.png>]
+LaTeX Info: Redefining \. on input line 557.
+LaTeX Info: Redefining \% on input line 557.
+ [29]
+LaTeX Info: Redefining \. on input line 573.
+LaTeX Info: Redefining \% on input line 573.
+
+[30])
+LaTeX Info: Redefining \. on input line 176.
+LaTeX Info: Redefining \% on input line 176.
+ [31]
+LaTeX Info: Redefining \. on input line 176.
+LaTeX Info: Redefining \% on input line 176.
+ [32]
 \openout2 = `04SegundaParte.aux'.
 
-
-(04SegundaParte.tex
-Cap\'{\i }tulo 5.
-
-Underfull \vbox (badness 1509) has occurred while \output is active []
-
- [41
+ (04SegundaParte.tex
+Cap\'{\i }tulo 3.
+[33
 
 
 
 ]
-LaTeX Info: Redefining \. on input line 43.
-LaTeX Info: Redefining \% on input line 43.
+LaTeX Info: Redefining \. on input line 47.
+LaTeX Info: Redefining \% on input line 47.
+ [34]
+LaTeX Info: Redefining \. on input line 67.
+LaTeX Info: Redefining \% on input line 67.
+ [35]
+LaTeX Info: Redefining \. on input line 98.
+LaTeX Info: Redefining \% on input line 98.
+ [36]
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
+11.
+ ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\ot1pcr.fd"
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+LaTeX Info: Redefining \. on input line 151.
+LaTeX Info: Redefining \% on input line 151.
 
-[42]
-LaTeX Info: Redefining \. on input line 66.
-LaTeX Info: Redefining \% on input line 66.
- [43]
-<images/lamport.png, id=576, 916.42375pt x 624.3325pt>
+[37]
+LaTeX Info: Redefining \. on input line 174.
+LaTeX Info: Redefining \% on input line 174.
+ [38]
+LaTeX Info: Redefining \. on input line 203.
+LaTeX Info: Redefining \% on input line 203.
+ [39]
+<images/lamport.png, id=633, 916.42375pt x 624.3325pt>
 File: images/lamport.png Graphic file (type png)
 <use images/lamport.png>
-Package pdftex.def Info: images/lamport.png  used on input line 94.
+Package pdftex.def Info: images/lamport.png  used on input line 209.
 (pdftex.def)             Requested size: 514.14226pt x 350.28114pt.
-LaTeX Info: Redefining \. on input line 100.
-LaTeX Info: Redefining \% on input line 100.
- [44]
-LaTeX Info: Redefining \. on input line 100.
-LaTeX Info: Redefining \% on input line 100.
- [45 <./images/lamport.png (PNG copy)>]
-LaTeX Info: Redefining \. on input line 119.
-LaTeX Info: Redefining \% on input line 119.
- [46]
-LaTeX Info: Redefining \. on input line 165.
-LaTeX Info: Redefining \% on input line 165.
- [47]
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+LaTeX Info: Redefining \. on input line 228.
+LaTeX Info: Redefining \% on input line 228.
+[40]
+LaTeX Info: Redefining \. on input line 235.
+LaTeX Info: Redefining \% on input line 235.
+ [41 <./images/lamport.png (PNG copy)>]
+LaTeX Info: Redefining \. on input line 281.
+LaTeX Info: Redefining \% on input line 281.
+ [42]
 Underfull \vbox (badness 2165) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 212.
-LaTeX Info: Redefining \% on input line 212.
+LaTeX Info: Redefining \. on input line 328.
+LaTeX Info: Redefining \% on input line 328.
+ [43]
+LaTeX Info: Redefining \. on input line 349.
+LaTeX Info: Redefining \% on input line 349.
+
+[44]
+LaTeX Info: Redefining \. on input line 366.
+LaTeX Info: Redefining \% on input line 366.
+ [45]
+LaTeX Info: Redefining \. on input line 383.
+LaTeX Info: Redefining \% on input line 383.
+ [46]
+LaTeX Info: Redefining \. on input line 413.
+LaTeX Info: Redefining \% on input line 413.
+ [47]
+LaTeX Info: Redefining \. on input line 435.
+LaTeX Info: Redefining \% on input line 435.
  [48]
-LaTeX Info: Redefining \. on input line 232.
-LaTeX Info: Redefining \% on input line 232.
-
-[49]
-LaTeX Info: Redefining \. on input line 250.
-LaTeX Info: Redefining \% on input line 250.
- [50]
-LaTeX Info: Redefining \. on input line 268.
-LaTeX Info: Redefining \% on input line 268.
- [51]
-LaTeX Info: Redefining \. on input line 301.
-LaTeX Info: Redefining \% on input line 301.
+<images/merkle.png, id=732, 1056.94875pt x 457.71pt>
+File: images/merkle.png Graphic file (type png)
+<use images/merkle.png>
+Package pdftex.def Info: images/merkle.png  used on input line 448.
+(pdftex.def)             Requested size: 395.49312pt x 171.26369pt.
+LaTeX Info: Redefining \. on input line 452.
+LaTeX Info: Redefining \% on input line 452.
+ [49 <./images/merkle.png>]
+<images/merkle2.png, id=739, 1056.94875pt x 457.71pt>
+File: images/merkle2.png Graphic file (type png)
+<use images/merkle2.png>
+Package pdftex.def Info: images/merkle2.png  used on input line 466.
+(pdftex.def)             Requested size: 395.49312pt x 171.26369pt.
+LaTeX Info: Redefining \. on input line 476.
+LaTeX Info: Redefining \% on input line 476.
+ [50 <./images/merkle2.png>]
+LaTeX Info: Redefining \. on input line 486.
+LaTeX Info: Redefining \% on input line 486.
+[51]
+LaTeX Info: Redefining \. on input line 508.
+LaTeX Info: Redefining \% on input line 508.
  [52]
-LaTeX Info: Redefining \. on input line 319.
-LaTeX Info: Redefining \% on input line 319.
+LaTeX Info: Redefining \. on input line 530.
+LaTeX Info: Redefining \% on input line 530.
  [53]
-LaTeX Info: Redefining \. on input line 344.
-LaTeX Info: Redefining \% on input line 344.
+LaTeX Info: Redefining \. on input line 578.
+LaTeX Info: Redefining \% on input line 578.
  [54]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 355.
-LaTeX Info: Redefining \% on input line 355.
+LaTeX Info: Redefining \. on input line 643.
+LaTeX Info: Redefining \% on input line 643.
  [55]
-LaTeX Info: Redefining \. on input line 386.
-LaTeX Info: Redefining \% on input line 386.
-
-[56]
-LaTeX Info: Redefining \. on input line 412.
-LaTeX Info: Redefining \% on input line 412.
- [57])
-LaTeX Info: Redefining \. on input line 177.
-LaTeX Info: Redefining \% on input line 177.
- [58]
+LaTeX Info: Redefining \. on input line 690.
+LaTeX Info: Redefining \% on input line 690.
+ [56]
+LaTeX Info: Redefining \. on input line 705.
+LaTeX Info: Redefining \% on input line 705.
+ [57]
+LaTeX Info: Redefining \. on input line 731.
+LaTeX Info: Redefining \% on input line 731.
+ [58])
+LaTeX Info: Redefining \. on input line 178.
+LaTeX Info: Redefining \% on input line 178.
+ [59]
+LaTeX Info: Redefining \. on input line 178.
+LaTeX Info: Redefining \% on input line 178.
+ [60]
 \openout2 = `05conclusiones.aux'.
 
  (05conclusiones.tex
-Cap\'{\i }tulo 6.
-) [59
-
-
-
-] [60
-
-
-]
-\openout2 = `0Bcodigos.aux'.
-
- (0Bcodigos.tex
-Ap\'{e}ndice A.
-(C:\Users\Juanan76\AppData\Roaming\MiKTeX\2.9\tex/latex/listings\lstlang1.sty
-File: lstlang1.sty 2018/09/02 1.7 listings language file
-)
+Cap\'{\i }tulo 4.
 [61
 
 
+
 ]
-LaTeX Info: Redefining \. on input line 72.
-LaTeX Info: Redefining \% on input line 72.
- [62])
+LaTeX Info: Redefining \. on input line 51.
+LaTeX Info: Redefining \% on input line 51.
+ [62] [63])
+LaTeX Info: Redefining \. on input line 181.
+LaTeX Info: Redefining \% on input line 181.
+ [64]
+\openout2 = `0Aprodtensoriales.aux'.
+
+ (0Aprodtensoriales.tex
+Ap\'{e}ndice A.
+[65
+
+
+
+
+]
+LaTeX Info: Redefining \. on input line 50.
+LaTeX Info: Redefining \% on input line 50.
+ [66]
+LaTeX Info: Redefining \. on input line 66.
+LaTeX Info: Redefining \% on input line 66.
+ [67])
 LaTeX Info: Redefining \. on input line 196.
 LaTeX Info: Redefining \% on input line 196.
- [63] (TFGPrincipal.bbl (TFGPrincipal.brf)
+ [68]
+LaTeX Info: Redefining \. on input line 196.
+LaTeX Info: Redefining \% on input line 196.
+ [69]
+\openout2 = `0Bcodigos.aux'.
+
+ (0Bcodigos.tex [70
+
+
+
+]
+Ap\'{e}ndice B.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 7.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 7.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 7.
+
+(C:\Users\Juanan76\AppData\Roaming\MiKTeX\2.9\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2018/09/02 1.7 listings language file
+)
+(C:\Users\Juanan76\AppData\Roaming\MiKTeX\2.9\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2018/09/02 1.7 listings language file
+)
+(C:\Users\Juanan76\AppData\Roaming\MiKTeX\2.9\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2018/09/02 1.7 listings language file
+)
+(C:\Users\Juanan76\AppData\Roaming\MiKTeX\2.9\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2018/09/02 1.7 listings language file
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <9> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 9.
+LaTeX Font Info:    Trying to load font information for OML+ptm on input line 1
+0.
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\omlptm.fd"
+File: omlptm.fd 
+)
+LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <9> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 10.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 20.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 20.
+
+[71]
+(C:\Users\Juanan76\AppData\Roaming\MiKTeX\2.9\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2018/09/02 1.7 listings language file
+)
+LaTeX Info: Redefining \. on input line 60.
+LaTeX Info: Redefining \% on input line 60.
+
+[72]
+LaTeX Info: Redefining \. on input line 104.
+LaTeX Info: Redefining \% on input line 104.
+ [73]
+LaTeX Info: Redefining \. on input line 143.
+LaTeX Info: Redefining \% on input line 143.
+ [74])
+LaTeX Info: Redefining \. on input line 197.
+LaTeX Info: Redefining \% on input line 197.
+ [75] (TFGPrincipal.bbl (TFGPrincipal.brf)
 \tf@brf=\write7
 \openout7 = `TFGPrincipal.brf'.
 
- [64
+ [76
 
 
-] [65])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 219.
-LaTeX Info: Redefining \. on input line 219.
-LaTeX Info: Redefining \% on input line 219.
- [66]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 219.
+] [77]
+LaTeX Info: Redefining \. on input line 120.
+LaTeX Info: Redefining \% on input line 120.
+ [78])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 220.
+LaTeX Info: Redefining \. on input line 220.
+LaTeX Info: Redefining \% on input line 220.
 
-(TFGPrincipal.aux
+[79]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 220.
+ (TFGPrincipal.aux
 LaTeX Info: Redefining \. on input line 31.
 LaTeX Info: Redefining \% on input line 31.
  (dedicatoria.aux) (resumen.aux) (agradecimientos.aux)
-(00introduccion.aux) (01planteamiento.aux) (02Previos.aux) (03PrimeraParte.aux)
-(04SegundaParte.aux) (05conclusiones.aux) (0Bcodigos.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 219.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 219.
+(01Planteamiento.aux) (03PrimeraParte.aux) (04SegundaParte.aux)
+(05conclusiones.aux) (0Aprodtensoriales.aux) (0Bcodigos.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 220.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 220.
 Package rerunfilecheck Info: File `TFGPrincipal.out' has not changed.
-(rerunfilecheck)             Checksum: 6DF078D329F2C3F063BB0C30AC04CF2C;2747.
+(rerunfilecheck)             Checksum: 4D085F8B95C05A480DD0C0C7817F9403;3713.
 Package rerunfilecheck Info: File `TFGPrincipal.brf' has not changed.
-(rerunfilecheck)             Checksum: 33B46463ECE03D3911718B301C303EFC;1769.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 219.
+(rerunfilecheck)             Checksum: 9B853D8AE278F5B337AF84FD4B88D837;2179.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 220.
  ) 
 Here is how much of TeX's memory you used:
- 16283 strings out of 492449
- 241675 string characters out of 3129727
- 771473 words of memory out of 3000000
- 19787 multiletter control sequences out of 15000+200000
- 50682 words of font info for 100 fonts, out of 3000000 for 9000
+ 24190 strings out of 492449
+ 394080 string characters out of 3129727
+ 1938900 words of memory out of 3000000
+ 27559 multiletter control sequences out of 15000+200000
+ 56509 words of font info for 119 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,18n,82p,1028b,2089s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 76i,18n,154p,1490b,8962s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi9.p
-fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program File
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
-nts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
-sy9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/euler/eusm10.p
-fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files
-/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts
-/type1/urw/times/utmri8a.pfb>
-Output written on TFGPrincipal.pdf (78 pages, 893084 bytes).
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cmextra/cmex8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cmextra/cmex9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb
+><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2
+.9/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Program Files/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmr5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
+6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/
+Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmsy9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/euler/eusm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/symbols/msam10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+symbols/msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program F
+iles/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/f
+onts/type1/urw/times/utmri8a.pfb>
+Output written on TFGPrincipal.pdf (91 pages, 1087670 bytes).
 PDF statistics:
- 1036 PDF objects out of 1200 (max. 8388607)
- 377 named destinations out of 1000 (max. 500000)
- 320 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1333 PDF objects out of 1440 (max. 8388607)
+ 488 named destinations out of 1000 (max. 500000)
+ 410 words of extra memory for PDF output out of 10000 (max. 10000000)
 

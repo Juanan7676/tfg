@@ -1,33 +1,43 @@
-\BOOKMARK [0][]{chapter.1}{1 Introducci\363n}{}% 1
-\BOOKMARK [0][]{chapter.2}{2 Planteamiento y motivaci\363n}{}% 2
-\BOOKMARK [1][]{section.2.1}{2.1 El problema de los ordenadores cu\341nticos}{chapter.2}% 3
-\BOOKMARK [1][]{section.2.2}{2.2 Criptosistemas}{chapter.2}% 4
-\BOOKMARK [1][]{section.2.3}{2.3 Sistemas de firma}{chapter.2}% 5
-\BOOKMARK [0][]{chapter.3}{3 Espacios de Hilbert}{}% 6
-\BOOKMARK [1][]{section.3.1}{3.1 Definiciones b\341sicas}{chapter.3}% 7
-\BOOKMARK [1][]{section.3.2}{3.2 El operador adjunto y operadores unitarios}{chapter.3}% 8
-\BOOKMARK [0][]{chapter.4}{4 Los algoritmos de Shor y Grover}{}% 9
-\BOOKMARK [1][]{section.4.1}{4.1 Introducci\363n al algoritmo de Shor}{chapter.4}% 10
-\BOOKMARK [1][]{section.4.2}{4.2 Computaci\363n cu\341ntica}{chapter.4}% 11
-\BOOKMARK [2][]{subsection.4.2.1}{4.2.1 Bits y qubits}{section.4.2}% 12
-\BOOKMARK [2][]{subsection.4.2.2}{4.2.2 Puertas cu\341nticas y circuitos cu\341nticos}{section.4.2}% 13
-\BOOKMARK [2][]{subsection.4.2.3}{4.2.3 El circuito para encontrar el orden}{section.4.2}% 14
-\BOOKMARK [1][]{section.4.3}{4.3 El algoritmo de Grover}{chapter.4}% 15
-\BOOKMARK [2][]{subsection.4.3.1}{4.3.1 Introducci\363n}{section.4.3}% 16
-\BOOKMARK [2][]{subsection.4.3.2}{4.3.2 El circuito cu\341ntico del algoritmo}{section.4.3}% 17
-\BOOKMARK [2][]{subsection.4.3.3}{4.3.3 Punto de vista geom\351trico y tiempos de ejecuci\363n}{section.4.3}% 18
-\BOOKMARK [0][]{chapter.5}{5 Algoritmos de criptograf\355a poscu\341ntica}{}% 19
-\BOOKMARK [1][]{section.5.1}{5.1 Criptograf\355a basada en funciones hash}{chapter.5}% 20
-\BOOKMARK [2][]{subsection.5.1.1}{5.1.1 Introducci\363n a las funciones hash}{section.5.1}% 21
-\BOOKMARK [2][]{subsection.5.1.2}{5.1.2 Un esquema de firma: el esquema de un solo uso de Lamport-Diffie \(LD-OTS\)}{section.5.1}% 22
-\BOOKMARK [2][]{subsection.5.1.3}{5.1.3 Experimento computacional: rompiendo el sistema LD-OTS con 2 firmas}{section.5.1}% 23
-\BOOKMARK [2][]{subsection.5.1.4}{5.1.4 Seguridad del esquema LD-OTS}{section.5.1}% 24
-\BOOKMARK [1][]{section.5.2}{5.2 Criptograf\355a basada en c\363digos}{chapter.5}% 25
-\BOOKMARK [2][]{subsection.5.2.1}{5.2.1 Introducci\363n a los c\363digos Goppa}{section.5.2}% 26
-\BOOKMARK [2][]{subsection.5.2.2}{5.2.2 Un criptosistema: el sistema de McEliece}{section.5.2}% 27
-\BOOKMARK [0][]{chapter.6}{6 Conclusiones}{}% 28
-\BOOKMARK [0][]{appendix.A}{A C\363digo de los programas}{}% 29
-\BOOKMARK [1][]{section.A.1}{A.1 Implementaci\363n de la firma LD-OTS en Python}{appendix.A}% 30
-\BOOKMARK [1][]{section.A.2}{A.2 Algoritmo de b\372squeda por fuerza bruta}{appendix.A}% 31
-\BOOKMARK [1][]{section.A.3}{A.3 Algoritmo de b\372squeda con 2 firmas}{appendix.A}% 32
-\BOOKMARK [0][]{appendix*.13}{Bibliograf\355a}{}% 33
+\BOOKMARK [0][]{chapter.1}{1 Planteamiento y motivaci\363n}{}% 1
+\BOOKMARK [1][]{section.1.1}{1.1 El problema de los ordenadores cu\341nticos}{chapter.1}% 2
+\BOOKMARK [1][]{section.1.2}{1.2 Criptosistemas}{chapter.1}% 3
+\BOOKMARK [1][]{section.1.3}{1.3 Sistemas de firma}{chapter.1}% 4
+\BOOKMARK [0][]{chapter.2}{2 Los algoritmos de Shor y Grover}{}% 5
+\BOOKMARK [1][]{section.2.1}{2.1 Introducci\363n al algoritmo de Shor}{chapter.2}% 6
+\BOOKMARK [1][]{section.2.2}{2.2 Computaci\363n cu\341ntica}{chapter.2}% 7
+\BOOKMARK [2][]{subsection.2.2.1}{2.2.1 Bits y qubits}{section.2.2}% 8
+\BOOKMARK [2][]{subsection.2.2.2}{2.2.2 Puertas cu\341nticas y circuitos cu\341nticos}{section.2.2}% 9
+\BOOKMARK [2][]{subsection.2.2.3}{2.2.3 El circuito para encontrar el orden}{section.2.2}% 10
+\BOOKMARK [2][]{subsection.2.2.4}{2.2.4 Ejemplo para N=15}{section.2.2}% 11
+\BOOKMARK [1][]{section.2.3}{2.3 El algoritmo de Grover}{chapter.2}% 12
+\BOOKMARK [2][]{subsection.2.3.1}{2.3.1 Introducci\363n}{section.2.3}% 13
+\BOOKMARK [2][]{subsection.2.3.2}{2.3.2 El circuito cu\341ntico del algoritmo}{section.2.3}% 14
+\BOOKMARK [2][]{subsection.2.3.3}{2.3.3 Punto de vista geom\351trico y tiempos de ejecuci\363n}{section.2.3}% 15
+\BOOKMARK [0][]{chapter.3}{3 Algoritmos de criptograf\355a poscu\341ntica}{}% 16
+\BOOKMARK [1][]{section.3.1}{3.1 Criptograf\355a basada en funciones hash}{chapter.3}% 17
+\BOOKMARK [2][]{subsection.3.1.1}{3.1.1 Introducci\363n a las funciones hash}{section.3.1}% 18
+\BOOKMARK [2][]{subsection.3.1.2}{3.1.2 Un ejemplo de funci\363n hash: SHA-1}{section.3.1}% 19
+\BOOKMARK [2][]{subsection.3.1.3}{3.1.3 Un esquema de firma: el esquema de un solo uso de Lamport-Diffie \(LD-OTS\)}{section.3.1}% 20
+\BOOKMARK [2][]{subsection.3.1.4}{3.1.4 Experimento computacional: rompiendo el sistema LD-OTS con 2 firmas}{section.3.1}% 21
+\BOOKMARK [2][]{subsection.3.1.5}{3.1.5 Seguridad del esquema LD-OTS}{section.3.1}% 22
+\BOOKMARK [2][]{subsection.3.1.6}{3.1.6 El sistema de firma basado en \341rboles hash de Merkle}{section.3.1}% 23
+\BOOKMARK [3][]{subsubsection.3.1.6.1}{3.1.6.1 Generaci\363n de claves}{subsection.3.1.6}% 24
+\BOOKMARK [3][]{subsubsection.3.1.6.2}{3.1.6.2 Algoritmo de firma}{subsection.3.1.6}% 25
+\BOOKMARK [3][]{subsubsection.3.1.6.3}{3.1.6.3 Algoritmo de verificaci\363n}{subsection.3.1.6}% 26
+\BOOKMARK [1][]{section.3.2}{3.2 Criptograf\355a basada en c\363digos}{chapter.3}% 27
+\BOOKMARK [2][]{subsection.3.2.1}{3.2.1 Introducci\363n a los c\363digos Goppa}{section.3.2}% 28
+\BOOKMARK [2][]{subsection.3.2.2}{3.2.2 Un criptosistema: el sistema de McEliece}{section.3.2}% 29
+\BOOKMARK [0][]{chapter.4}{4 Conclusiones}{}% 30
+\BOOKMARK [0][]{appendix.A}{A Productos tensoriales}{}% 31
+\BOOKMARK [1][]{section.A.1}{A.1 Definiciones y propiedades b\341sicas}{appendix.A}% 32
+\BOOKMARK [1][]{section.A.2}{A.2 Aplicaciones lineales entre productos tensoriales de espacios}{appendix.A}% 33
+\BOOKMARK [0][]{appendix.B}{B C\363digo de los programas}{}% 34
+\BOOKMARK [1][]{section.B.1}{B.1 Implementaci\363n del algoritmo de Shor en Mathematica}{appendix.B}% 35
+\BOOKMARK [2][]{subsection.B.1.1}{B.1.1 Puerta Uf}{section.B.1}% 36
+\BOOKMARK [2][]{subsection.B.1.2}{B.1.2 Puerta QFT}{section.B.1}% 37
+\BOOKMARK [1][]{section.B.2}{B.2 Implementaci\363n de la firma LD-OTS en Python}{appendix.B}% 38
+\BOOKMARK [2][]{subsection.B.2.1}{B.2.1 Esquema de firma}{section.B.2}% 39
+\BOOKMARK [2][]{subsection.B.2.2}{B.2.2 Generador de mensajes}{section.B.2}% 40
+\BOOKMARK [2][]{subsection.B.2.3}{B.2.3 Algoritmo de b\372squeda por fuerza bruta}{section.B.2}% 41
+\BOOKMARK [2][]{subsection.B.2.4}{B.2.4 Algoritmo de b\372squeda con 2 firmas}{section.B.2}% 42
+\BOOKMARK [0][]{appendix*.16}{Bibliograf\355a}{}% 43

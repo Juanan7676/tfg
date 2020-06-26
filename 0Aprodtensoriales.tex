@@ -1,1 +1,92 @@
+\def\K{\mathbb{K}}
+
 \chapter{Productos tensoriales}
+\label{apA}
+
+\section{Definiciones y propiedades básicas}
+El producto tensorial de dos espacios vectoriales puede definirse de diversas maneras. Por ejemplo, siguiendo \cite{algebra}, una definición es la siguiente:
+
+\bdefinicion
+Dados $U,V$ dos espacios vectoriales de dimensión finita sobre un mismo cuerpo $\K$, se define el producto tensor, y denotado $U \otimes V$, al espacio dual del espacio vectorial formado por todas las formas bilineales en $U \oplus V$.
+
+Para cada $x\in U$ e $y\in V$, el producto tensorial $z = x \otimes y \in U \otimes V$ está definido como la aplicación tal que $z(w) = w(x,y)$ para cada forma bilineal $w$ de $U\oplus V$.
+\edefinicion
+
+A partir de esta definición, es fácil ver las siguientes propiedades:
+
+\bproposicion
+
+Con la notación anterior, para cada $x_1,x_2\in U$, $y_1,y_2\in V$, $\lambda\in \K$, se verifica que:
+\begin{enumerate}
+	\item $ (x_1+x_2) \otimes y_1 = x_1 \otimes y_1 + x_2 \otimes y_1 $.
+	\item $ x_1 \otimes (y_1+y_2) = x_1 \otimes y_1 + x_1 \otimes y_2 $.
+	\item $ \lambda (x_1 \otimes y_1) = (\lambda x_1) \otimes y_1 = x_1 \otimes (\lambda y_1) $.
+\end{enumerate}
+\eproposicion
+\begin{proof}
+	\phantom{a} \\
+	\begin{enumerate}
+		\item Denotemos $z = (x_1+x_2) \otimes y_1$. Por definición, para cada forma bilineal $w$, se verifica que $ z(w) = w(x_1+x_2,y_1)$. Aplicando bilinealidad en $w$, entonces $z(w) = w(x_1,y_1) + w(x_2,y_2)$. Denotando ahora $z_1 = x_1 \otimes y_1$ y $z_2 = x_2 \otimes y_1$, entonces tenemos que $z(w) = z_1(w)+z_2(w)$. Como esto se verifica para cada forma bilineal $w$, entonces $z = z_1+z_2$, como queríamos ver.
+		\item Esta igualdad es análoga al caso anterior, aplicando bilinealidad en la segunda componente.
+		\item Denotando $z = (\lambda x_1) \otimes y_1, z' = x_1 \otimes y_1$, entonces para cada forma bilineal $w$, se tiene que $z(w) = w(\lambda x_1,y_1) = \lambda w(x_1,y_1) = \lambda z'(w)$. A partir de aquí, $\lambda z' = z$, como queríamos ver. Análogamente se puede ver, aplicando bilinealidad en la segunda componente, que $\lambda(x_1 \otimes y_1) = x_1 \otimes (\lambda y_1)$, lo cual concluye la prueba.
+	\end{enumerate}
+\end{proof}
+
+Nuestro objetivo, ahora, es determinar una base algebraica de $U \otimes V$ (y con ello, su dimensión). Para ello, necesitamos dos lemas previos sobre formas bilineales (\cite{algebra}).
+
+\blema
+Sea $U$ un espacio vectorial de dimensión $n$ sobre un cuerpo $\K$ con base $\{ u_1,\dots,u_n \}$, y $V$ un espacio vectorial de dimensión $m$ sobre el mismo cuerpo $\K$, con base $\{ v_1,\dots,v_m \}$. Si $\{ \alpha_{ij} \}$ es cualquier conjunto de escalares, $i=1,\dots,n$, $j = 1,\dots,m$, entonces existe una única forma bilineal $w$ en $U\oplus V$ tal que $w(u_i,v_j)=\alpha_{ij}$ para cada $i,j$.
+\elema
+\begin{proof}
+	Sean $u\in U$, $u = \sum_{i=1}^n \alpha_i u_i$, $v\in V$, $v = \sum_{j=1}^m \beta_j v_j$. Una forma bilineal $w$ en $U\otimes V$ verifica que $w(u_i,v_j)=\alpha_{ij}$ si y sólo si:
+	
+	\[ w(u,v) = \sum_{i=1}^n \sum_{j=1}^m \alpha_i \beta_j w(u_i,v_j) = \sum_{i=1}^n \sum_{j=1}^m \alpha_i \beta_j \alpha_{ij}, \quad \mbox{ para cada } u\in U, v\in V. \]
+	Definiendo $w$ a partir de esta igualdad se hace clara la existencia, y viendo que esta definción es una condición necesaria para que $w$ verifique la propiedad expuesta, se tiene la unicidad.
+\end{proof}
+
+\blema
+\label{lemaA2}
+Sea $U$ un espacio vectorial de dimensión $n$ sobre un cuerpo $\K$ con base $\{ u_1,\dots,u_n \}$, y $V$ un espacio vectorial de dimensión $m$ sobre el mismo cuerpo $\K$, con base $\{ v_1,\dots,v_m \}$. Entonces, una base del espacio vectorial de todas las formas bilineales sobre $U \oplus V$ es $\{ w_{pq} \} $, $p=1,\dots,n$, $q=1\dots,m$, verificando que $ w_{pq}(u_i,v_j)=\delta_{ip}\delta_{qj} $ (donde $\delta_{ij}$ representa la delta de Kronecker, que vale 1 si $i=j$ y 0 en caso contrario).
+\elema
+\begin{proof}
+	La existencia de dichos $w_{pq}$ se deduce del lema anterior. Estos elementos son linealmente independientes, puesto que
+	\[ \sum_{p=1}^n \sum_{q=1}^m \alpha_{pq}w_{pq} = 0 \]
+	Implica que, evaluando en $(u_i,v_j)$ para $i=1,\dots,n$,$j=1,\dots,m$:
+	\[ 0 = \sum_{p=1}^{n} \sum_{q=1}^m \alpha_{pq}\delta_{ip}\delta_{jq} = \alpha_{ij} \]
+	Sea ahora $w$ una forma bilineal arbitraria de $U\oplus V$, y denotemos por $\alpha_{ij} = w(u_i,v_j)$, $i=1,\dots,n$,$j=1,\dots,m$. Veremos que $w = \sum_{p=1}^n \sum_{q=1}^m \alpha_{pq} w_{pq}$. En efecto, si $u = \sum_{i=1}^n \alpha_i u_i \in U$, $v = \sum_{j=1}^m \beta_j v_j \in V$, entonces
+	\[ w_{pq}(u,v) = \sum_{i=1}^n \sum_{j=1}^m \alpha_i\beta_j\delta_{ip}\delta_{jq} = \alpha_p\beta_q \]
+	Y por tanto,
+	\[ w(x,y) = \sum_{i=1}^n \sum_{j=1}^m \alpha_i\beta_j\alpha_{ij} =\sum_{i=1}^n \sum_{j=1}^m \alpha_i\beta_j w_{pq}(x,y) \]
+\end{proof}
+
+Esto prueba que la dimensión del conjunto de todas las formas bilineales de $U\oplus V$ es $mn$, el cardinal de la base hallada. De aquí es inmediato que el producto tensorial de dos espacios vectoriales $U$ y $V$ también tiene dimensión $mn$, puesto que es el dual del espacio anterior. Podemos precisar y dar una base de $U \otimes V$.
+
+\bteoremaa
+Si $\{ x_1,\dots,x_n \}$, $\{ y_1,\dots,y_m \}$ son bases de dos espacios vectoriales $U$ y $V$ respectivamente, entonces el conjunto $ \{ z_{ij} = x_i \otimes y_j \} $, $i=1,\dots,n$, $j=1,\dots,m$ es una base de $U \otimes V$.
+\eteorema
+\begin{proof}
+	Consideremos la base $\{ w_{pq} \} $ del espacio de las formas bilineales en $U \oplus V$, con $p=1,\dots,n$, $q=1\dots,m$ definida como en el Lema \ref{lemaA2}. Consideremos su base dual $ \{ w_{pq}' \} $, de manera que $ w_{pq}'(w_{ij}) = \delta_{ip}\delta_{iq} $ (es decir, vale $1$ si $i=p$,$j=q$ y $0$ en cualquier otro caso). Si $w = \sum_{p=1}^n \sum_{q=1}^m \alpha_{pq} w_{pq}$ es una forma bilineal arbitraria en $U\oplus V$, entonces
+	
+	\[ w'_{ij}(w) = \sum_{p=1}^n \sum_{q=1}^m \alpha_{pq}w'_{ij}(w_{pq}) = \sum_{p=1}^n \sum_{q=1}^m \alpha_{pq}\delta_{ip}\delta_{iq} = \alpha_{ij} = w(x_i,y_j) = z_{ij}(w)  \]
+	
+	De aquí, $z_{ij} = w_{ij}'$ y puesto que $w_{ij}'$ forma una base de $U \otimes V$ por construcción, también los elementos $x_i \otimes y_j$.
+\end{proof}
+
+\section{Aplicaciones lineales entre productos tensoriales de espacios}
+Fijemos dos espacios vectoriales $U,V$. ¿Qué forma tienen las aplicaciones lineales $f : U \otimes V \to U \otimes V$? Sean $x\in U$, $y \in V$ y $g : U \to U$, $h : V \to V$ dos aplicaciones lineales. Entonces, de manera natural, podemos definir una aplicación $g \otimes h : U \otimes V \to U \otimes V$ como
+\begin{equation} \label{linealtensor} (g \otimes h)(x\otimes y) = g(x) \otimes h(y) \end{equation}
+
+A partir de la linealidad del producto tensorial y de $A$ y $B$, es trivial ver que $A \otimes B$ es lineal. La definición de esta aplicación es análoga si las aplicaciones lineales $A$ y $B$ no son endomorfismos.
+
+\bteoremaa
+Con la notación anterior, si $A$ y $B$ son las matrices asociadas de $g$ y $h$ respectivamente, entonces la matriz asociada al operador $g\otimes h$ viene dada por la matriz
+
+\[ A\otimes B = \begin{pmatrix}
+A_{11} B & A_{12} B & \dots & A_{1n} B \\
+A_{21} B & A_{22} B & \dots & A_{2n} B \\
+\vdots & \vdots & \ddots & \vdots \\
+A_{m1} B & A_{m2} B & \dots & A_{mn} B
+\end{pmatrix} \]
+\eteorema
+
+En la notación anterior, $A_{ij}B$ denota el producto de la entrada $(i,j)$ de la matriz $A$ por la matriz $B$. La matriz $A \otimes B$ está definida, como puede verse, por bloques; si $A$ es una matriz $m\times n$ y $B$ es una matriz de dimensión $p\times q$, $A\otimes B$ es una matriz de dimensión $mp \times nq$. A este producto $\otimes$ entre matrices se le denomina \textit{producto de Kronecker}. La demostración de este teorema puede hacerse a partir de la ecuación \eqref{linealtensor}, evaluando $g\otimes h$ por los elementos de la base de $U \otimes V$.
